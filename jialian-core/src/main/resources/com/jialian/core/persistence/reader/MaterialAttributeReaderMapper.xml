@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jialian.core.persistence.reader.MaterialAttributeReaderMapper" >
+  <resultMap id="BaseResultMap" type="com.jialian.api.domain.entity.MaterialAttribute" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="attribute_no" property="attributeNo" jdbcType="VARCHAR" />
+    <result column="attribute_name" property="attributeName" jdbcType="VARCHAR" />
+    <result column="attribute_value" property="attributeValue" jdbcType="VARCHAR" />
+    <result column="attribute_long" property="attributeLong" jdbcType="VARCHAR" />
+    <result column="attribute_wide" property="attributeWide" jdbcType="VARCHAR" />
+    <result column="attribute_hight" property="attributeHight" jdbcType="VARCHAR" />
+    <result column="attribute_unit" property="attributeUnit" jdbcType="VARCHAR" />
+    <result column="attribute_type" property="attributeType" jdbcType="SMALLINT" />
+    <result column="material_id" property="materialId" jdbcType="BIGINT" />
+    <result column="price_id" property="priceId" jdbcType="BIGINT" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="initial_inventory" property="initialInventory" jdbcType="VARCHAR" />
+    <result column="current_inventory" property="currentInventory" jdbcType="VARCHAR" />
+    <result column="sfkf" property="sfkf" jdbcType="INTEGER" />
+  </resultMap>
+  
+   <resultMap id="ResultMapWithBLOBs" type="com.jialian.api.domain.entity.MaterialAttribute" extends="BaseResultMap" >
+	 <association property="price" column="price_id" select="com.jialian.core.persistence.reader.MaterialPriceReaderMapper.selectByPrimaryKey"></association>
+  </resultMap>
+   <resultMap id="ResultMapWithBLOBss" type="com.jialian.api.domain.entity.MaterialAttribute" extends="ResultMapWithBLOBs" >
+	 <association property="material" column="material_id" select="com.jialian.core.persistence.reader.MaterialReaderMapper.selectByPrimaryKey"></association>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, attribute_no, attribute_name, attribute_value, attribute_long, attribute_wide, 
+    attribute_hight, attribute_unit, attribute_type, material_id, create_time, update_time, price_id, initial_inventory, current_inventory,
+    remark, sfkf
+  </sql>
+  <select id="selectByWhere" resultMap="BaseResultMap" parameterType="com.jialian.api.domain.entity.Where" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from material_attribute
+    <if test="_parameter != null" >
+      <include refid="com.jialian.core.persistence.reader.CommonReaderMapper.Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from material_attribute
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="selectShopProdByPrimaryKey" resultMap="ResultMapWithBLOBss" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from material_attribute
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="selectByMaterialId" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from material_attribute
+    where material_id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="countByWhere" parameterType="com.jialian.api.domain.entity.Where" resultType="java.lang.Integer" >
+    select count(*) from material_attribute
+    <if test="_parameter != null" >
+      <include refid="com.jialian.core.persistence.reader.CommonReaderMapper.Example_Where_Clause" />
+    </if>
+  </select>
+</mapper>

@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jialian.core.persistence.writer.HouseSurveyWriterMapper" >
+  <resultMap id="BaseResultMap" type="com.jialian.api.domain.entity.HouseSurvey" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="sub_bouse_info_id" property="subBouseInfoId" jdbcType="BIGINT" />
+    <result column="house_structure_category_id" property="houseStructureCategoryId" jdbcType="BIGINT" />
+    <result column="survey_name" property="surveyName" jdbcType="VARCHAR" />
+    <result column="survey_value" property="surveyValue" jdbcType="DOUBLE" />
+    <result column="survey_unit" property="surveyUnit" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="status" property="status" jdbcType="SMALLINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, sub_bouse_info_id, house_structure_category_id, survey_name, survey_value, survey_unit, 
+    create_time, update_time, status
+  </sql>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from house_survey
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByWhere" parameterType="com.jialian.api.domain.entity.Where" >
+    delete from house_survey
+    <if test="_parameter != null" >
+      <include refid="com.jialian.core.persistence.writer.CommonWriterMapper.Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert useGeneratedKeys="true" keyProperty="id" id="insert" parameterType="com.jialian.api.domain.entity.HouseSurvey" >
+    insert into house_survey (id, sub_bouse_info_id, house_structure_category_id, 
+      survey_name, survey_value, survey_unit, 
+      create_time, update_time, status
+      )
+    values (#{id,jdbcType=BIGINT}, #{subBouseInfoId,jdbcType=BIGINT}, #{houseStructureCategoryId,jdbcType=BIGINT}, 
+      #{surveyName,jdbcType=VARCHAR}, #{surveyValue,jdbcType=DOUBLE}, #{surveyUnit,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{status,jdbcType=SMALLINT}
+      )
+  </insert>
+  <insert useGeneratedKeys="true" keyProperty="id" id="insertSelective" parameterType="com.jialian.api.domain.entity.HouseSurvey" >
+    insert into house_survey
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="subBouseInfoId != null" >
+        sub_bouse_info_id,
+      </if>
+      <if test="houseStructureCategoryId != null" >
+        house_structure_category_id,
+      </if>
+      <if test="surveyName != null" >
+        survey_name,
+      </if>
+      <if test="surveyValue != null" >
+        survey_value,
+      </if>
+      <if test="surveyUnit != null" >
+        survey_unit,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="subBouseInfoId != null" >
+        #{subBouseInfoId,jdbcType=BIGINT},
+      </if>
+      <if test="houseStructureCategoryId != null" >
+        #{houseStructureCategoryId,jdbcType=BIGINT},
+      </if>
+      <if test="surveyName != null" >
+        #{surveyName,jdbcType=VARCHAR},
+      </if>
+      <if test="surveyValue != null" >
+        #{surveyValue,jdbcType=DOUBLE},
+      </if>
+      <if test="surveyUnit != null" >
+        #{surveyUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=SMALLINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByWhereSelective" parameterType="map" >
+    update house_survey
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.subBouseInfoId != null" >
+        sub_bouse_info_id = #{record.subBouseInfoId,jdbcType=BIGINT},
+      </if>
+      <if test="record.houseStructureCategoryId != null" >
+        house_structure_category_id = #{record.houseStructureCategoryId,jdbcType=BIGINT},
+      </if>
+      <if test="record.surveyName != null" >
+        survey_name = #{record.surveyName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.surveyValue != null" >
+        survey_value = #{record.surveyValue,jdbcType=DOUBLE},
+      </if>
+      <if test="record.surveyUnit != null" >
+        survey_unit = #{record.surveyUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null" >
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=SMALLINT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="com.jialian.core.persistence.writer.CommonWriterMapper.Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByWhere" parameterType="map" >
+    update house_survey
+    set id = #{record.id,jdbcType=BIGINT},
+      sub_bouse_info_id = #{record.subBouseInfoId,jdbcType=BIGINT},
+      house_structure_category_id = #{record.houseStructureCategoryId,jdbcType=BIGINT},
+      survey_name = #{record.surveyName,jdbcType=VARCHAR},
+      survey_value = #{record.surveyValue,jdbcType=DOUBLE},
+      survey_unit = #{record.surveyUnit,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      status = #{record.status,jdbcType=SMALLINT}
+    <if test="_parameter != null" >
+      <include refid="com.jialian.core.persistence.writer.CommonWriterMapper.Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jialian.api.domain.entity.HouseSurvey" >
+    update house_survey
+    <set >
+      <if test="subBouseInfoId != null" >
+        sub_bouse_info_id = #{subBouseInfoId,jdbcType=BIGINT},
+      </if>
+      <if test="houseStructureCategoryId != null" >
+        house_structure_category_id = #{houseStructureCategoryId,jdbcType=BIGINT},
+      </if>
+      <if test="surveyName != null" >
+        survey_name = #{surveyName,jdbcType=VARCHAR},
+      </if>
+      <if test="surveyValue != null" >
+        survey_value = #{surveyValue,jdbcType=DOUBLE},
+      </if>
+      <if test="surveyUnit != null" >
+        survey_unit = #{surveyUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=SMALLINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jialian.api.domain.entity.HouseSurvey" >
+    update house_survey
+    set sub_bouse_info_id = #{subBouseInfoId,jdbcType=BIGINT},
+      house_structure_category_id = #{houseStructureCategoryId,jdbcType=BIGINT},
+      survey_name = #{surveyName,jdbcType=VARCHAR},
+      survey_value = #{surveyValue,jdbcType=DOUBLE},
+      survey_unit = #{surveyUnit,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      status = #{status,jdbcType=SMALLINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

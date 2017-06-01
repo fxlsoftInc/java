@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jialian.core.persistence.reader.UserReaderMapper" >
+  <resultMap id="BaseResultMap" type="com.jialian.api.domain.entity.User" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="user_no" property="userNo" jdbcType="VARCHAR" />
+    <result column="nick_name" property="nickName" jdbcType="VARCHAR" />
+    <result column="telephone" property="telephone" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="user_name" property="userName" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="SMALLINT" />
+    <result column="sex" property="sex" jdbcType="SMALLINT" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, user_no, nick_name, telephone, create_time, update_time, email, user_name, status, 
+    remark,password,sex
+  </sql>
+  <select id="selectByWhere" resultMap="BaseResultMap" parameterType="com.jialian.api.domain.entity.Where" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from user
+    <if test="_parameter != null" >
+      <include refid="com.jialian.core.persistence.reader.CommonReaderMapper.Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from user
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="countByWhere" parameterType="com.jialian.api.domain.entity.Where" resultType="java.lang.Integer" >
+    select count(*) from user
+    <if test="_parameter != null" >
+      <include refid="com.jialian.core.persistence.reader.CommonReaderMapper.Example_Where_Clause" />
+    </if>
+  </select>
+  
+  <select id="selectUserByTelephone" parameterType="java.lang.String" resultMap="BaseResultMap">
+  	select 
+  	<include refid="Base_Column_List"/> 
+  	from user where telephone=#{telephone,jdbcType=VARCHAR} AND status=1
+  </select>
+  
+  <sql id="selectUserListByQuery_Where">
+  	<where>
+  		<if test="query.nickName !=null">
+  			and nick_name like '%${query.nickName}%'
+  		</if>
+  		<if test="query.telephone !=null">
+  			and telephone like '%${query.telephone}%'
+  		</if>
+  	</where>
+  </sql>
+  <select id="selectUserCountByQuery" parameterType="com.jialian.api.domain.query.UserQuery" resultType="java.lang.Integer">
+  		select 
+	  	count(*) 
+	  	from user 
+	  	<include refid="selectUserListByQuery_Where"/>
+  </select>
+  <select id="selectUserListByQuery" parameterType="com.jialian.api.domain.query.UserQuery" resultMap="BaseResultMap">
+  	select 
+  	<include refid="Base_Column_List"/> 
+  	from user 
+  	<include refid="selectUserListByQuery_Where"/>
+  	order by id <if test="query.sort ==0">DESC</if><if test="query.sort ==1">ASC</if>
+  	limit #{query.startIndex},#{query.onePageCount} 
+  </select>
+</mapper>

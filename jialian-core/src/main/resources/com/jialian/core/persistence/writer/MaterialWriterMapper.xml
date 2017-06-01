@@ -1,0 +1,397 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jialian.core.persistence.writer.MaterialWriterMapper" >
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from material
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByWhere" parameterType="com.jialian.api.domain.entity.Where" >
+    delete from material
+    <if test="_parameter != null" >
+      <include refid="com.jialian.core.persistence.writer.CommonWriterMapper.Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert useGeneratedKeys="true" keyProperty="id" id="insert" parameterType="com.jialian.api.domain.entity.Material" >
+    insert into material (id, material_no, material_name, 
+      brand_name, material_price, currency, 
+      material_price_id, material_unit, material_property, 
+      material_type, create_time, remark, 
+      status, material_technology, 
+      material_standard, material_aftersale, prod_type_id,
+      prod_category, postage, fbzt, fbtime)
+    values (#{id,jdbcType=BIGINT}, #{materialNo,jdbcType=VARCHAR}, #{materialName,jdbcType=VARCHAR}, 
+      #{brandName,jdbcType=VARCHAR}, #{materialPrice,jdbcType=DOUBLE}, #{currency,jdbcType=VARCHAR}, 
+      #{materialPriceId,jdbcType=BIGINT}, #{materialUnit,jdbcType=VARCHAR}, #{materialProperty,jdbcType=VARCHAR}, 
+      #{materialType,jdbcType=SMALLINT}, #{createTime,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR}, 
+      #{status,jdbcType=SMALLINT}, #{materialTechnology,jdbcType=LONGVARCHAR},
+      #{materialStandard,jdbcType=LONGVARCHAR}, #{materialAftersale,jdbcType=LONGVARCHAR},
+      #{prodTypeId,jdbcType=BIGINT}, #{prodCategory,jdbcType=SMALLINT}, #{postage,jdbcType=DOUBLE}, #{fbzt,jdbcType=SMALLINT}, #{fbtime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert useGeneratedKeys="true" keyProperty="id" id="insertSelective" parameterType="com.jialian.api.domain.entity.Material" >
+    insert into material
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="materialNo != null" >
+        material_no,
+      </if>
+      <if test="materialName != null" >
+        material_name,
+      </if>
+      <if test="brandName != null" >
+        brand_name,
+      </if>
+      <if test="materialPrice != null" >
+        material_price,
+      </if>
+      <if test="currency != null" >
+        currency,
+      </if>
+      <if test="materialPriceId != null" >
+        material_price_id,
+      </if>
+      <if test="materialUnit != null" >
+        material_unit,
+      </if>
+      <if test="materialProperty != null" >
+        material_property,
+      </if>
+      <if test="materialType != null" >
+        material_type,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="materialTechnology != null" >
+        material_technology,
+      </if>
+      <if test=" materialStandard != null" >
+         material_standard,
+      </if>
+      <if test="materialAftersale != null" >
+        material_aftersale,
+      </if>
+      <if test="prodTypeId != null" >
+        prod_type_id,
+      </if>
+      <if test="prodCategory != null" >
+        prod_category,
+      </if>
+      <if test="postage != null" >
+        postage,
+      </if>
+      <if test="fbzt != null" >
+        fbzt,
+      </if>
+      <if test="fbtime != null" >
+        fbtime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="materialNo != null" >
+        #{materialNo,jdbcType=VARCHAR},
+      </if>
+      <if test="materialName != null" >
+        #{materialName,jdbcType=VARCHAR},
+      </if>
+      <if test="brandName != null" >
+        #{brandName,jdbcType=VARCHAR},
+      </if>
+      <if test="materialPrice != null" >
+        #{materialPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="currency != null" >
+        #{currency,jdbcType=VARCHAR},
+      </if>
+      <if test="materialPriceId != null" >
+        #{materialPriceId,jdbcType=BIGINT},
+      </if>
+      <if test="materialUnit != null" >
+        #{materialUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="materialProperty != null" >
+        #{materialProperty,jdbcType=VARCHAR},
+      </if>
+      <if test="materialType != null" >
+        #{materialType,jdbcType=SMALLINT},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=SMALLINT},
+      </if>
+      <if test="materialTechnology != null" >
+        #{materialTechnology,jdbcType=LONGVARCHAR},
+      </if>
+      <if test=" materialStandard != null" >
+         #{materialStandard,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="materialAftersale != null" >
+        #{materialAftersale,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="prodTypeId != null" >
+        #{prodTypeId,jdbcType=BIGINT},
+      </if>
+      <if test="prodCategory != null" >
+        #{prodCategory,jdbcType=SMALLINT},
+      </if>
+      <if test="postage != null" >
+        #{postage,jdbcType=DOUBLE},
+      </if>
+      <if test="fbzt != null" >
+        #{fbzt,jdbcType=SMALLINT},
+      </if>
+      <if test="fbtime != null" >
+        #{fbtime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByWhereSelective" parameterType="map" >
+    update material
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.materialNo != null" >
+        material_no = #{record.materialNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.materialName != null" >
+        material_name = #{record.materialName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.brandName != null" >
+        brand_name = #{record.brandName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.materialPrice != null" >
+        material_price = #{record.materialPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="record.currency != null" >
+        currency = #{record.currency,jdbcType=VARCHAR},
+      </if>
+      <if test="record.materialPriceId != null" >
+        material_price_id = #{record.materialPriceId,jdbcType=BIGINT},
+      </if>
+      <if test="record.materialUnit != null" >
+        material_unit = #{record.materialUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="record.materialProperty != null" >
+        material_property = #{record.materialProperty,jdbcType=VARCHAR},
+      </if>
+      <if test="record.materialType != null" >
+        material_type = #{record.materialType,jdbcType=SMALLINT},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.remark != null" >
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=SMALLINT},
+      </if>
+      <if test="record.materialTechnology != null" >
+        material_technology = #{record.materialTechnology,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.materialStandard != null" >
+        material_standard = #{record.materialStandard,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.materialAftersale != null" >
+        material_aftersale = #{record.materialAftersale,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.prodTypeId != null" >
+        prod_type_id = #{record.prodTypeId,jdbcType=BIGINT},
+      </if>
+      <if test="record.prodCategory != null" >
+        prod_category = #{record.prodCategory,jdbcType=SMALLINT},
+      </if>
+      <if test="record.postage != null" >
+        postage = #{record.postage,jdbcType=DOUBLE},
+      </if>
+      <if test="record.fbzt != null" >
+        fbzt = #{record.fbzt,jdbcType=SMALLINT},
+      </if>
+      <if test="record.fbtime != null" >
+        fbtime = #{record.fbtime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="com.jialian.core.persistence.writer.CommonWriterMapper.Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByWhereWithBLOBs" parameterType="map" >
+    update material
+    set id = #{record.id,jdbcType=BIGINT},
+      material_no = #{record.materialNo,jdbcType=VARCHAR},
+      material_name = #{record.materialName,jdbcType=VARCHAR},
+      brand_name = #{record.brandName,jdbcType=VARCHAR},
+      material_price = #{record.materialPrice,jdbcType=DOUBLE},
+      currency = #{record.currency,jdbcType=VARCHAR},
+      material_price_id = #{record.materialPriceId,jdbcType=BIGINT},
+      material_unit = #{record.materialUnit,jdbcType=VARCHAR},
+      material_property = #{record.materialProperty,jdbcType=VARCHAR},
+      material_type = #{record.materialType,jdbcType=SMALLINT},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      remark = #{record.remark,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=SMALLINT},
+      material_technology = #{record.materialTechnology,jdbcType=LONGVARCHAR},
+      material_standard = #{record.materialStandard,jdbcType=LONGVARCHAR},
+      material_aftersale = #{record.materialAftersale,jdbcType=LONGVARCHAR},
+      prod_type_id = #{record.prodTypeId,jdbcType=BIGINT},
+      prod_category = #{record.prodCategory,jdbcType=SMALLINT},
+      postage = #{record.postage,jdbcType=DOUBLE},
+      fbzt = #{record.fbzt,jdbcType=SMALLINT},
+      fbtime = #{record.fbtime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="com.jialian.core.persistence.writer.CommonWriterMapper.Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByWhere" parameterType="map" >
+    update material
+    set id = #{record.id,jdbcType=BIGINT},
+      material_no = #{record.materialNo,jdbcType=VARCHAR},
+      material_name = #{record.materialName,jdbcType=VARCHAR},
+      brand_name = #{record.brandName,jdbcType=VARCHAR},
+      material_price = #{record.materialPrice,jdbcType=DOUBLE},
+      currency = #{record.currency,jdbcType=VARCHAR},
+      material_price_id = #{record.materialPriceId,jdbcType=BIGINT},
+      material_unit = #{record.materialUnit,jdbcType=VARCHAR},
+      material_property = #{record.materialProperty,jdbcType=VARCHAR},
+      material_type = #{record.materialType,jdbcType=SMALLINT},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      remark = #{record.remark,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=SMALLINT},
+      prod_type_id = #{record.prodTypeId,jdbcType=BIGINT},
+      prod_category = #{record.prodCategory,jdbcType=SMALLINT},
+      postage = #{record.postage,jdbcType=DOUBLE},
+      fbzt = #{record.fbzt,jdbcType=SMALLINT},
+      fbtime = #{record.fbtime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="com.jialian.core.persistence.writer.CommonWriterMapper.Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jialian.api.domain.entity.Material" >
+    update material
+    <set >
+      <if test="materialNo != null" >
+        material_no = #{materialNo,jdbcType=VARCHAR},
+      </if>
+      <if test="materialName != null" >
+        material_name = #{materialName,jdbcType=VARCHAR},
+      </if>
+      <if test="brandName != null" >
+        brand_name = #{brandName,jdbcType=VARCHAR},
+      </if>
+      <if test="materialPrice != null" >
+        material_price = #{materialPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="currency != null" >
+        currency = #{currency,jdbcType=VARCHAR},
+      </if>
+      <if test="materialPriceId != null" >
+        material_price_id = #{materialPriceId,jdbcType=BIGINT},
+      </if>
+      <if test="materialUnit != null" >
+        material_unit = #{materialUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="materialProperty != null" >
+        material_property = #{materialProperty,jdbcType=VARCHAR},
+      </if>
+      <if test="materialType != null" >
+        material_type = #{materialType,jdbcType=SMALLINT},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=SMALLINT},
+      </if>
+      <if test="materialTechnology != null" >
+        material_technology = #{materialTechnology,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="materialStandard != null" >
+         material_standard = #{materialStandard,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="materialAftersale != null" >
+        material_aftersale = #{materialAftersale,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="prodTypeId != null" >
+        prod_type_id = #{prodTypeId,jdbcType=BIGINT},
+      </if>
+      <if test="prodCategory != null" >
+        prod_category = #{prodCategory,jdbcType=SMALLINT},
+      </if>
+      <if test="postage != null" >
+        postage = #{postage,jdbcType=DOUBLE},
+      </if>
+      <if test="fbzt != null" >
+        fbzt = #{fbzt,jdbcType=SMALLINT},
+      </if>
+      <if test="fbtime != null" >
+        fbtime = #{fbtime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.jialian.api.domain.entity.Material" >
+    update material
+    set material_no = #{materialNo,jdbcType=VARCHAR},
+      material_name = #{materialName,jdbcType=VARCHAR},
+      brand_name = #{brandName,jdbcType=VARCHAR},
+      material_price = #{materialPrice,jdbcType=DOUBLE},
+      currency = #{currency,jdbcType=VARCHAR},
+      material_price_id = #{materialPriceId,jdbcType=BIGINT},
+      material_unit = #{materialUnit,jdbcType=VARCHAR},
+      material_property = #{materialProperty,jdbcType=VARCHAR},
+      material_type = #{materialType,jdbcType=SMALLINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      remark = #{remark,jdbcType=VARCHAR},
+      status = #{status,jdbcType=SMALLINT},
+      material_technology = #{materialTechnology,jdbcType=LONGVARCHAR},
+      material_standard = #{materialStandard,jdbcType=LONGVARCHAR},
+      material_aftersale = #{materialAftersale,jdbcType=LONGVARCHAR},
+      prod_type_id = #{prodTypeId,jdbcType=BIGINT},
+      prod_category = #{prodCategory,jdbcType=SMALLINT},
+      postage = #{postage,jdbcType=DOUBLE},
+      fbzt = #{fbzt,jdbcType=SMALLINT},
+      fbtime = #{fbtime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jialian.api.domain.entity.Material" >
+    update material
+    set material_no = #{materialNo,jdbcType=VARCHAR},
+      material_name = #{materialName,jdbcType=VARCHAR},
+      brand_name = #{brandName,jdbcType=VARCHAR},
+      material_price = #{materialPrice,jdbcType=DOUBLE},
+      currency = #{currency,jdbcType=VARCHAR},
+      material_price_id = #{materialPriceId,jdbcType=BIGINT},
+      material_unit = #{materialUnit,jdbcType=VARCHAR},
+      material_property = #{materialProperty,jdbcType=VARCHAR},
+      material_type = #{materialType,jdbcType=SMALLINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      remark = #{remark,jdbcType=VARCHAR},
+      status = #{status,jdbcType=SMALLINT},
+      prod_type_id = #{prodTypeId,jdbcType=BIGINT},
+      prod_category = #{prodCategory,jdbcType=SMALLINT},
+      postage = #{postage,jdbcType=DOUBLE},
+      fbzt = #{fbzt,jdbcType=SMALLINT},
+      fbtime = #{fbtime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jialian.core.persistence.reader.ShopOrderDetailReaderMapper" >
+  <resultMap id="BaseResultMap" type="com.jialian.api.domain.entity.ShopOrderDetail" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="order_id" property="orderId" jdbcType="BIGINT" />
+    <result column="protitle" property="protitle" jdbcType="VARCHAR" />
+    <result column="propic" property="propic" jdbcType="VARCHAR" />
+    <result column="summoney" property="summoney" jdbcType="DOUBLE" />
+    <result column="unitmoney" property="unitmoney" jdbcType="DOUBLE" />
+    <result column="count" property="count" jdbcType="INTEGER" />
+    <result column="proid" property="proid" jdbcType="BIGINT" />
+    <result column="pro_attr_id" property="proAttrId" jdbcType="BIGINT" />
+    <result column="material_standard" property="materialStandard" jdbcType="LONGVARCHAR" />
+    <result column="material_aftersale" property="materialAftersale" jdbcType="LONGVARCHAR" />
+    <result column="material_technology" property="materialTechnology" jdbcType="LONGVARCHAR" />
+    <result column="attribute_no" property="attributeNo" jdbcType="VARCHAR" />
+    <result column="attribute_name" property="attributeName" jdbcType="VARCHAR" />
+    <result column="attribute_unit" property="attributeUnit" jdbcType="VARCHAR" />
+    <result column="attribute_remark" property="attributeRemark" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="SMALLINT" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, order_id, protitle, propic, summoney, unitmoney, count, 
+    proid, pro_attr_id, material_standard, material_aftersale, material_technology, attribute_no, 
+    attribute_name, attribute_unit, attribute_remark, status, remark
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from shop_order_detail
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  
+  <select id="selectByOrderId" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from shop_order_detail
+    where order_id = #{orderId,jdbcType=BIGINT}
+  </select>
+ 
+</mapper>

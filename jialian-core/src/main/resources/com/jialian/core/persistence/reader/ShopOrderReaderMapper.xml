@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jialian.core.persistence.reader.ShopOrderReaderMapper" >
+  <resultMap id="BaseResultMap" type="com.jialian.api.domain.entity.ShopOrder" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="order_no" property="orderNo" jdbcType="VARCHAR" />
+    <result column="user_id" property="userId" jdbcType="BIGINT" />
+    <result column="total_amt" property="totalAmt" jdbcType="DOUBLE" />
+    <result column="discount_amt" property="discountAmt" jdbcType="DOUBLE" />
+    <result column="order_amt" property="orderAmt" jdbcType="DOUBLE" />
+    <result column="prepay_amt" property="prepayAmt" jdbcType="DOUBLE" />
+    <result column="payed_amt" property="payedAmt" jdbcType="DOUBLE" />
+    <result column="order_status" property="orderStatus" jdbcType="SMALLINT" />
+    <result column="confirm_time" property="confirmTime" jdbcType="TIMESTAMP" />
+    <result column="complete_time" property="completeTime" jdbcType="TIMESTAMP" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="ispinkage_amt" property="ispinkageAmt" jdbcType="SMALLINT" />
+    <result column="postage" property="postage" jdbcType="DOUBLE" />
+    <result column="useraddr" property="useraddr" jdbcType="VARCHAR" />
+    <result column="addrid" property="addrid" jdbcType="BIGINT" />
+    <result column="paytype" property="paytype" jdbcType="SMALLINT" />
+    <result column="status" property="status" jdbcType="SMALLINT" />
+    <result column="send_status" property="sendStatus" jdbcType="SMALLINT" />
+    <result column="isvalid" property="isvalid" jdbcType="SMALLINT" />
+    <result column="charge_id" property="chargeId" jdbcType="VARCHAR" />
+    <result column="expressage" property="expressage" jdbcType="VARCHAR" />
+    <result column="expressno" property="expressno" jdbcType="VARCHAR" />
+    <result column="consignee" property="consignee" jdbcType="VARCHAR" />
+  </resultMap>
+   <resultMap id="ResultMapWithBLOBs" type="com.jialian.api.domain.entity.ShopOrder" extends="BaseResultMap" >
+    <association property="shopOrderDetails" column="id" select="com.jialian.core.persistence.reader.ShopOrderDetailReaderMapper.selectByOrderId"></association>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, order_no, user_id, total_amt, discount_amt, order_amt, prepay_amt, payed_amt, 
+    order_status, confirm_time, complete_time, create_time, update_time, remark, ispinkage_amt, 
+    postage, useraddr, addrid, paytype, status, send_status, isvalid, charge_id, linktel, expressno, expressage, consignee
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from shop_order
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="selectByOrderno" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from shop_order
+    where order_no = #{out_trade_no,jdbcType=VARCHAR}
+  </select>
+  <select id="selectByChargeId" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from shop_order
+    where charge_id = #{chargeId,jdbcType=VARCHAR}
+  </select>
+   <select id="countByWhere" parameterType="com.jialian.api.domain.entity.Where" resultType="java.lang.Integer" >
+    select count(*) from shop_order
+    <if test="_parameter != null" >
+      <include refid="com.jialian.core.persistence.reader.CommonReaderMapper.Example_Where_Clause" />
+    </if>
+  </select>
+  <select id="selectByWhere" resultMap="ResultMapWithBLOBs" parameterType="com.jialian.api.domain.entity.Where" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from shop_order
+    <if test="_parameter != null" >
+      <include refid="com.jialian.core.persistence.reader.CommonReaderMapper.Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+    	limit ${limit}, ${offset}
+    </if>
+  </select>
+</mapper>

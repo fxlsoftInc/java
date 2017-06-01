@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jialian.core.persistence.reader.ShopCartReaderMapper" >
+  <resultMap id="BaseResultMap" type="com.jialian.api.domain.entity.ShopCart" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="user_id" property="userId" jdbcType="BIGINT" />
+    <result column="pro_id" property="proId" jdbcType="BIGINT" />
+    <result column="pro_attr_id" property="proAttrId" jdbcType="BIGINT" />
+    <result column="count" property="count" jdbcType="INTEGER" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.jialian.api.domain.entity.ShopCart" extends="BaseResultMap" >
+ 	 <association property="material" column="pro_id" select="com.jialian.core.persistence.reader.MaterialReaderMapper.selectByPrimaryKey"></association>
+ 	 <association property="materialAttribute" column="pro_attr_id" select="com.jialian.core.persistence.reader.MaterialAttributeReaderMapper.selectByPrimaryKey"></association>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, user_id, pro_id, pro_attr_id, count, remark, create_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from shop_cart
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="selectById" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from shop_cart
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+   <select id="selectByUserId" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    
+    from shop_cart
+    where user_id = #{userId,jdbcType=VARCHAR}
+  </select>
+   <select id="selectByUserId_ids" resultMap="ResultMapWithBLOBs" parameterType="java.util.Map" >
+    select 
+    <include refid="Base_Column_List" /> 
+    from shop_cart 
+    <where>
+		user_id = #{map.userId} and id in 
+		<if test="map.ids !=null and map.ids !=''">
+			<foreach item="item" index="index" collection="map.ids" open="(" separator="," close=")">
+     			#{item}
+       		</foreach>
+		</if>
+	</where>
+  </select>
+   <select id="selectByUserIdProAttrId" resultMap="BaseResultMap" parameterType="com.jialian.api.domain.entity.Where" >
+    select 
+    <include refid="Base_Column_List" />
+    from shop_cart
+    <if test="_parameter != null" >
+      <include refid="com.jialian.core.persistence.reader.CommonReaderMapper.Example_Where_Clause" />
+    </if>
+  </select>
+</mapper>

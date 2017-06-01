@@ -1,0 +1,490 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jialian.core.persistence.writer.CaseHouseWriterMapper" >
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from case_house
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByWhere" parameterType="com.jialian.api.domain.entity.Where" >
+    delete from case_house
+    <if test="_parameter != null" >
+      <include refid="com.jialian.core.persistence.writer.CommonWriterMapper.Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.jialian.api.domain.entity.CaseHouse" >
+    insert into case_house (id, case_hose, case_style_id, 
+      case_price, case_popularity, case_subscribe_number, 
+      address_id, case_area, case_area_unit, 
+      house_info_id, decorate, case_design_style, 
+      manager, create_time, update_time, 
+      case_status, status, remark, 
+      case_design_introduction)
+    values (#{id,jdbcType=BIGINT}, #{caseHose,jdbcType=VARCHAR}, #{caseStyleId,jdbcType=BIGINT}, 
+      #{casePrice,jdbcType=DOUBLE}, #{casePopularity,jdbcType=INTEGER}, #{caseSubscribeNumber,jdbcType=INTEGER}, 
+      #{addressId,jdbcType=BIGINT}, #{caseArea,jdbcType=REAL}, #{caseAreaUnit,jdbcType=VARCHAR}, 
+      #{houseInfoId,jdbcType=BIGINT}, #{decorate,jdbcType=VARCHAR}, #{caseDesignStyle,jdbcType=VARCHAR}, 
+      #{manager,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{caseStatus,jdbcType=SMALLINT}, #{status,jdbcType=SMALLINT}, #{remark,jdbcType=VARCHAR}, 
+      #{caseDesignIntroduction,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jialian.api.domain.entity.CaseHouse" >
+    insert into case_house
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="caseHose != null" >
+        case_hose,
+      </if>
+      <if test="caseStyleId != null" >
+        case_style_id,
+      </if>
+      <if test="casePrice != null" >
+        case_price,
+      </if>
+      <if test="casePopularity != null" >
+        case_popularity,
+      </if>
+      <if test="caseSubscribeNumber != null" >
+        case_subscribe_number,
+      </if>
+      <if test="addressId != null" >
+        address_id,
+      </if>
+      <if test="caseArea != null" >
+        case_area,
+      </if>
+      <if test="caseAreaUnit != null" >
+        case_area_unit,
+      </if>
+      <if test="houseInfoId != null" >
+        house_info_id,
+      </if>
+      <if test="decorate != null" >
+        decorate,
+      </if>
+      <if test="caseDesignStyle != null" >
+        case_design_style,
+      </if>
+      <if test="manager != null" >
+        manager,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="caseStatus != null" >
+        case_status,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="caseDesignIntroduction != null" >
+        case_design_introduction,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="caseHose != null" >
+        #{caseHose,jdbcType=VARCHAR},
+      </if>
+      <if test="caseStyleId != null" >
+        #{caseStyleId,jdbcType=BIGINT},
+      </if>
+      <if test="casePrice != null" >
+        #{casePrice,jdbcType=DOUBLE},
+      </if>
+      <if test="casePopularity != null" >
+        #{casePopularity,jdbcType=INTEGER},
+      </if>
+      <if test="caseSubscribeNumber != null" >
+        #{caseSubscribeNumber,jdbcType=INTEGER},
+      </if>
+      <if test="addressId != null" >
+        #{addressId,jdbcType=BIGINT},
+      </if>
+      <if test="caseArea != null" >
+        #{caseArea,jdbcType=REAL},
+      </if>
+      <if test="caseAreaUnit != null" >
+        #{caseAreaUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="houseInfoId != null" >
+        #{houseInfoId,jdbcType=BIGINT},
+      </if>
+      <if test="decorate != null" >
+        #{decorate,jdbcType=VARCHAR},
+      </if>
+      <if test="caseDesignStyle != null" >
+        #{caseDesignStyle,jdbcType=VARCHAR},
+      </if>
+      <if test="manager != null" >
+        #{manager,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="caseStatus != null" >
+        #{caseStatus,jdbcType=SMALLINT},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=SMALLINT},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="caseDesignIntroduction != null" >
+        #{caseDesignIntroduction,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <insert id="insertSelectiveBackId" useGeneratedKeys="true" keyProperty="id"  parameterType="com.jialian.api.domain.entity.CaseHouse" >
+    insert into case_house
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="caseHose != null" >
+        case_hose,
+      </if>
+      <if test="caseStyleId != null" >
+        case_style_id,
+      </if>
+      <if test="casePrice != null" >
+        case_price,
+      </if>
+      <if test="casePopularity != null" >
+        case_popularity,
+      </if>
+      <if test="caseSubscribeNumber != null" >
+        case_subscribe_number,
+      </if>
+      <if test="addressId != null" >
+        address_id,
+      </if>
+      <if test="caseArea != null" >
+        case_area,
+      </if>
+      <if test="caseAreaUnit != null" >
+        case_area_unit,
+      </if>
+      <if test="houseInfoId != null" >
+        house_info_id,
+      </if>
+      <if test="decorate != null" >
+        decorate,
+      </if>
+      <if test="caseDesignStyle != null" >
+        case_design_style,
+      </if>
+      <if test="manager != null" >
+        manager,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="caseStatus != null" >
+        case_status,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="caseDesignIntroduction != null" >
+        case_design_introduction,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="caseHose != null" >
+        #{caseHose,jdbcType=VARCHAR},
+      </if>
+      <if test="caseStyleId != null" >
+        #{caseStyleId,jdbcType=BIGINT},
+      </if>
+      <if test="casePrice != null" >
+        #{casePrice,jdbcType=DOUBLE},
+      </if>
+      <if test="casePopularity != null" >
+        #{casePopularity,jdbcType=INTEGER},
+      </if>
+      <if test="caseSubscribeNumber != null" >
+        #{caseSubscribeNumber,jdbcType=INTEGER},
+      </if>
+      <if test="addressId != null" >
+        #{addressId,jdbcType=BIGINT},
+      </if>
+      <if test="caseArea != null" >
+        #{caseArea,jdbcType=REAL},
+      </if>
+      <if test="caseAreaUnit != null" >
+        #{caseAreaUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="houseInfoId != null" >
+        #{houseInfoId,jdbcType=BIGINT},
+      </if>
+      <if test="decorate != null" >
+        #{decorate,jdbcType=VARCHAR},
+      </if>
+      <if test="caseDesignStyle != null" >
+        #{caseDesignStyle,jdbcType=VARCHAR},
+      </if>
+      <if test="manager != null" >
+        #{manager,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="caseStatus != null" >
+        #{caseStatus,jdbcType=SMALLINT},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=SMALLINT},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="caseDesignIntroduction != null" >
+        #{caseDesignIntroduction,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByWhereSelective" parameterType="map" >
+    update case_house
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.caseHose != null" >
+        case_hose = #{record.caseHose,jdbcType=VARCHAR},
+      </if>
+      <if test="record.caseStyleId != null" >
+        case_style_id = #{record.caseStyleId,jdbcType=BIGINT},
+      </if>
+      <if test="record.casePrice != null" >
+        case_price = #{record.casePrice,jdbcType=DOUBLE},
+      </if>
+      <if test="record.casePopularity != null" >
+        case_popularity = #{record.casePopularity,jdbcType=INTEGER},
+      </if>
+      <if test="record.caseSubscribeNumber != null" >
+        case_subscribe_number = #{record.caseSubscribeNumber,jdbcType=INTEGER},
+      </if>
+      <if test="record.addressId != null" >
+        address_id = #{record.addressId,jdbcType=BIGINT},
+      </if>
+      <if test="record.caseArea != null" >
+        case_area = #{record.caseArea,jdbcType=REAL},
+      </if>
+      <if test="record.caseAreaUnit != null" >
+        case_area_unit = #{record.caseAreaUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="record.houseInfoId != null" >
+        house_info_id = #{record.houseInfoId,jdbcType=BIGINT},
+      </if>
+      <if test="record.decorate != null" >
+        decorate = #{record.decorate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.caseDesignStyle != null" >
+        case_design_style = #{record.caseDesignStyle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.manager != null" >
+        manager = #{record.manager,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null" >
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.caseStatus != null" >
+        case_status = #{record.caseStatus,jdbcType=SMALLINT},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=SMALLINT},
+      </if>
+      <if test="record.remark != null" >
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.caseDesignIntroduction != null" >
+        case_design_introduction = #{record.caseDesignIntroduction,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="com.jialian.core.persistence.writer.CommonWriterMapper.Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByWhereWithBLOBs" parameterType="map" >
+    update case_house
+    set id = #{record.id,jdbcType=BIGINT},
+      case_hose = #{record.caseHose,jdbcType=VARCHAR},
+      case_style_id = #{record.caseStyleId,jdbcType=BIGINT},
+      case_price = #{record.casePrice,jdbcType=DOUBLE},
+      case_popularity = #{record.casePopularity,jdbcType=INTEGER},
+      case_subscribe_number = #{record.caseSubscribeNumber,jdbcType=INTEGER},
+      address_id = #{record.addressId,jdbcType=BIGINT},
+      case_area = #{record.caseArea,jdbcType=REAL},
+      case_area_unit = #{record.caseAreaUnit,jdbcType=VARCHAR},
+      house_info_id = #{record.houseInfoId,jdbcType=BIGINT},
+      decorate = #{record.decorate,jdbcType=VARCHAR},
+      case_design_style = #{record.caseDesignStyle,jdbcType=VARCHAR},
+      manager = #{record.manager,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      case_status = #{record.caseStatus,jdbcType=SMALLINT},
+      status = #{record.status,jdbcType=SMALLINT},
+      remark = #{record.remark,jdbcType=VARCHAR},
+      case_design_introduction = #{record.caseDesignIntroduction,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="com.jialian.core.persistence.writer.CommonWriterMapper.Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByWhere" parameterType="map" >
+    update case_house
+    set id = #{record.id,jdbcType=BIGINT},
+      case_hose = #{record.caseHose,jdbcType=VARCHAR},
+      case_style_id = #{record.caseStyleId,jdbcType=BIGINT},
+      case_price = #{record.casePrice,jdbcType=DOUBLE},
+      case_popularity = #{record.casePopularity,jdbcType=INTEGER},
+      case_subscribe_number = #{record.caseSubscribeNumber,jdbcType=INTEGER},
+      address_id = #{record.addressId,jdbcType=BIGINT},
+      case_area = #{record.caseArea,jdbcType=REAL},
+      case_area_unit = #{record.caseAreaUnit,jdbcType=VARCHAR},
+      house_info_id = #{record.houseInfoId,jdbcType=BIGINT},
+      decorate = #{record.decorate,jdbcType=VARCHAR},
+      case_design_style = #{record.caseDesignStyle,jdbcType=VARCHAR},
+      manager = #{record.manager,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      case_status = #{record.caseStatus,jdbcType=SMALLINT},
+      status = #{record.status,jdbcType=SMALLINT},
+      remark = #{record.remark,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="com.jialian.core.persistence.writer.CommonWriterMapper.Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jialian.api.domain.entity.CaseHouse" >
+    update case_house
+    <set >
+      <if test="caseHose != null" >
+        case_hose = #{caseHose,jdbcType=VARCHAR},
+      </if>
+      <if test="caseStyleId != null" >
+        case_style_id = #{caseStyleId,jdbcType=BIGINT},
+      </if>
+      <if test="casePrice != null" >
+        case_price = #{casePrice,jdbcType=DOUBLE},
+      </if>
+      <if test="casePopularity != null" >
+        case_popularity = #{casePopularity,jdbcType=INTEGER},
+      </if>
+      <if test="caseSubscribeNumber != null" >
+        case_subscribe_number = #{caseSubscribeNumber,jdbcType=INTEGER},
+      </if>
+      <if test="addressId != null" >
+        address_id = #{addressId,jdbcType=BIGINT},
+      </if>
+      <if test="caseArea != null" >
+        case_area = #{caseArea,jdbcType=REAL},
+      </if>
+      <if test="caseAreaUnit != null" >
+        case_area_unit = #{caseAreaUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="houseInfoId != null" >
+        house_info_id = #{houseInfoId,jdbcType=BIGINT},
+      </if>
+      <if test="decorate != null" >
+        decorate = #{decorate,jdbcType=VARCHAR},
+      </if>
+      <if test="caseDesignStyle != null" >
+        case_design_style = #{caseDesignStyle,jdbcType=VARCHAR},
+      </if>
+      <if test="manager != null" >
+        manager = #{manager,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="caseStatus != null" >
+        case_status = #{caseStatus,jdbcType=SMALLINT},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=SMALLINT},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="caseDesignIntroduction != null" >
+        case_design_introduction = #{caseDesignIntroduction,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.jialian.api.domain.entity.CaseHouse" >
+    update case_house
+    set case_hose = #{caseHose,jdbcType=VARCHAR},
+      case_style_id = #{caseStyleId,jdbcType=BIGINT},
+      case_price = #{casePrice,jdbcType=DOUBLE},
+      case_popularity = #{casePopularity,jdbcType=INTEGER},
+      case_subscribe_number = #{caseSubscribeNumber,jdbcType=INTEGER},
+      address_id = #{addressId,jdbcType=BIGINT},
+      case_area = #{caseArea,jdbcType=REAL},
+      case_area_unit = #{caseAreaUnit,jdbcType=VARCHAR},
+      house_info_id = #{houseInfoId,jdbcType=BIGINT},
+      decorate = #{decorate,jdbcType=VARCHAR},
+      case_design_style = #{caseDesignStyle,jdbcType=VARCHAR},
+      manager = #{manager,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      case_status = #{caseStatus,jdbcType=SMALLINT},
+      status = #{status,jdbcType=SMALLINT},
+      remark = #{remark,jdbcType=VARCHAR},
+      case_design_introduction = #{caseDesignIntroduction,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jialian.api.domain.entity.CaseHouse" >
+    update case_house
+    set case_hose = #{caseHose,jdbcType=VARCHAR},
+      case_style_id = #{caseStyleId,jdbcType=BIGINT},
+      case_price = #{casePrice,jdbcType=DOUBLE},
+      case_popularity = #{casePopularity,jdbcType=INTEGER},
+      case_subscribe_number = #{caseSubscribeNumber,jdbcType=INTEGER},
+      address_id = #{addressId,jdbcType=BIGINT},
+      case_area = #{caseArea,jdbcType=REAL},
+      case_area_unit = #{caseAreaUnit,jdbcType=VARCHAR},
+      house_info_id = #{houseInfoId,jdbcType=BIGINT},
+      decorate = #{decorate,jdbcType=VARCHAR},
+      case_design_style = #{caseDesignStyle,jdbcType=VARCHAR},
+      manager = #{manager,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      case_status = #{caseStatus,jdbcType=SMALLINT},
+      status = #{status,jdbcType=SMALLINT},
+      remark = #{remark,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

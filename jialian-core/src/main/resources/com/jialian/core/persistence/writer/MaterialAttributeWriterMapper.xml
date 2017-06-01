@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jialian.core.persistence.writer.MaterialAttributeWriterMapper" >
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from material_attribute
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByWhere" parameterType="com.jialian.api.domain.entity.Where" >
+    delete from material_attribute
+    <if test="_parameter != null" >
+      <include refid="com.jialian.core.persistence.writer.CommonWriterMapper.Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.jialian.api.domain.entity.MaterialAttribute" >
+    insert into material_attribute (id, attribute_no, attribute_name, 
+      attribute_value, attribute_long, attribute_wide, 
+      attribute_hight, attribute_unit, attribute_type, 
+      material_id, create_time, update_time, 
+      remark, sfkf, price_id, initial_inventory, current_inventory)
+    values (#{id,jdbcType=BIGINT}, #{attributeNo,jdbcType=VARCHAR}, #{attributeName,jdbcType=VARCHAR}, 
+      #{attributeValue,jdbcType=VARCHAR}, #{attributeLong,jdbcType=VARCHAR}, #{attributeWide,jdbcType=VARCHAR}, 
+      #{attributeHight,jdbcType=VARCHAR}, #{attributeUnit,jdbcType=VARCHAR}, #{attributeType,jdbcType=SMALLINT}, 
+      #{materialId,jdbcType=BIGINT}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{remark,jdbcType=VARCHAR}, #{sfkf,jdbcType=INTEGER}, #{priceId,jdbcType=INTEGER}, #{initialInventory,jdbcType=INTEGER}, #{currentInventory,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jialian.api.domain.entity.MaterialAttribute" >
+    insert into material_attribute
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="attributeNo != null" >
+        attribute_no,
+      </if>
+      <if test="attributeName != null" >
+        attribute_name,
+      </if>
+      <if test="attributeValue != null" >
+        attribute_value,
+      </if>
+      <if test="attributeLong != null" >
+        attribute_long,
+      </if>
+      <if test="attributeWide != null" >
+        attribute_wide,
+      </if>
+      <if test="attributeHight != null" >
+        attribute_hight,
+      </if>
+      <if test="attributeUnit != null" >
+        attribute_unit,
+      </if>
+      <if test="attributeType != null" >
+        attribute_type,
+      </if>
+      <if test="materialId != null" >
+        material_id,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="sfkf != null" >
+        sfkf,
+      </if>
+      <if test="priceId != null" >
+        price_id,
+      </if>
+      <if test="initialInventory != null" >
+        initial_inventory,
+      </if>
+      <if test="currentInventory != null" >
+        current_inventory,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="attributeNo != null" >
+        #{attributeNo,jdbcType=VARCHAR},
+      </if>
+      <if test="attributeName != null" >
+        #{attributeName,jdbcType=VARCHAR},
+      </if>
+      <if test="attributeValue != null" >
+        #{attributeValue,jdbcType=VARCHAR},
+      </if>
+      <if test="attributeLong != null" >
+        #{attributeLong,jdbcType=VARCHAR},
+      </if>
+      <if test="attributeWide != null" >
+        #{attributeWide,jdbcType=VARCHAR},
+      </if>
+      <if test="attributeHight != null" >
+        #{attributeHight,jdbcType=VARCHAR},
+      </if>
+      <if test="attributeUnit != null" >
+        #{attributeUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="attributeType != null" >
+        #{attributeType,jdbcType=SMALLINT},
+      </if>
+      <if test="materialId != null" >
+        #{materialId,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="sfkf != null" >
+        #{sfkf,jdbcType=INTEGER},
+      </if>
+      <if test="priceId != null" >
+        #{priceId,jdbcType=BIGINT},
+      </if>
+      <if test="initialInventory != null" >
+        #{initialInventory,jdbcType=INTEGER},
+      </if>
+      <if test="currentInventory != null" >
+        #{currentInventory,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByWhereSelective" parameterType="map" >
+    update material_attribute
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.attributeNo != null" >
+        attribute_no = #{record.attributeNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.attributeName != null" >
+        attribute_name = #{record.attributeName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.attributeValue != null" >
+        attribute_value = #{record.attributeValue,jdbcType=VARCHAR},
+      </if>
+      <if test="record.attributeLong != null" >
+        attribute_long = #{record.attributeLong,jdbcType=VARCHAR},
+      </if>
+      <if test="record.attributeWide != null" >
+        attribute_wide = #{record.attributeWide,jdbcType=VARCHAR},
+      </if>
+      <if test="record.attributeHight != null" >
+        attribute_hight = #{record.attributeHight,jdbcType=VARCHAR},
+      </if>
+      <if test="record.attributeUnit != null" >
+        attribute_unit = #{record.attributeUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="record.attributeType != null" >
+        attribute_type = #{record.attributeType,jdbcType=SMALLINT},
+      </if>
+      <if test="record.materialId != null" >
+        material_id = #{record.materialId,jdbcType=BIGINT},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null" >
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.remark != null" >
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sfkf != null" >
+        sfkf = #{record.sfkf,jdbcType=INTEGER},
+      </if>
+      <if test="record.priceId != null" >
+        price_id = #{record.priceId,jdbcType=BIGINT},
+      </if>
+      <if test="record.initialInventory != null" >
+        initial_inventory = #{record.initialInventory,jdbcType=INTEGER},
+      </if>
+      <if test="record.currentInventory != null" >
+        current_inventory = #{record.currentInventory,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="com.jialian.core.persistence.writer.CommonWriterMapper.Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByWhere" parameterType="map" >
+    update material_attribute
+    set id = #{record.id,jdbcType=BIGINT},
+      attribute_no = #{record.attributeNo,jdbcType=VARCHAR},
+      attribute_name = #{record.attributeName,jdbcType=VARCHAR},
+      attribute_value = #{record.attributeValue,jdbcType=VARCHAR},
+      attribute_long = #{record.attributeLong,jdbcType=VARCHAR},
+      attribute_wide = #{record.attributeWide,jdbcType=VARCHAR},
+      attribute_hight = #{record.attributeHight,jdbcType=VARCHAR},
+      attribute_unit = #{record.attributeUnit,jdbcType=VARCHAR},
+      attribute_type = #{record.attributeType,jdbcType=SMALLINT},
+      material_id = #{record.materialId,jdbcType=BIGINT},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      remark = #{record.remark,jdbcType=VARCHAR},
+      sfkf = #{record.sfkf,jdbcType=INTEGER},
+      price_id = #{record.priceId,jdbcType=BIGINT},
+      initial_inventory = #{record.initialInventory,jdbcType=INTEGER},
+      current_inventory = #{record.currentInventory,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="com.jialian.core.persistence.writer.CommonWriterMapper.Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jialian.api.domain.entity.MaterialAttribute" >
+    update material_attribute
+    <set >
+      <if test="attributeNo != null" >
+        attribute_no = #{attributeNo,jdbcType=VARCHAR},
+      </if>
+      <if test="attributeName != null" >
+        attribute_name = #{attributeName,jdbcType=VARCHAR},
+      </if>
+      <if test="attributeValue != null" >
+        attribute_value = #{attributeValue,jdbcType=VARCHAR},
+      </if>
+      <if test="attributeLong != null" >
+        attribute_long = #{attributeLong,jdbcType=VARCHAR},
+      </if>
+      <if test="attributeWide != null" >
+        attribute_wide = #{attributeWide,jdbcType=VARCHAR},
+      </if>
+      <if test="attributeHight != null" >
+        attribute_hight = #{attributeHight,jdbcType=VARCHAR},
+      </if>
+      <if test="attributeUnit != null" >
+        attribute_unit = #{attributeUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="attributeType != null" >
+        attribute_type = #{attributeType,jdbcType=SMALLINT},
+      </if>
+      <if test="materialId != null" >
+        material_id = #{materialId,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="sfkf != null" >
+        sfkf = #{sfkf,jdbcType=INTEGER},
+      </if>
+      <if test="priceId != null" >
+        price_id = #{priceId,jdbcType=INTEGER},
+      </if>
+      <if test="initialInventory != null" >
+        initial_inventory = #{initialInventory,jdbcType=INTEGER},
+      </if>
+      <if test="currentInventory != null" >
+        current_inventory = #{currentInventory,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jialian.api.domain.entity.MaterialAttribute" >
+    update material_attribute
+    set attribute_no = #{attributeNo,jdbcType=VARCHAR},
+      attribute_name = #{attributeName,jdbcType=VARCHAR},
+      attribute_value = #{attributeValue,jdbcType=VARCHAR},
+      attribute_long = #{attributeLong,jdbcType=VARCHAR},
+      attribute_wide = #{attributeWide,jdbcType=VARCHAR},
+      attribute_hight = #{attributeHight,jdbcType=VARCHAR},
+      attribute_unit = #{attributeUnit,jdbcType=VARCHAR},
+      attribute_type = #{attributeType,jdbcType=SMALLINT},
+      material_id = #{materialId,jdbcType=BIGINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      remark = #{remark,jdbcType=VARCHAR},
+      sfkf = #{sfkf,jdbcType=INTEGER},
+      price_id = #{priceId,jdbcType=INTEGER},
+      initial_inventory = #{initialInventory,jdbcType=INTEGER},
+      current_inventory = #{currentInventory,jdbcType=INTEGER},
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

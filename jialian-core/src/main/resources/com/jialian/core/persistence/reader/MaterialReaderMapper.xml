@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jialian.core.persistence.reader.MaterialReaderMapper" >
+  <resultMap id="BaseResultMap" type="com.jialian.api.domain.entity.Material" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="material_no" property="materialNo" jdbcType="VARCHAR" />
+    <result column="material_name" property="materialName" jdbcType="VARCHAR" />
+    <result column="brand_name" property="brandName" jdbcType="VARCHAR" />
+    <result column="material_price" property="materialPrice" jdbcType="DOUBLE" />
+    <result column="currency" property="currency" jdbcType="VARCHAR" />
+    <result column="material_price_id" property="materialPriceId" jdbcType="BIGINT" />
+    <result column="material_unit" property="materialUnit" jdbcType="VARCHAR" />
+    <result column="material_property" property="materialProperty" jdbcType="VARCHAR" />
+    <result column="material_type" property="materialType" jdbcType="SMALLINT" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="SMALLINT" />
+    <result column="prod_category" property="prodCategory" jdbcType="SMALLINT" />
+    <result column="postage" property="postage" jdbcType="DOUBLE" />
+    <result column="prod_type_id" property="prodTypeId" jdbcType="BIGINT" />
+    
+    <result column="fbzt" property="fbzt" jdbcType="INTEGER" />
+    <result column="fbtime" property="fbtime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.jialian.api.domain.entity.Material" extends="BaseResultMap" >
+    <result column="material_technology" property="materialTechnology" jdbcType="LONGVARCHAR" />
+    <result column="material_aftersale" property="materialAftersale" jdbcType="LONGVARCHAR" />
+    <result column="material_standard" property="materialStandard" jdbcType="LONGVARCHAR" />
+    <association property="price" column="material_price_id" select="com.jialian.core.persistence.reader.MaterialPriceReaderMapper.selectByPrimaryKey"></association>
+    <association property="attributeList" column="id" select="com.jialian.core.persistence.reader.MaterialAttributeReaderMapper.selectByMaterialId"></association>
+    <association property="resourceInfoList" column="material_no" select="com.jialian.core.persistence.reader.ResourceInfoReaderMapper.selectByNo"></association>
+    <association property="shopProdType" column="prod_type_id" select="com.jialian.core.persistence.reader.ShopProdTypeReaderMapper.selectByPrimaryKey"></association>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, material_no, material_name, brand_name, material_price, currency, material_price_id, 
+    material_unit, material_property, material_type, create_time, remark, status, prod_category, prod_type_id, postage, fbzt, fbtime
+  </sql>
+  <sql id="Blob_Column_List" >
+    material_technology, material_aftersale, material_standard
+  </sql>
+  <sql id="Prod_List" >
+    material.id, material.material_no, material.material_name, material.brand_name, material.material_price, material.currency, material.material_price_id, 
+    material.material_unit, material.material_property, material.material_type, material.create_time, material.remark, material.status, material.prod_category,
+    material.prod_type_id,material.material_technology, material.material_aftersale, material.material_standard,material.postage,fbzt,fbtime,SUM(material_attribute.initial_inventory-material_attribute.current_inventory) as ss
+  </sql>
+    
+  <select id="selectProdListByWhereWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.jialian.api.domain.entity.Where" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Prod_List" />
+    from material,material_attribute
+    <if test="_parameter != null" >
+      <include refid="com.jialian.core.persistence.reader.CommonReaderMapper.Example_Where_Clause" />
+     and material.id=material_attribute.material_id
+    </if>
+  	 GROUP BY material.id 
+ 	<if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+   	limit ${limit}, ${offset}
+    </if>
+  </select>
+  <select id="selectByWhereWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.jialian.api.domain.entity.Where" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from material
+    <if test="_parameter != null" >
+      <include refid="com.jialian.core.persistence.reader.CommonReaderMapper.Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+    	limit ${limit}, ${offset}
+    </if>
+  </select>
+  <select id="selectByWhere" resultMap="BaseResultMap" parameterType="com.jialian.api.domain.entity.Where" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from material
+    <if test="_parameter != null" >
+      <include refid="com.jialian.core.persistence.reader.CommonReaderMapper.Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+    	limit ${limit}, ${offset}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from material
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="countProdListByWhere" parameterType="com.jialian.api.domain.entity.Where" resultType="java.lang.Integer" >
+    select count(DISTINCT material.id) from material,material_attribute
+    <if test="_parameter != null" >
+      <include refid="com.jialian.core.persistence.reader.CommonReaderMapper.Example_Where_Clause" />
+     and material.id=material_attribute.material_id
+    </if>
+  </select>
+  <select id="countByWhere" parameterType="com.jialian.api.domain.entity.Where" resultType="java.lang.Integer" >
+    select count(*) from material
+    <if test="_parameter != null" >
+      <include refid="com.jialian.core.persistence.reader.CommonReaderMapper.Example_Where_Clause" />
+    </if>
+  </select>
+</mapper>

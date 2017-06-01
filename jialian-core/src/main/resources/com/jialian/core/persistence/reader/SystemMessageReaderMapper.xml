@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jialian.core.persistence.reader.SystemMessageReaderMapper" >
+  <resultMap id="BaseResultMap" type="com.jialian.api.domain.entity.SystemMessage" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="message_title" property="messageTitle" jdbcType="VARCHAR" />
+    <result column="message_content" property="messageContent" jdbcType="VARCHAR" />
+    <result column="message_status" property="messageStatus" jdbcType="INTEGER" />
+    <result column="send_time" property="sendTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="creat_time" property="creatTime" jdbcType="TIMESTAMP" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="send_type" property="sendType" jdbcType="INTEGER" />
+    <result column="send_obj" property="sendObj" jdbcType="INTEGER" />
+    <result column="send_time_type" property="sendTimeType" jdbcType="INTEGER" />
+    <result column="send_user_id" property="sendUserId" jdbcType="INTEGER" />
+  </resultMap>
+  
+  <resultMap id="SystemMsgResultMap" type="com.jialian.api.domain.vo.SystemMsgVo" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="message_title" property="messageTitle" jdbcType="VARCHAR" />
+    <result column="message_content" property="messageContent" jdbcType="VARCHAR" />
+    <result column="message_status" property="messageStatus" jdbcType="INTEGER" />
+    <result column="send_time" property="sendTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="creat_time" property="creatTime" jdbcType="TIMESTAMP" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="send_type" property="sendType" jdbcType="INTEGER" />
+    <result column="send_obj" property="sendObj" jdbcType="INTEGER" />
+    <result column="send_time_type" property="sendTimeType" jdbcType="INTEGER" />
+    <result column="send_user_id" property="sendUserId" jdbcType="INTEGER" />
+    <association property="adminUser" column="send_user_id" select="selectAdminUser"></association>
+  </resultMap>
+  
+  
+   <resultMap id="AdminUserResultMap" type="com.jialian.api.domain.entity.AdminUser" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="firstname" property="firstname" jdbcType="VARCHAR" />
+    <result column="lastname" property="lastname" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="username" property="username" jdbcType="CHAR" />
+    <result column="password" property="password" jdbcType="CHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="logdate" property="logdate" jdbcType="DATE" />
+    <result column="lognum" property="lognum" jdbcType="INTEGER" />
+    <result column="role_id" property="roleId" jdbcType="BIGINT"/>
+    <result column="admin_status" property="adminStatus" jdbcType="SMALLINT" />
+    <result column="role_id" property="roleId" jdbcType="BIGINT" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="telephone" property="telephone" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    id, user_id, message_title, message_content, message_status, send_time, update_time, 
+    remark, creat_time, status
+  </sql>
+  
+  <sql id="Message_Column_List" >
+    sm.id, sm.user_id, sm.message_title, sm.message_content, sm.message_status, sm.send_time, sm.update_time, 
+    sm.remark, sm.creat_time, sm.status,sm.send_user_id,sm.send_time_type,sm.send_obj,sm.send_type
+  </sql>
+  <sql id="Admin_User_Column_List" >
+    au.id, au.role_id, au.firstname, au.lastname, au.name, au.email, au.username, au.password, au.create_time, au.update_time, 
+    au.logdate, au.lognum, au.admin_status, au.remark,au.telephone
+  </sql>
+  
+  <select id="selectByWhere" resultMap="BaseResultMap" parameterType="com.jialian.api.domain.entity.Where" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from system_message
+    <if test="_parameter != null" >
+      <include refid="com.jialian.core.persistence.reader.CommonReaderMapper.Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      limit ${limit},${offset}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from system_message
+    where status=1 and id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="countByWhere" parameterType="com.jialian.api.domain.entity.Where" resultType="java.lang.Integer" >
+    select count(*) from system_message
+    <if test="_parameter != null" >
+      <include refid="com.jialian.core.persistence.reader.CommonReaderMapper.Example_Where_Clause" />
+    </if>
+  </select>
+  <select id="selectAllSystemMessageById" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+     select 
+     <include refid="Base_Column_List"/>
+     from system_message
+     where status=1 and user_id=#{userId,jdbcType=INTEGER}
+     
+  </select>
+  <select id="getSystemMessageCountByQuery" parameterType="com.jialian.api.domain.query.SystemMessageQuery" resultType="java.lang.Integer">
+     select 
+     count(*)
+     from system_message 
+     where status=1 and user_id=#{query.userId}
+     limit #{query.startIndex},#{query.onePageCount}
+  </select>
+  
+  <select id="getSystemMessageListByQuery" parameterType="com.jialian.api.domain.query.SystemMessageQuery" resultMap="BaseResultMap">
+     select 
+     <include refid="Base_Column_List"/>
+     from system_message
+     where status=1  and user_id=#{query.userId}
+     limit #{query.startIndex},#{query.onePageCount}
+  </select>
+  
+  <select id="selectSystemMessageByWhere" resultMap="SystemMsgResultMap" parameterType="com.jialian.api.domain.query.SystemMessageQuery">
+        select <include refid="Message_Column_List" />
+        from system_message sm 
+        limit #{query.startIndex},#{query.onePageCount}
+  </select>
+  <select id="selectAdminUser" parameterType="java.lang.Integer" resultMap="AdminUserResultMap">
+	  select 
+	  <include refid="Admin_User_Column_List" />
+	  from admin_user au
+	  where au.id = #{sendUserId}
+  </select>
+  <select id="countSystemMsgByWhere" resultType="java.lang.Integer" >
+      select count(*)
+      from system_message sm LEFT JOIN admin_user au on au.id = sm.send_user_id
+  </select>
+</mapper>

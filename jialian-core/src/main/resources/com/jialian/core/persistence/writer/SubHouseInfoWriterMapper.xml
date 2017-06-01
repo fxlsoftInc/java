@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jialian.core.persistence.writer.SubHouseInfoWriterMapper" >
+ 
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from sub_house_info
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByWhere" parameterType="com.jialian.api.domain.entity.Where" >
+    delete from sub_house_info
+    <if test="_parameter != null" >
+      <include refid="com.jialian.core.persistence.writer.CommonWriterMapper.Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.jialian.api.domain.entity.SubHouseInfo" >
+    insert into sub_house_info (id, area, type, 
+      type_name, house_style_id, address_id, 
+      plan_decoration_time, create_time, remark, 
+      status)
+    values (#{id,jdbcType=BIGINT}, #{area,jdbcType=DOUBLE}, #{type,jdbcType=SMALLINT}, 
+      #{typeName,jdbcType=VARCHAR}, #{houseStyleId,jdbcType=BIGINT}, #{addressId,jdbcType=BIGINT}, 
+      #{planDecorationTime,jdbcType=DATE}, #{createTime,jdbcType=DATE}, #{remark,jdbcType=VARCHAR}, 
+      #{status,jdbcType=SMALLINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jialian.api.domain.entity.SubHouseInfo" >
+    insert into sub_house_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="area != null" >
+        area,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="typeName != null" >
+        type_name,
+      </if>
+      <if test="houseStyleId != null" >
+        house_style_id,
+      </if>
+      <if test="addressId != null" >
+        address_id,
+      </if>
+      <if test="planDecorationTime != null" >
+        plan_decoration_time,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="area != null" >
+        #{area,jdbcType=DOUBLE},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=SMALLINT},
+      </if>
+      <if test="typeName != null" >
+        #{typeName,jdbcType=VARCHAR},
+      </if>
+      <if test="houseStyleId != null" >
+        #{houseStyleId,jdbcType=BIGINT},
+      </if>
+      <if test="addressId != null" >
+        #{addressId,jdbcType=BIGINT},
+      </if>
+      <if test="planDecorationTime != null" >
+        #{planDecorationTime,jdbcType=DATE},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=DATE},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=SMALLINT},
+      </if>
+    </trim>
+  </insert>
+  <insert id="insertSelectiveBackId" useGeneratedKeys="true" keyProperty="id" parameterType="com.jialian.api.domain.entity.SubHouseInfo" >
+    insert into sub_house_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="area != null" >
+        area,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="typeName != null" >
+        type_name,
+      </if>
+      <if test="houseStyleId != null" >
+        house_style_id,
+      </if>
+      <if test="addressId != null" >
+        address_id,
+      </if>
+      <if test="structure != null" >
+        structure,
+      </if>
+      <if test="planDecorationTime != null" >
+        plan_decoration_time,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="area != null" >
+        #{area,jdbcType=DOUBLE},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=SMALLINT},
+      </if>
+      <if test="typeName != null" >
+        #{typeName,jdbcType=VARCHAR},
+      </if>
+      <if test="houseStyleId != null" >
+        #{houseStyleId,jdbcType=BIGINT},
+      </if>
+      <if test="addressId != null" >
+        #{addressId,jdbcType=BIGINT},
+      </if>
+      <if test="structure != null" >
+        #{structure,jdbcType=VARCHAR},
+      </if>
+      <if test="planDecorationTime != null" >
+        #{planDecorationTime,jdbcType=DATE},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=DATE},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=SMALLINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByWhereSelective" parameterType="map" >
+    update sub_house_info
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.area != null" >
+        area = #{record.area,jdbcType=DOUBLE},
+      </if>
+      <if test="record.type != null" >
+        type = #{record.type,jdbcType=SMALLINT},
+      </if>
+      <if test="record.typeName != null" >
+        type_name = #{record.typeName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.houseStyleId != null" >
+        house_style_id = #{record.houseStyleId,jdbcType=BIGINT},
+      </if>
+      <if test="record.addressId != null" >
+        address_id = #{record.addressId,jdbcType=BIGINT},
+      </if>
+      <if test="record.planDecorationTime != null" >
+        plan_decoration_time = #{record.planDecorationTime,jdbcType=DATE},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=DATE},
+      </if>
+      <if test="record.remark != null" >
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=SMALLINT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="com.jialian.core.persistence.writer.CommonWriterMapper.Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByWhere" parameterType="map" >
+    update sub_house_info
+    set id = #{record.id,jdbcType=BIGINT},
+      area = #{record.area,jdbcType=DOUBLE},
+      type = #{record.type,jdbcType=SMALLINT},
+      type_name = #{record.typeName,jdbcType=VARCHAR},
+      house_style_id = #{record.houseStyleId,jdbcType=BIGINT},
+      address_id = #{record.addressId,jdbcType=BIGINT},
+      plan_decoration_time = #{record.planDecorationTime,jdbcType=DATE},
+      create_time = #{record.createTime,jdbcType=DATE},
+      remark = #{record.remark,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=SMALLINT}
+    <if test="_parameter != null" >
+      <include refid="com.jialian.core.persistence.writer.CommonWriterMapper.Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jialian.api.domain.entity.SubHouseInfo" >
+    update sub_house_info
+    <set >
+      <if test="area != null" >
+        area = #{area,jdbcType=DOUBLE},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=SMALLINT},
+      </if>
+      <if test="typeName != null" >
+        type_name = #{typeName,jdbcType=VARCHAR},
+      </if>
+      <if test="measurer != null" >
+        measurer = #{measurer,jdbcType=VARCHAR},
+      </if>
+      <if test="measurerTelephone != null" >
+        measurer_telephone = #{measurerTelephone,jdbcType=VARCHAR},
+      </if>
+      <if test="houseStyleId != null" >
+        house_style_id = #{houseStyleId,jdbcType=BIGINT},
+      </if>
+      <if test="addressId != null" >
+        address_id = #{addressId,jdbcType=BIGINT},
+      </if>
+      <if test="planDecorationTime != null" >
+        plan_decoration_time = #{planDecorationTime,jdbcType=DATE},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=DATE},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=SMALLINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jialian.api.domain.entity.SubHouseInfo" >
+    update sub_house_info
+    set area = #{area,jdbcType=DOUBLE},
+      type = #{type,jdbcType=SMALLINT},
+      type_name = #{typeName,jdbcType=VARCHAR},
+      measurer = #{measurer,jdbcType=VARCHAR},
+      measurer_telephone = #{measurerTelephone,jdbcType=VARCHAR},
+      house_style_id = #{houseStyleId,jdbcType=BIGINT},
+      address_id = #{addressId,jdbcType=BIGINT},
+      plan_decoration_time = #{planDecorationTime,jdbcType=DATE},
+      create_time = #{createTime,jdbcType=DATE},
+      remark = #{remark,jdbcType=VARCHAR},
+      status = #{status,jdbcType=SMALLINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

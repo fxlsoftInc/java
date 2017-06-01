@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jialian.core.persistence.reader.ComboReaderMapper" >
+  <resultMap id="BaseResultMap" type="com.jialian.api.domain.entity.Combo" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="no" property="no" jdbcType="VARCHAR"/>
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="SMALLINT" />
+    <result column="price" property="price" jdbcType="DOUBLE" />
+    <result column="currency" property="currency" jdbcType="VARCHAR" />
+    <result column="unit" property="unit" jdbcType="VARCHAR" />
+    <result column="combo_remark" property="comboRemark" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="combo_status" property="comboStatus" jdbcType="SMALLINT" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="SMALLINT" />
+    <result column="introduction" property="introduction" jdbcType="LONGVARCHAR" />
+    <result column="service" property="service" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <resultMap id="ComboComplexResultMap" type="com.jialian.api.domain.vo.ComboComplexVO" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="no" property="no" jdbcType="VARCHAR"/>
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="SMALLINT" />
+    <result column="price" property="price" jdbcType="DOUBLE" />
+    <result column="currency" property="currency" jdbcType="VARCHAR" />
+    <result column="unit" property="unit" jdbcType="VARCHAR" />
+    <result column="combo_remark" property="comboRemark" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="combo_status" property="comboStatus" jdbcType="SMALLINT" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="SMALLINT" />
+    <result column="introduction" property="introduction" jdbcType="LONGVARCHAR" />
+    <result column="service" property="service" jdbcType="LONGVARCHAR" />
+    <association property="resourceInfoList" column="no" select="com.jialian.core.persistence.reader.ResourceInfoReaderMapper.selectByNo"></association>
+    <association property="comboInfoList" column="id" select="com.jialian.core.persistence.reader.ComboInfoReaderMapper.selectByComboId"></association>
+  </resultMap>
+  <resultMap id="SimpleBaseResultMap" type="com.jialian.api.domain.entity.Combo" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="no" property="no" jdbcType="VARCHAR"/>
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="SMALLINT" />
+    <result column="price" property="price" jdbcType="DOUBLE" />
+    <result column="currency" property="currency" jdbcType="VARCHAR" />
+    <result column="unit" property="unit" jdbcType="VARCHAR" />
+    <result column="combo_status" property="comboStatus" jdbcType="SMALLINT" />
+    <result column="status" property="status" jdbcType="SMALLINT" />
+  </resultMap>
+  <resultMap type="com.jialian.api.domain.vo.ComboVo" id="ComboVoResultMap">
+  	<id column="id" property="id" jdbcType="BIGINT" />
+  	<result column="no" property="no" jdbcType="VARCHAR"/>
+  	<result column="price" property="price" jdbcType="DOUBLE"/>
+  	<result column="cName" property="cName" jdbcType="VARCHAR"/>
+  	<result column="name" property="name" jdbcType="VARCHAR"/>
+  	<result column="no" property="no" jdbcType="VARCHAR"/>
+  	<result column="type" property="type" jdbcType="SMALLINT"/>
+  	<result column="item_name" property="itemName" jdbcType="VARCHAR"/>
+  	<result column="work_area" property="workArea" jdbcType="VARCHAR"/>
+  	<result column="item_introduction" property="itemIntroduction" jdbcType="VARCHAR"/>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, no, name, type, price, currency, unit, combo_remark, create_time, combo_status, update_time, 
+    remark, status ,introduction, service
+  </sql>
+  <select id="selectByWhere" resultMap="BaseResultMap" parameterType="com.jialian.api.domain.entity.Where" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from combo
+    <if test="_parameter != null" >
+      <include refid="com.jialian.core.persistence.reader.CommonReaderMapper.Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+   		limit ${limit}, ${offset}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from combo
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="selectComplexComboByPrimaryKey" resultMap="ComboComplexResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from combo
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="selectSimpleByPrimaryKey" resultMap="SimpleBaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from combo
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="countByWhere" parameterType="com.jialian.api.domain.entity.Where" resultType="java.lang.Integer" >
+    select count(*) from combo
+    <if test="_parameter != null" >
+      <include refid="com.jialian.core.persistence.reader.CommonReaderMapper.Example_Where_Clause" />
+    </if>
+  </select>
+  
+  <select id="selectComboListById" parameterType="java.lang.Long" resultMap="ComboVoResultMap">
+  		SELECT c.id,c.`no`,c.price,c.`name` cName,ci.work_area,ci.item_introduction,i.item_name,hsi.`name`,hsi.type 
+		FROM combo c 
+		LEFT JOIN combo_info ci ON ci.combo_id=c.id 
+		LEFT JOIN item i ON i.id=ci.item_id 
+		LEFT JOIN house_structure_category hsc ON hsc.id=i.house_structure_category_id 
+		LEFT JOIN house_structure_info hsi ON hsi.id=hsc.house_structure_id 
+		WHERE c.id=#{id}
+  </select>
+  
+  <sql id="selectComboListByQuery_Where">
+  	<if test="query.id !=null">and id=#{query.id}</if>
+  	<if test="query.name !=null">and name=#{query.name}</if>
+  </sql>
+  <select id="selectComboCountByQuery" parameterType="com.jialian.api.domain.query.ComboQuery" resultType="java.lang.Integer">
+  	select count(*) from combo 
+    <include refid="selectComboListByQuery_Where"/> 
+  </select>
+  <select id="selectComboListByQuery" parameterType="com.jialian.api.domain.query.ComboQuery" resultMap="BaseResultMap">
+  	select 
+    <include refid="Base_Column_List" />
+    from combo 
+    <include refid="selectComboListByQuery_Where"/> 
+    order by id 
+    <if test="query.sort==0">DESC</if> 
+    <if test="query.sort==1">ASC</if> 
+    limit #{query.startIndex},#{query.onePageCount}
+  </select>
+  <select id="selectComboList" parameterType="com.jialian.api.domain.entity.Combo" resultMap="BaseResultMap">
+       select c.name,c.id
+       from combo c
+       where c.status = 1
+  </select>
+  <select id="selectComboAll" resultMap="BaseResultMap">
+  	select 
+    <include refid="Base_Column_List" />
+    from combo where status=1
+  </select>
+</mapper>

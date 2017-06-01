@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Application context definition
+-->
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
+ 
+    <!-- ========================= RESOURCE DEFINITIONS ========================= -->
+    
+    <import resource="dubbo-provider-config.xml"/>
+   <!--  <import resource="dubbo-consumer-config.xml"/> -->
+   
+    <!-- import the dao definition -->
+    <import resource="dao-reader-config.xml"/>
+    <import resource="dao-writer-config.xml"/>
+    <import resource="datasource-config.xml"/>
+    <import resource="redis-config.xml"/>
+    
+    <context:component-scan  base-package="com.jialian.core"></context:component-scan>
+    <!-- Configurer that replaces ${...} placeholders with values from a properties file -->
+    <!-- (in this case, JDBC-related settings for the JPA EntityManager definition below) 
+    <context:property-placeholder location="classpath:config/data-access.properties"/>
+    -->
+    
+    <bean id="propertyConfigurer" class="com.jialian.common.util.PropertyUtils">
+		<property name="locations">
+			<list>
+				<value>classpath:config/system.properties</value>
+			</list>
+		</property>
+	</bean>
+    
+     <!-- enables scanning for @Transactional annotations 
+    <tx:annotation-driven />
+    -->
+    
+    <!-- 装配系统组件服务 -->
+    <!-- <bean class="com.decathlon.core.web.SystemComponentAssemble" /> -->
+    
+    <!--  配置com.spring.service包下所有类或接口的所有方法 -->  
+            <!-- <aop:pointcut id="updateService"  
+                expression="execution(* com.o2o.api.service.*.*.*(..))" /> --> 
+    <!-- 
+    <bean id="aspectBean" class="com.o2o.core.aop.RollBackAspect" ></bean>
+    <aop:config>  
+        <aop:aspect id="RollBackAspect" ref="aspectBean">  
+            <aop:pointcut id="updateService"  
+                expression="execution(* com.o2o.api.service.*.*.update*(..))||execution(* com.o2o.api.service.*.*.add*(..))||execution(* com.o2o.api.service.*.*.insert*(..))||execution(* com.o2o.api.service.*.*.batch*(..))" />
+            <aop:before pointcut-ref="updateService" method="doBefore"/>  
+            <aop:after pointcut-ref="updateService" method="doAfter"/>  
+            <aop:around pointcut-ref="updateService" method="doAround"/>  
+            <aop:after-throwing pointcut-ref="updateService" method="doThrowing" throwing="ex"/>  
+        </aop:aspect>  
+    </aop:config>  
+     -->
+    
+    <bean id="aspectNewBean" class="com.jialian.core.aop.NoBackAspect" ></bean>
+    <aop:config>
+        <aop:aspect id="NoBackAspect" ref="aspectNewBean">
+           <!--  配置com.spring.service包下所有类或接口的所有方法 -->
+            <!-- 
+            <aop:pointcut id="getService"  
+                expression="execution(* com.o2o.api.service.*.*.get*(..))||execution(* com.o2o.api.service.*.*.select*(..))" />  
+             --> 
+            <aop:pointcut id="getService" expression="execution(* com.jialian.api.service.*.*.*(..))" />
+            <aop:before pointcut-ref="getService" method="doBefore"/>  
+            <aop:after pointcut-ref="getService" method="doAfter"/>  
+            <aop:around pointcut-ref="getService" method="doAround"/>  
+            <aop:after-throwing pointcut-ref="getService" method="doThrowing" throwing="ex"/>  
+        </aop:aspect>  
+    </aop:config> 
+    
+    <!-- 配置_Druid和Spring关联监控配置 -->
+    <!-- 如果是使用c3p0，就不能使用druid的监控
+    <bean id="druid-stat-interceptor"
+        class="com.alibaba.druid.support.spring.stat.DruidStatInterceptor">
+    </bean>
+    <bean id="druid-stat-pointcut" class="org.springframework.aop.support.JdkRegexpMethodPointcut"
+        scope="prototype">
+        <property name="patterns">
+            <list>
+                <value>com.o2o.api.service.*</value>
+            </list>
+        </property>
+    </bean>
+    <aop:config proxy-target-class="true">
+        <aop:advisor advice-ref="druid-stat-interceptor"
+            pointcut-ref="druid-stat-pointcut" />
+    </aop:config>
+     -->
+</beans>

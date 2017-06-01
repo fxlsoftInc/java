@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jialian.core.persistence.reader.ModelHouseReaderMapper" >
+  <resultMap id="BaseResultMap" type="com.jialian.api.domain.entity.ModelHouse" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="house_name" property="houseName" jdbcType="VARCHAR" />
+    <result column="model_num" property="modelNum" jdbcType="VARCHAR"/>
+    <result column="address" property="address" jdbcType="BIGINT" />
+    <result column="house_number" property="houseNumber" jdbcType="SMALLINT" />
+    <result column="telphone" property="telphone" jdbcType="VARCHAR" />
+    <result column="house_status" property="houseStatus" jdbcType="SMALLINT" />
+    <result column="creat_time" property="creatTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="status" property="status" jdbcType="SMALLINT" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <resultMap id="ModelHouseVoResultMap" type="com.jialian.api.domain.vo.ModelHouseVo" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="house_name" property="houseName" jdbcType="VARCHAR" />
+    <result column="house_number" property="houseNumber" jdbcType="SMALLINT" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="province" property="province" jdbcType="VARCHAR" />
+    <result column="city" property="city" jdbcType="VARCHAR" />
+    <result column="county" property="county" jdbcType="VARCHAR" />
+    <result column="path" property="path" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <resultMap id="ResouseResultMap" type="com.jialian.api.domain.entity.ResourceInfo" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="no" property="no" jdbcType="VARCHAR" />
+    <result column="object_id" property="objectId" jdbcType="BIGINT" />
+    <result column="object_type" property="objectType" jdbcType="SMALLINT" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="SMALLINT" />
+    <result column="extension" property="extension" jdbcType="VARCHAR" />
+    <result column="path" property="path" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <resultMap id="AddressResultMap" type="com.jialian.api.domain.entity.Address" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="address_no" property="addressNo" jdbcType="VARCHAR" />
+    <result column="address_type" property="addressType" jdbcType="SMALLINT" />
+    <result column="province" property="province" jdbcType="VARCHAR" />
+    <result column="city" property="city" jdbcType="VARCHAR" />
+    <result column="county" property="county" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="telephone" property="telephone" jdbcType="VARCHAR" />
+    <result column="postcode" property="postcode" jdbcType="VARCHAR" />
+    <result column="lon" property="lon" jdbcType="VARCHAR" />
+    <result column="lat" property="lat" jdbcType="VARCHAR" />
+    <result column="is_default" property="isDefault" jdbcType="SMALLINT" />
+    <result column="linkman" property="linkman" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="SMALLINT" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <resultMap id="ModelHouseDetailResultMap" type="com.jialian.api.domain.vo.ModelHouseDetailVo" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="house_name" property="houseName" jdbcType="VARCHAR" />
+    <result column="model_num" property="modelNum" jdbcType="VARCHAR"/>
+    <result column="address" property="address" jdbcType="BIGINT" />
+    <result column="house_number" property="houseNumber" jdbcType="SMALLINT" />
+    <result column="telphone" property="telphone" jdbcType="VARCHAR" />
+    <result column="house_status" property="houseStatus" jdbcType="SMALLINT" />
+    <result column="creat_time" property="creatTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="status" property="status" jdbcType="SMALLINT" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <association property="addressDetail" column="address" select="findAddress"></association>
+    <association property="resourceInfo" column="id" select="selectImg"></association>
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    id, house_name, address, house_number, telphone, house_status, creat_time, update_time, 
+    status, remark, model_num
+  </sql>
+  <sql id="ModelDetail_Column_List" >
+    m.id, m.house_name, m.address, m.house_number, m.telphone, m.house_status, m.creat_time, m.update_time, 
+    m.status, m.remark, m.model_num
+  </sql>
+   <sql id="ResourceInfo_Column_List" >
+    r.id, r.no, r.object_id, r.object_type, r.name, r.type, r.extension, r.path
+  </sql>
+   <sql id="Address_Column_List" >
+    a.id, a.address_no, a.address_type,a.province, a.city, a.county, a.address,a.telephone, a.postcode, a.lon, a.lat, a.is_default, a.linkman,a.status, a.create_time, a.remark
+  </sql>
+  
+  <select id="selectByWhere" resultMap="BaseResultMap" parameterType="com.jialian.api.domain.entity.Where" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from model_house
+    <if test="_parameter != null" >
+      <include refid="com.jialian.core.persistence.reader.CommonReaderMapper.Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+   	   limit ${limit}, ${offset}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from model_house
+    where status = 1 and id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="countByWhere" parameterType="com.jialian.api.domain.entity.Where" resultType="java.lang.Integer" >
+    select count(*) from model_house
+    <if test="_parameter != null" >
+      <include refid="com.jialian.core.persistence.reader.CommonReaderMapper.Example_Where_Clause" />
+    </if>
+  </select>
+  
+  <sql id="ModelHouseListByQuery_Where">
+  	<where>
+  	    ri.object_type=4 and ad.address_type=3
+	  	<if test="query.province !=null">
+	  		and ad.province=#{query.province, jdbcType=VARCHAR} 
+	  	</if>
+	  	<if test="query.city !=null">
+	  		and ad.city=#{query.city, jdbcType=VARCHAR} 
+	  	</if>
+	  	<if test="query.county !=null">
+	  		and ad.county=#{query.county, jdbcType=VARCHAR} 
+	  	</if>
+  	</where>
+  </sql>
+  <select id="getModelHouseCountByQuery" parameterType="com.jialian.api.domain.query.ModelHouseQuery" resultType="java.lang.Integer">
+  	select 
+	count(mh.id) 
+	from model_house  mh 
+	left join address ad on ad.id=mh.address 
+	left join resource_info ri on ri.object_id=mh.id 
+    <include refid="ModelHouseListByQuery_Where"/> 
+    limit #{query.startIndex},#{query.onePageCount}
+  </select>
+  <select id="getModelHouseListByQuery" parameterType="com.jialian.api.domain.query.ModelHouseQuery" resultMap="ModelHouseVoResultMap">
+  	select 
+	mh.id,mh.house_name,mh.house_number,ad.address, ad.province, ad.city, ad.county ,CONCAT(ri.path,"/",ri.name, ri.extension) AS path 
+	from model_house  mh 
+	left join address ad on ad.id=mh.address 
+	left join resource_info ri on ri.object_id=mh.id 
+    <include refid="ModelHouseListByQuery_Where"/> 
+    order by mh.id desc 
+    limit #{query.startIndex},#{query.onePageCount}
+  </select>
+  <!-- 后台，样板房详情查询 -->
+  <select id="selectModelHouseDetail" parameterType="java.lang.Long" resultMap="ModelHouseDetailResultMap">
+  select 
+  <include refid="ModelDetail_Column_List" />
+   from model_house m where m.id=#{id}
+  </select>
+  <select id="selectImg" parameterType="java.lang.Long" resultMap="ResouseResultMap">
+  	 select 
+    <include refid="ResourceInfo_Column_List" />
+    from resource_info r
+    where r.object_type = 4 
+    and r.object_id= #{id}
+  </select>
+  <select id="findAddress" parameterType="java.lang.Long" resultMap="AddressResultMap">
+  	 select 
+    <include refid="Address_Column_List" />
+    from address a
+    where a.address_type = 3 
+    and a.id= #{address}
+  </select>
+</mapper>

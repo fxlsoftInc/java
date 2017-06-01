@@ -1,0 +1,370 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jialian.core.persistence.writer.PayRecordWriterMapper" >
+  <resultMap id="BaseResultMap" type="com.jialian.api.domain.entity.PayRecord" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="pay_no" property="payNo" jdbcType="VARCHAR" />
+    <result column="order_id" property="orderId" jdbcType="BIGINT" />
+    <result column="order_type" property="orderType" jdbcType="SMALLINT" />
+    <result column="user_id" property="userId" jdbcType="BIGINT" />
+    <result column="user_account_number" property="userAccountNumber" jdbcType="VARCHAR" />
+    <result column="access_user_id" property="accessUserId" jdbcType="BIGINT" />
+    <result column="access_user_account_number" property="accessUserAccountNumber" jdbcType="VARCHAR" />
+    <result column="payable_amt" property="payableAmt" jdbcType="DOUBLE" />
+    <result column="actual_amt" property="actualAmt" jdbcType="DOUBLE" />
+    <result column="discount_amt" property="discountAmt" jdbcType="DOUBLE" />
+    <result column="pay_type" property="payType" jdbcType="SMALLINT" />
+    <result column="pay_status" property="payStatus" jdbcType="SMALLINT" />
+    <result column="pay_description" property="payDescription" jdbcType="VARCHAR" />
+    <result column="pay_time" property="payTime" jdbcType="TIMESTAMP" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="record_type" property="recordType" jdbcType="SMALLINT" />
+    <result column="objid" property="objid" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, pay_no, order_id, order_type, user_id, user_account_number, access_user_id, access_user_account_number, 
+    payable_amt, actual_amt, discount_amt, pay_type, pay_status, pay_description, pay_time, 
+    create_time, update_time, remark, record_type, objid
+  </sql>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from pay_record
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByWhere" parameterType="com.jialian.api.domain.entity.Where" >
+    delete from pay_record
+    <if test="_parameter != null" >
+      <include refid="com.jialian.core.persistence.writer.CommonWriterMapper.Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.jialian.api.domain.entity.PayRecord" >
+    insert into pay_record (id, pay_no, order_id, 
+      order_type, user_id, user_account_number, 
+      access_user_id, access_user_account_number, payable_amt, 
+      actual_amt, discount_amt, pay_type, 
+      pay_status, pay_description, pay_time, 
+      create_time, update_time, remark, record_type, objid
+      )
+    values (#{id,jdbcType=BIGINT}, #{payNo,jdbcType=VARCHAR}, #{orderId,jdbcType=BIGINT}, 
+      #{orderType,jdbcType=SMALLINT}, #{userId,jdbcType=BIGINT}, #{userAccountNumber,jdbcType=VARCHAR}, 
+      #{accessUserId,jdbcType=BIGINT}, #{accessUserAccountNumber,jdbcType=VARCHAR}, #{payableAmt,jdbcType=DOUBLE}, 
+      #{actualAmt,jdbcType=DOUBLE}, #{discountAmt,jdbcType=DOUBLE}, #{payType,jdbcType=SMALLINT}, 
+      #{payStatus,jdbcType=SMALLINT}, #{payDescription,jdbcType=VARCHAR}, #{payTime,jdbcType=TIMESTAMP}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR}, #{recordType,jdbcType=SMALLINT}, #{objid,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.jialian.api.domain.entity.PayRecord" >
+    insert into pay_record
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="payNo != null" >
+        pay_no,
+      </if>
+      <if test="orderId != null" >
+        order_id,
+      </if>
+      <if test="orderNo != null" >
+        order_no,
+      </if>
+      <if test="orderType != null" >
+        order_type,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="userAccountNumber != null" >
+        user_account_number,
+      </if>
+      <if test="accessUserId != null" >
+        access_user_id,
+      </if>
+      <if test="accessUserAccountNumber != null" >
+        access_user_account_number,
+      </if>
+      <if test="payableAmt != null" >
+        payable_amt,
+      </if>
+      <if test="actualAmt != null" >
+        actual_amt,
+      </if>
+      <if test="discountAmt != null" >
+        discount_amt,
+      </if>
+      <if test="payType != null" >
+        pay_type,
+      </if>
+      <if test="payStatus != null" >
+        pay_status,
+      </if>
+      <if test="payDescription != null" >
+        pay_description,
+      </if>
+      <if test="payTime != null" >
+        pay_time,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="recordType != null" >
+        record_type,
+      </if>
+      <if test="objid != null" >
+        objid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="payNo != null" >
+        #{payNo,jdbcType=VARCHAR},
+      </if>
+      <if test="orderId != null" >
+        #{orderId,jdbcType=BIGINT},
+      </if>
+      <if test="orderNo != null" >
+        #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="orderType != null" >
+        #{orderType,jdbcType=SMALLINT},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="userAccountNumber != null" >
+        #{userAccountNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="accessUserId != null" >
+        #{accessUserId,jdbcType=BIGINT},
+      </if>
+      <if test="accessUserAccountNumber != null" >
+        #{accessUserAccountNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="payableAmt != null" >
+        #{payableAmt,jdbcType=DOUBLE},
+      </if>
+      <if test="actualAmt != null" >
+        #{actualAmt,jdbcType=DOUBLE},
+      </if>
+      <if test="discountAmt != null" >
+        #{discountAmt,jdbcType=DOUBLE},
+      </if>
+      <if test="payType != null" >
+        #{payType,jdbcType=SMALLINT},
+      </if>
+      <if test="payStatus != null" >
+        #{payStatus,jdbcType=SMALLINT},
+      </if>
+      <if test="payDescription != null" >
+        #{payDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="payTime != null" >
+        #{payTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="recordType != null" >
+        #{recordType,jdbcType=SMALLINT},
+      </if>
+      <if test="objid != null" >
+        #{objid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByWhereSelective" parameterType="map" >
+    update pay_record
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.payNo != null" >
+        pay_no = #{record.payNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderId != null" >
+        order_id = #{record.orderId,jdbcType=BIGINT},
+      </if>
+      <if test="record.orderType != null" >
+        order_type = #{record.orderType,jdbcType=SMALLINT},
+      </if>
+      <if test="record.userId != null" >
+        user_id = #{record.userId,jdbcType=BIGINT},
+      </if>
+      <if test="record.userAccountNumber != null" >
+        user_account_number = #{record.userAccountNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.accessUserId != null" >
+        access_user_id = #{record.accessUserId,jdbcType=BIGINT},
+      </if>
+      <if test="record.accessUserAccountNumber != null" >
+        access_user_account_number = #{record.accessUserAccountNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.payableAmt != null" >
+        payable_amt = #{record.payableAmt,jdbcType=DOUBLE},
+      </if>
+      <if test="record.actualAmt != null" >
+        actual_amt = #{record.actualAmt,jdbcType=DOUBLE},
+      </if>
+      <if test="record.discountAmt != null" >
+        discount_amt = #{record.discountAmt,jdbcType=DOUBLE},
+      </if>
+      <if test="record.payType != null" >
+        pay_type = #{record.payType,jdbcType=SMALLINT},
+      </if>
+      <if test="record.payStatus != null" >
+        pay_status = #{record.payStatus,jdbcType=SMALLINT},
+      </if>
+      <if test="record.payDescription != null" >
+        pay_description = #{record.payDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="record.payTime != null" >
+        pay_time = #{record.payTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null" >
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.remark != null" >
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.recordType != null" >
+        record_type = #{record.recordType,jdbcType=SMALLINT},
+      </if>
+      <if test="record.objid != null" >
+        objid = #{record.objid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="com.jialian.core.persistence.writer.CommonWriterMapper.Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByWhere" parameterType="map" >
+    update pay_record
+    set id = #{record.id,jdbcType=BIGINT},
+      pay_no = #{record.payNo,jdbcType=VARCHAR},
+      order_id = #{record.orderId,jdbcType=BIGINT},
+      order_type = #{record.orderType,jdbcType=SMALLINT},
+      user_id = #{record.userId,jdbcType=BIGINT},
+      user_account_number = #{record.userAccountNumber,jdbcType=VARCHAR},
+      access_user_id = #{record.accessUserId,jdbcType=BIGINT},
+      access_user_account_number = #{record.accessUserAccountNumber,jdbcType=VARCHAR},
+      payable_amt = #{record.payableAmt,jdbcType=DOUBLE},
+      actual_amt = #{record.actualAmt,jdbcType=DOUBLE},
+      discount_amt = #{record.discountAmt,jdbcType=DOUBLE},
+      pay_type = #{record.payType,jdbcType=SMALLINT},
+      pay_status = #{record.payStatus,jdbcType=SMALLINT},
+      pay_description = #{record.payDescription,jdbcType=VARCHAR},
+      pay_time = #{record.payTime,jdbcType=TIMESTAMP},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      remark = #{record.remark,jdbcType=VARCHAR}
+      record_type = #{record.recordType,jdbcType=SMALLINT}
+      objid = #{record.objid,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="com.jialian.core.persistence.writer.CommonWriterMapper.Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jialian.api.domain.entity.PayRecord" >
+    update pay_record
+    <set >
+      <if test="payNo != null" >
+        pay_no = #{payNo,jdbcType=VARCHAR},
+      </if>
+      <if test="orderId != null" >
+        order_id = #{orderId,jdbcType=BIGINT},
+      </if>
+      <if test="orderType != null" >
+        order_type = #{orderType,jdbcType=SMALLINT},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="userAccountNumber != null" >
+        user_account_number = #{userAccountNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="accessUserId != null" >
+        access_user_id = #{accessUserId,jdbcType=BIGINT},
+      </if>
+      <if test="accessUserAccountNumber != null" >
+        access_user_account_number = #{accessUserAccountNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="payableAmt != null" >
+        payable_amt = #{payableAmt,jdbcType=DOUBLE},
+      </if>
+      <if test="actualAmt != null" >
+        actual_amt = #{actualAmt,jdbcType=DOUBLE},
+      </if>
+      <if test="discountAmt != null" >
+        discount_amt = #{discountAmt,jdbcType=DOUBLE},
+      </if>
+      <if test="payType != null" >
+        pay_type = #{payType,jdbcType=SMALLINT},
+      </if>
+      <if test="payStatus != null" >
+        pay_status = #{payStatus,jdbcType=SMALLINT},
+      </if>
+      <if test="payDescription != null" >
+        pay_description = #{payDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="payTime != null" >
+        pay_time = #{payTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="recordType != null" >
+        record_type = #{recordType,jdbcType=SMALLINT},
+      </if>
+      <if test="objid != null" >
+        objid = #{objid,jdbcType=SMALLINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jialian.api.domain.entity.PayRecord" >
+    update pay_record
+    set pay_no = #{payNo,jdbcType=VARCHAR},
+      order_id = #{orderId,jdbcType=BIGINT},
+      order_type = #{orderType,jdbcType=SMALLINT},
+      user_id = #{userId,jdbcType=BIGINT},
+      user_account_number = #{userAccountNumber,jdbcType=VARCHAR},
+      access_user_id = #{accessUserId,jdbcType=BIGINT},
+      access_user_account_number = #{accessUserAccountNumber,jdbcType=VARCHAR},
+      payable_amt = #{payableAmt,jdbcType=DOUBLE},
+      actual_amt = #{actualAmt,jdbcType=DOUBLE},
+      discount_amt = #{discountAmt,jdbcType=DOUBLE},
+      pay_type = #{payType,jdbcType=SMALLINT},
+      pay_status = #{payStatus,jdbcType=SMALLINT},
+      pay_description = #{payDescription,jdbcType=VARCHAR},
+      pay_time = #{payTime,jdbcType=TIMESTAMP},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      remark = #{remark,jdbcType=VARCHAR}
+      record_type = #{recordType,jdbcType=SMALLINT}
+      objid = #{objid,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jialian.core.persistence.reader.CollectReaderMapper" >
+  <resultMap id="BaseResultMap" type="com.jialian.api.domain.entity.Collect" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="user_id" property="userId" jdbcType="BIGINT" />
+    <result column="parent_id" property="parentId" jdbcType="BIGINT" />
+    <result column="collect_type" property="collectType" jdbcType="SMALLINT" />
+    <result column="collect_status" property="collectStatus" jdbcType="BIGINT" />
+    <result column="collect_time" property="collectTime" jdbcType="TIMESTAMP" />
+    <result column="creat_time" property="creatTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="status" property="status" jdbcType="BIGINT" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <resultMap id="ResourceResultMap" type="com.jialian.api.domain.entity.ResourceInfo" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="no" property="no" jdbcType="VARCHAR" />
+    <result column="object_id" property="objectId" jdbcType="BIGINT" />
+    <result column="object_type" property="objectType" jdbcType="SMALLINT" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="SMALLINT" />
+    <result column="extension" property="extension" jdbcType="VARCHAR" />
+    <result column="path" property="path" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <resultMap type="com.jialian.api.domain.vo.CollectVo" id="CollectVoMap">
+     <result column="parentId" property="parentId" jdbcType="BIGINT"/>
+     <result column="caseHouse" property="caseHouse" jdbcType="VARCHAR" />
+     <result column="styleName" property="styleName" jdbcType="VARCHAR" />
+     <result column="path" property="path" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Resource_Column_List" >
+    id, no, object_id, object_type, name, type, extension, path, remark
+  </sql>
+  <sql id="Base_Column_List" >
+    id, user_id, parent_id, collect_type, collect_status, collect_time, creat_time, update_time, 
+    status, remark
+  </sql>
+  <sql id="Collect_Vo_Column_List">
+      co.parent_id as 'parentId', ch.case_hose as 'caseHouse',hs.style_name as 'styleName'
+  </sql>
+  <select id="selectByWhere" resultMap="BaseResultMap" parameterType="com.jialian.api.domain.entity.Where" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from collect
+    <if test="_parameter != null" >
+      <include refid="com.jialian.core.persistence.reader.CommonReaderMapper.Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from collect
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="countByWhere" parameterType="com.jialian.api.domain.entity.Where" resultType="java.lang.Integer" >
+    select count(*) from collect
+    <if test="_parameter != null" >
+      <include refid="com.jialian.core.persistence.reader.CommonReaderMapper.Example_Where_Clause" />
+    </if>
+  </select>
+  
+  <select id="selectCollectByUid" parameterType="java.lang.Long" resultMap="CollectVoMap">
+    select 
+    <include refid="Collect_Vo_Column_List" />,CONCAT(r.path,"/",r.name, r.extension) AS path
+    from collect co
+    LEFT JOIN case_house ch ON co.parent_id = ch.id 
+    LEFT JOIN house_style hs ON ch.case_style_id = hs.id
+    LEFT JOIN resource_info r on r.object_id = co.id and r.object_type =3
+    where co.collect_type = 1 and co.user_id = #{id}
+  </select>
+  
+  <select id="selectCollectByUidAndParidAndTypeid" resultMap="BaseResultMap">
+  		 select 
+	    <include refid="Base_Column_List" />
+	    from collect 
+	    where user_id = #{userId,jdbcType=BIGINT} and parent_id=#{parentId,jdbcType=BIGINT} and collect_type=#{collectType,jdbcType=SMALLINT}
+  </select>
+</mapper>

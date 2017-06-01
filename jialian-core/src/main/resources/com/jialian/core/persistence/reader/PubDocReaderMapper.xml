@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jialian.core.persistence.reader.PubDocReaderMapper" >
+  <resultMap id="BaseResultMap" type="com.jialian.api.domain.entity.PubDoc" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="permission_id" property="permissionId" jdbcType="BIGINT" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="web_url" property="webUrl" jdbcType="VARCHAR" />
+    <result column="doc_detailed" property="docDetailed" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap type="com.jialian.api.domain.vo.PubDocVo" id="VoResultMap" extends="BaseResultMap">
+  	<result column="permission_name" property="permissionName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, permission_id, create_time, update_time, web_url, doc_detailed
+  </sql>
+    <sql id="Vo_Column_List" >
+    pd.id, pd.permission_id, pd.create_time, pd.update_time, 
+    pd.web_url, pd.doc_detailed ,ap.permission_name
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from pub_doc
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="selectPubDoc" resultMap="VoResultMap">
+  	select 
+  	<include refid="Vo_Column_List"/> 
+ 	from pub_doc pd  
+	left join admin_permission ap on ap.id=pd.permission_id
+  </select>
+  <select id="selectPubDocDetailed" parameterType="java.lang.Long" resultMap="VoResultMap">
+  	select 
+  	<include refid="Vo_Column_List"/> 
+ 	from pub_doc pd  
+	left join admin_permission ap on ap.id=pd.permission_id 
+	where pd.id=#{id}
+  </select>
+</mapper>

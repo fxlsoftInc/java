@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jialian.core.persistence.reader.SignedRecordReaderMapper" >
+  <resultMap id="BaseResultMap" type="com.jialian.api.domain.entity.SignedRecord" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="order_no" property="orderNo" jdbcType="VARCHAR" />
+    <result column="contract_name" property="contractName" jdbcType="VARCHAR" />
+    <result column="contract_no" property="contractNo" jdbcType="VARCHAR" />
+    <result column="contract_status" property="contractStatus" jdbcType="SMALLINT" />
+    <result column="contract_amt" property="contractAmt" jdbcType="DOUBLE" />
+    <result column="signed_time" property="signedTime" jdbcType="TIMESTAMP" />
+    <result column="contract_start_time" property="contractStartTime" jdbcType="TIMESTAMP" />
+    <result column="contract_end_time" property="contractEndTime" jdbcType="TIMESTAMP" />
+    <result column="contract_first_amt" property="contractFirstAmt" jdbcType="DOUBLE" />
+    <result column="contract_last_amt" property="contractLastAmt" jdbcType="DOUBLE" />
+    <result column="contract_first_condition" property="contractFirstCondition" jdbcType="VARCHAR" />
+    <result column="contract_last_condition" property="contractLastCondition" jdbcType="VARCHAR" />
+    <result column="contract_content" property="contractContent" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="status" property="status" jdbcType="SMALLINT" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+     <association property="resourceInfo" column="contract_no" select="com.jialian.core.persistence.reader.ResourceInfoReaderMapper.selectByNo"></association>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, order_no, contract_name, contract_no, contract_status, contract_amt, signed_time, 
+    contract_start_time, contract_end_time, contract_first_amt, contract_last_amt, contract_first_condition, 
+    contract_last_condition, contract_content, create_time, update_time, status, remark
+  </sql>
+  <select id="selectByWhere" resultMap="BaseResultMap" parameterType="com.jialian.api.domain.entity.Where" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from signed_record
+    <if test="_parameter != null" >
+      <include refid="com.jialian.core.persistence.reader.CommonReaderMapper.Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from signed_record
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="countByWhere" parameterType="com.jialian.api.domain.entity.Where" resultType="java.lang.Integer" >
+    select count(*) from signed_record
+    <if test="_parameter != null" >
+      <include refid="com.jialian.core.persistence.reader.CommonReaderMapper.Example_Where_Clause" />
+    </if>
+  </select>
+</mapper>

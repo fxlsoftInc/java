@@ -1,0 +1,363 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jialian.core.persistence.writer.SignedOrderWriterMapper" >
+  <resultMap id="BaseResultMap" type="com.jialian.api.domain.entity.SignedOrder" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="order_no" property="orderNo" jdbcType="VARCHAR" />
+    <result column="user_id" property="userId" jdbcType="BIGINT" />
+    <result column="employee_id" property="employeeId" jdbcType="BIGINT" />
+    <result column="store_id" property="storeId" jdbcType="BIGINT" />
+    <result column="semi_decoration_order_id" property="semiDecorationOrderId" jdbcType="BIGINT" />
+    <result column="material_order_id" property="materialOrderId" jdbcType="BIGINT" />
+    <result column="combo_id" property="comboId" jdbcType="BIGINT" />
+    <result column="total_amt" property="totalAmt" jdbcType="DOUBLE" />
+    <result column="discount_amt" property="discountAmt" jdbcType="DOUBLE" />
+    <result column="order_amt" property="orderAmt" jdbcType="DOUBLE" />
+    <result column="prepay_amt" property="prepayAmt" jdbcType="DOUBLE" />
+    <result column="payed_amt" property="payedAmt" jdbcType="DOUBLE" />
+    <result column="order_status" property="orderStatus" jdbcType="SMALLINT" />
+    <result column="status" property="status" jdbcType="SMALLINT" />
+    <result column="confirm_time" property="confirmTime" jdbcType="TIMESTAMP" />
+    <result column="complete_time" property="completeTime" jdbcType="TIMESTAMP" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, order_no, user_id, employee_id, store_id, semi_decoration_order_id, material_order_id, combo_id, 
+    total_amt, discount_amt, order_amt, prepay_amt, payed_amt, order_status, status, 
+    confirm_time, complete_time, create_time, update_time, remark
+  </sql>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from signed_order
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByWhere" parameterType="com.jialian.api.domain.entity.Where" >
+    delete from signed_order
+    <if test="_parameter != null" >
+      <include refid="com.jialian.core.persistence.writer.CommonWriterMapper.Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.jialian.api.domain.entity.SignedOrder" >
+    insert into signed_order (id, order_no, user_id, 
+      employee_id, store_id, semi_decoration_order_id, 
+      material_order_id, combo_id, total_amt, discount_amt, 
+      order_amt, prepay_amt, payed_amt, 
+      order_status, status, confirm_time, 
+      complete_time, create_time, update_time, 
+      remark)
+    values (#{id,jdbcType=BIGINT}, #{orderNo,jdbcType=VARCHAR}, #{userId,jdbcType=BIGINT}, 
+      #{employeeId,jdbcType=BIGINT}, #{storeId,jdbcType=BIGINT}, #{semiDecorationOrderId,jdbcType=BIGINT}, 
+      #{materialOrderId,jdbcType=BIGINT}, #{comboId,jdbcType=BIGINT}, #{totalAmt,jdbcType=DOUBLE}, #{discountAmt,jdbcType=DOUBLE}, 
+      #{orderAmt,jdbcType=DOUBLE}, #{prepayAmt,jdbcType=DOUBLE}, #{payedAmt,jdbcType=DOUBLE}, 
+      #{orderStatus,jdbcType=SMALLINT}, #{status,jdbcType=SMALLINT}, #{confirmTime,jdbcType=TIMESTAMP}, 
+      #{completeTime,jdbcType=TIMESTAMP}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jialian.api.domain.entity.SignedOrder" >
+    insert into signed_order
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="orderNo != null" >
+        order_no,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="employeeId != null" >
+        employee_id,
+      </if>
+      <if test="storeId != null" >
+        store_id,
+      </if>
+      <if test="semiDecorationOrderId != null" >
+        semi_decoration_order_id,
+      </if>
+      <if test="materialOrderId != null" >
+        material_order_id,
+      </if>
+      <if test="comboId != null" >
+        combo_id,
+      </if>
+      <if test="totalAmt != null" >
+        total_amt,
+      </if>
+      <if test="discountAmt != null" >
+        discount_amt,
+      </if>
+      <if test="orderAmt != null" >
+        order_amt,
+      </if>
+      <if test="prepayAmt != null" >
+        prepay_amt,
+      </if>
+      <if test="payedAmt != null" >
+        payed_amt,
+      </if>
+      <if test="orderStatus != null" >
+        order_status,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="confirmTime != null" >
+        confirm_time,
+      </if>
+      <if test="completeTime != null" >
+        complete_time,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="orderNo != null" >
+        #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="employeeId != null" >
+        #{employeeId,jdbcType=BIGINT},
+      </if>
+      <if test="storeId != null" >
+        #{storeId,jdbcType=BIGINT},
+      </if>
+      <if test="semiDecorationOrderId != null" >
+        #{semiDecorationOrderId,jdbcType=BIGINT},
+      </if>
+      <if test="materialOrderId != null" >
+        #{materialOrderId,jdbcType=BIGINT},
+      </if>
+      <if test="comboId != null" >
+        #{comboId,jdbcType=BIGINT},
+      </if>
+      <if test="totalAmt != null" >
+        #{totalAmt,jdbcType=DOUBLE},
+      </if>
+      <if test="discountAmt != null" >
+        #{discountAmt,jdbcType=DOUBLE},
+      </if>
+      <if test="orderAmt != null" >
+        #{orderAmt,jdbcType=DOUBLE},
+      </if>
+      <if test="prepayAmt != null" >
+        #{prepayAmt,jdbcType=DOUBLE},
+      </if>
+      <if test="payedAmt != null" >
+        #{payedAmt,jdbcType=DOUBLE},
+      </if>
+      <if test="orderStatus != null" >
+        #{orderStatus,jdbcType=SMALLINT},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=SMALLINT},
+      </if>
+      <if test="confirmTime != null" >
+        #{confirmTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="completeTime != null" >
+        #{completeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByWhereSelective" parameterType="map" >
+    update signed_order
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.orderNo != null" >
+        order_no = #{record.orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userId != null" >
+        user_id = #{record.userId,jdbcType=BIGINT},
+      </if>
+      <if test="record.employeeId != null" >
+        employee_id = #{record.employeeId,jdbcType=BIGINT},
+      </if>
+      <if test="record.storeId != null" >
+        store_id = #{record.storeId,jdbcType=BIGINT},
+      </if>
+      <if test="record.semiDecorationOrderId != null" >
+        semi_decoration_order_id = #{record.semiDecorationOrderId,jdbcType=BIGINT},
+      </if>
+      <if test="record.materialOrderId != null" >
+        material_order_id = #{record.materialOrderId,jdbcType=BIGINT},
+      </if>
+      <if test="record.comboId != null" >
+        combo_id = #{record.comboId,jdbcType=BIGINT},
+      </if>
+      <if test="record.totalAmt != null" >
+        total_amt = #{record.totalAmt,jdbcType=DOUBLE},
+      </if>
+      <if test="record.discountAmt != null" >
+        discount_amt = #{record.discountAmt,jdbcType=DOUBLE},
+      </if>
+      <if test="record.orderAmt != null" >
+        order_amt = #{record.orderAmt,jdbcType=DOUBLE},
+      </if>
+      <if test="record.prepayAmt != null" >
+        prepay_amt = #{record.prepayAmt,jdbcType=DOUBLE},
+      </if>
+      <if test="record.payedAmt != null" >
+        payed_amt = #{record.payedAmt,jdbcType=DOUBLE},
+      </if>
+      <if test="record.orderStatus != null" >
+        order_status = #{record.orderStatus,jdbcType=SMALLINT},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=SMALLINT},
+      </if>
+      <if test="record.confirmTime != null" >
+        confirm_time = #{record.confirmTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.completeTime != null" >
+        complete_time = #{record.completeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null" >
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.remark != null" >
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="com.jialian.core.persistence.writer.CommonWriterMapper.Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByWhere" parameterType="map" >
+    update signed_order
+    set id = #{record.id,jdbcType=BIGINT},
+      order_no = #{record.orderNo,jdbcType=VARCHAR},
+      user_id = #{record.userId,jdbcType=BIGINT},
+      employee_id = #{record.employeeId,jdbcType=BIGINT},
+      store_id = #{record.storeId,jdbcType=BIGINT},
+      semi_decoration_order_id = #{record.semiDecorationOrderId,jdbcType=BIGINT},
+      material_order_id = #{record.materialOrderId,jdbcType=BIGINT},
+      combo_id = #{record.comboId,jdbcType=BIGINT},
+      total_amt = #{record.totalAmt,jdbcType=DOUBLE},
+      discount_amt = #{record.discountAmt,jdbcType=DOUBLE},
+      order_amt = #{record.orderAmt,jdbcType=DOUBLE},
+      prepay_amt = #{record.prepayAmt,jdbcType=DOUBLE},
+      payed_amt = #{record.payedAmt,jdbcType=DOUBLE},
+      order_status = #{record.orderStatus,jdbcType=SMALLINT},
+      status = #{record.status,jdbcType=SMALLINT},
+      confirm_time = #{record.confirmTime,jdbcType=TIMESTAMP},
+      complete_time = #{record.completeTime,jdbcType=TIMESTAMP},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      remark = #{record.remark,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="com.jialian.core.persistence.writer.CommonWriterMapper.Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jialian.api.domain.entity.SignedOrder" >
+    update signed_order
+    <set >
+      <if test="orderNo != null" >
+        order_no = #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="employeeId != null" >
+        employee_id = #{employeeId,jdbcType=BIGINT},
+      </if>
+      <if test="storeId != null" >
+        store_id = #{storeId,jdbcType=BIGINT},
+      </if>
+      <if test="semiDecorationOrderId != null" >
+        semi_decoration_order_id = #{semiDecorationOrderId,jdbcType=BIGINT},
+      </if>
+      <if test="materialOrderId != null" >
+        material_order_id = #{materialOrderId,jdbcType=BIGINT},
+      </if>
+      <if test="comboId != null" >
+        combo_id = #{comboId,jdbcType=BIGINT},
+      </if>
+      <if test="totalAmt != null" >
+        total_amt = #{totalAmt,jdbcType=DOUBLE},
+      </if>
+      <if test="discountAmt != null" >
+        discount_amt = #{discountAmt,jdbcType=DOUBLE},
+      </if>
+      <if test="orderAmt != null" >
+        order_amt = #{orderAmt,jdbcType=DOUBLE},
+      </if>
+      <if test="prepayAmt != null" >
+        prepay_amt = #{prepayAmt,jdbcType=DOUBLE},
+      </if>
+      <if test="payedAmt != null" >
+        payed_amt = #{payedAmt,jdbcType=DOUBLE},
+      </if>
+      <if test="orderStatus != null" >
+        order_status = #{orderStatus,jdbcType=SMALLINT},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=SMALLINT},
+      </if>
+      <if test="confirmTime != null" >
+        confirm_time = #{confirmTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="completeTime != null" >
+        complete_time = #{completeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jialian.api.domain.entity.SignedOrder" >
+    update signed_order
+    set order_no = #{orderNo,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=BIGINT},
+      employee_id = #{employeeId,jdbcType=BIGINT},
+      store_id = #{storeId,jdbcType=BIGINT},
+      semi_decoration_order_id = #{semiDecorationOrderId,jdbcType=BIGINT},
+      material_order_id = #{materialOrderId,jdbcType=BIGINT},
+      total_amt = #{totalAmt,jdbcType=DOUBLE},
+      discount_amt = #{discountAmt,jdbcType=DOUBLE},
+      order_amt = #{orderAmt,jdbcType=DOUBLE},
+      prepay_amt = #{prepayAmt,jdbcType=DOUBLE},
+      payed_amt = #{payedAmt,jdbcType=DOUBLE},
+      order_status = #{orderStatus,jdbcType=SMALLINT},
+      status = #{status,jdbcType=SMALLINT},
+      confirm_time = #{confirmTime,jdbcType=TIMESTAMP},
+      complete_time = #{completeTime,jdbcType=TIMESTAMP},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      remark = #{remark,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

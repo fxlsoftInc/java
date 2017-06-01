@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jialian.core.persistence.reader.AdminPermissionReaderMapper" >
+  <resultMap id="BaseResultMap" type="com.jialian.api.domain.entity.AdminPermission" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="permission_name" property="permissionName" jdbcType="VARCHAR" />
+    <result column="permission_url" property="permissionUrl" jdbcType="VARCHAR" />
+    <result column="parent_id" property="parentId" jdbcType="BIGINT" />
+    <result column="permission_order" property="permissionOrder" jdbcType="INTEGER" />
+    <result column="permission_type" property="permissionType" jdbcType="SMALLINT" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="permission_status" property="permissionStatus" jdbcType="SMALLINT" />
+    <result column="status" property="status" jdbcType="SMALLINT" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="PermissionResultMap" type="com.jialian.api.domain.entity.AdminPermission" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="permission_name" property="permissionName" jdbcType="VARCHAR" />
+    <result column="permission_url" property="permissionUrl" jdbcType="VARCHAR" />
+    <result column="parent_id" property="parentId" jdbcType="BIGINT" />
+    <result column="permission_order" property="permissionOrder" jdbcType="INTEGER" />
+    <result column="permission_type" property="permissionType" jdbcType="SMALLINT" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="permission_status" property="permissionStatus" jdbcType="SMALLINT" />
+    <result column="status" property="status" jdbcType="SMALLINT" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, permission_name, permission_url, parent_id, permission_order, permission_type, 
+    create_time, update_time, permission_status, status, remark
+  </sql>
+  <sql id="Permission_Column_List" >
+    permission.id, permission.permission_name, permission.permission_url, permission.parent_id, permission.permission_order, permission.permission_type, 
+    permission.create_time, permission.update_time, permission.permission_status, permission.status, permission.remark
+  </sql>
+  <select id="selectByWhere" resultMap="BaseResultMap" parameterType="com.jialian.api.domain.entity.Where" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from admin_permission
+    <if test="_parameter != null" >
+      <include refid="com.jialian.core.persistence.reader.CommonReaderMapper.Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from admin_permission
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="countByWhere" parameterType="com.jialian.api.domain.entity.Where" resultType="java.lang.Integer" >
+    select count(*) from admin_permission
+    <if test="_parameter != null" >
+      <include refid="com.jialian.core.persistence.reader.CommonReaderMapper.Example_Where_Clause" />
+    </if>
+  </select>
+  <select id="selectByUserId" resultMap="PermissionResultMap" parameterType="java.lang.Long">
+  	select
+  	<include refid="Permission_Column_List"/>
+  	from admin_role role, admin_rule rule, admin_permission permission 
+  	WHERE role.id = #{userId,jdbcType=BIGINT} AND role.id = rule.role_id 
+  	AND permission.id = rule.permission_id AND permission.status = 1 AND permission_status = 1
+  </select>
+  
+  <select id="selectAdminPermissionByRoleId" parameterType="java.lang.Long" resultMap="BaseResultMap">
+  	select distinct 
+  	ap.* 
+  	from admin_permission ap 
+	left join admin_rule aru on aru.permission_id=ap.id 
+	left join admin_role aro on aro.id=aru.role_id 
+	where aro.id=#{roleId}
+  </select>
+  
+  <sql id="selectAdminPermissionList_Where">
+  	<where>
+  		<if test="query.roleId !=null">
+  			and aru.role_id=#{query.roleId}
+  		</if>
+  	</where>
+  </sql>
+  <select id="selectAdminPermissionList" parameterType="com.jialian.api.domain.query.AdminPermissionQuery" resultMap="BaseResultMap">
+  		select distinct 
+	  		ap.* 
+	  	from admin_permission ap 
+		left join admin_rule aru on aru.permission_id=ap.id 
+		left join admin_role aro on aro.id=aru.role_id 
+		<include refid="selectAdminPermissionList_Where"/>
+  </select>
+</mapper>

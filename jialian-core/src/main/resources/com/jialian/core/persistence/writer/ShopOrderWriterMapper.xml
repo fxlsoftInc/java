@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jialian.core.persistence.writer.ShopOrderWriterMapper" >
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from shop_order
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.jialian.api.domain.entity.ShopOrder"  useGeneratedKeys="true" keyProperty="id">
+    insert into shop_order (id, order_no, user_id, 
+      total_amt, discount_amt, order_amt, 
+      prepay_amt, payed_amt, order_status, 
+      confirm_time, complete_time, create_time, 
+      update_time, remark, ispinkage_amt, 
+      postage, useraddr, addrid, 
+      paytype, status, send_status, isvalid, charge_id, linktel, expressage, expressno, consignee)
+    values (#{id,jdbcType=BIGINT}, #{orderNo,jdbcType=VARCHAR}, #{userId,jdbcType=BIGINT}, 
+      #{totalAmt,jdbcType=DOUBLE}, #{discountAmt,jdbcType=DOUBLE}, #{orderAmt,jdbcType=DOUBLE}, 
+      #{prepayAmt,jdbcType=DOUBLE}, #{payedAmt,jdbcType=DOUBLE}, #{orderStatus,jdbcType=SMALLINT}, 
+      #{confirmTime,jdbcType=TIMESTAMP}, #{completeTime,jdbcType=TIMESTAMP}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR}, #{ispinkageAmt,jdbcType=SMALLINT}, 
+      #{postage,jdbcType=DOUBLE}, #{useraddr,jdbcType=VARCHAR}, #{addrid,jdbcType=BIGINT}, 
+      #{paytype,jdbcType=SMALLINT}, #{status,jdbcType=SMALLINT}, #{sendStatus,jdbcType=SMALLINT},
+      #{isvalid,jdbcType=SMALLINT}, #{chargeId,jdbcType=VARCHAR}, #{linktel,jdbcType=VARCHAR}, #{expressage,jdbcType=VARCHAR}, #{expressno,jdbcType=VARCHAR}, #{consignee,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jialian.api.domain.entity.ShopOrder"  useGeneratedKeys="true" keyProperty="id">
+    insert into shop_order
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="orderNo != null" >
+        order_no,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="totalAmt != null" >
+        total_amt,
+      </if>
+      <if test="discountAmt != null" >
+        discount_amt,
+      </if>
+      <if test="orderAmt != null" >
+        order_amt,
+      </if>
+      <if test="prepayAmt != null" >
+        prepay_amt,
+      </if>
+      <if test="payedAmt != null" >
+        payed_amt,
+      </if>
+      <if test="orderStatus != null" >
+        order_status,
+      </if>
+      <if test="confirmTime != null" >
+        confirm_time,
+      </if>
+      <if test="completeTime != null" >
+        complete_time,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="ispinkageAmt != null" >
+        ispinkage_amt,
+      </if>
+      <if test="postage != null" >
+        postage,
+      </if>
+      <if test="useraddr != null" >
+        useraddr,
+      </if>
+      <if test="addrid != null" >
+        addrid,
+      </if>
+      <if test="paytype != null" >
+        paytype,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="sendStatus != null" >
+        send_status,
+      </if>
+      <if test="isvalid != null" >
+        isvalid,
+      </if>
+      <if test="chargeId != null" >
+        charge_id,
+      </if>
+      <if test="linktel != null" >
+        linktel,
+      </if>
+      <if test="expressage != null" >
+        expressage,
+      </if>
+      <if test="expressno != null" >
+        expressno,
+      </if>
+      <if test="consignee != null" >
+        consignee,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="orderNo != null" >
+        #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="totalAmt != null" >
+        #{totalAmt,jdbcType=DOUBLE},
+      </if>
+      <if test="discountAmt != null" >
+        #{discountAmt,jdbcType=DOUBLE},
+      </if>
+      <if test="orderAmt != null" >
+        #{orderAmt,jdbcType=DOUBLE},
+      </if>
+      <if test="prepayAmt != null" >
+        #{prepayAmt,jdbcType=DOUBLE},
+      </if>
+      <if test="payedAmt != null" >
+        #{payedAmt,jdbcType=DOUBLE},
+      </if>
+      <if test="orderStatus != null" >
+        #{orderStatus,jdbcType=SMALLINT},
+      </if>
+      <if test="confirmTime != null" >
+        #{confirmTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="completeTime != null" >
+        #{completeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="ispinkageAmt != null" >
+        #{ispinkageAmt,jdbcType=SMALLINT},
+      </if>
+      <if test="postage != null" >
+        #{postage,jdbcType=DOUBLE},
+      </if>
+      <if test="useraddr != null" >
+        #{useraddr,jdbcType=VARCHAR},
+      </if>
+      <if test="addrid != null" >
+        #{addrid,jdbcType=BIGINT},
+      </if>
+      <if test="paytype != null" >
+        #{paytype,jdbcType=SMALLINT},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=SMALLINT},
+      </if>
+      <if test="sendStatus != null" >
+        #{sendStatus,jdbcType=SMALLINT},
+      </if>
+      <if test="isvalid != null" >
+        #{isvalid,jdbcType=SMALLINT},
+      </if>
+      <if test="chargeId != null" >
+        #{chargeId,jdbcType=VARCHAR},
+      </if>
+      <if test="linktel != null" >
+        #{linktel,jdbcType=VARCHAR},
+      </if>
+      <if test="expressage != null" >
+        #{expressage,jdbcType=VARCHAR},
+      </if>
+      <if test="expressno != null" >
+        #{expressno,jdbcType=VARCHAR},
+      </if>
+      <if test="consignee != null" >
+        #{consignee,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jialian.api.domain.entity.ShopOrder" >
+    update shop_order
+    <set >
+      <if test="orderNo != null" >
+        order_no = #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="totalAmt != null" >
+        total_amt = #{totalAmt,jdbcType=DOUBLE},
+      </if>
+      <if test="discountAmt != null" >
+        discount_amt = #{discountAmt,jdbcType=DOUBLE},
+      </if>
+      <if test="orderAmt != null" >
+        order_amt = #{orderAmt,jdbcType=DOUBLE},
+      </if>
+      <if test="prepayAmt != null" >
+        prepay_amt = #{prepayAmt,jdbcType=DOUBLE},
+      </if>
+      <if test="payedAmt != null" >
+        payed_amt = #{payedAmt,jdbcType=DOUBLE},
+      </if>
+      <if test="orderStatus != null" >
+        order_status = #{orderStatus,jdbcType=SMALLINT},
+      </if>
+      <if test="confirmTime != null" >
+        confirm_time = #{confirmTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="completeTime != null" >
+        complete_time = #{completeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="ispinkageAmt != null" >
+        ispinkage_amt = #{ispinkageAmt,jdbcType=SMALLINT},
+      </if>
+      <if test="postage != null" >
+        postage = #{postage,jdbcType=DOUBLE},
+      </if>
+      <if test="useraddr != null" >
+        useraddr = #{useraddr,jdbcType=VARCHAR},
+      </if>
+      <if test="addrid != null" >
+        addrid = #{addrid,jdbcType=BIGINT},
+      </if>
+      <if test="paytype != null" >
+        paytype = #{paytype,jdbcType=SMALLINT},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=SMALLINT},
+      </if>
+      <if test="sendStatus != null" >
+        send_status = #{sendStatus,jdbcType=SMALLINT},
+      </if>
+      <if test="isvalid != null" >
+        isvalid = #{isvalid,jdbcType=SMALLINT},
+      </if>
+      <if test="chargeId != null" >
+        charge_id = #{chargeId,jdbcType=VARCHAR},
+      </if>
+      <if test="linktel != null" >
+        linktel = #{linktel,jdbcType=VARCHAR},
+      </if>
+      <if test="expressage != null" >
+        expressage = #{expressage,jdbcType=VARCHAR},
+      </if>
+      <if test="expressno != null" >
+        expressno = #{expressno,jdbcType=VARCHAR},
+      </if>
+      <if test="consignee != null" >
+        consignee = #{consignee,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jialian.api.domain.entity.ShopOrder" >
+    update shop_order
+    set order_no = #{orderNo,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=BIGINT},
+      total_amt = #{totalAmt,jdbcType=DOUBLE},
+      discount_amt = #{discountAmt,jdbcType=DOUBLE},
+      order_amt = #{orderAmt,jdbcType=DOUBLE},
+      prepay_amt = #{prepayAmt,jdbcType=DOUBLE},
+      payed_amt = #{payedAmt,jdbcType=DOUBLE},
+      order_status = #{orderStatus,jdbcType=SMALLINT},
+      confirm_time = #{confirmTime,jdbcType=TIMESTAMP},
+      complete_time = #{completeTime,jdbcType=TIMESTAMP},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      remark = #{remark,jdbcType=VARCHAR},
+      ispinkage_amt = #{ispinkageAmt,jdbcType=SMALLINT},
+      postage = #{postage,jdbcType=DOUBLE},
+      useraddr = #{useraddr,jdbcType=VARCHAR},
+      addrid = #{addrid,jdbcType=BIGINT},
+      paytype = #{paytype,jdbcType=SMALLINT},
+      status = #{status,jdbcType=SMALLINT},
+      send_status = #{sendStatus,jdbcType=SMALLINT},
+      isvalid = #{isvalid,jdbcType=SMALLINT},
+      charge_id = #{chargeId,jdbcType=VARCHAR},
+      linktel = #{linktel,jdbcType=VARCHAR},
+      expressage = #{expressage,jdbcType=VARCHAR},
+      expressno = #{expressno,jdbcType=VARCHAR},
+      consignee = #{consignee,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

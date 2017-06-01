@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jialian.core.persistence.writer.HouseTypeWriterMapper" >
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from house_type
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByWhere" parameterType="com.jialian.api.domain.entity.Where" >
+    delete from house_type
+    <if test="_parameter != null" >
+      <include refid="com.jialian.core.persistence.writer.CommonWriterMapper.Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.jialian.api.domain.entity.HouseType" >
+    insert into house_type (id, house_type_name, house_type_no, 
+      house_type, house_type_area, house_type_area_unit, 
+      house_type_numbser, house_type_actual_area, house_type_actual_area_unit, 
+      create_time, update_time, remark
+      )
+    values (#{id,jdbcType=BIGINT}, #{houseTypeName,jdbcType=VARCHAR}, #{houseTypeNo,jdbcType=VARCHAR}, 
+      #{houseType,jdbcType=SMALLINT}, #{houseTypeArea,jdbcType=DOUBLE}, #{houseTypeAreaUnit,jdbcType=VARCHAR}, 
+      #{houseTypeNumbser,jdbcType=SMALLINT}, #{houseTypeActualArea,jdbcType=REAL}, #{houseTypeActualAreaUnit,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.jialian.api.domain.entity.HouseType" >
+    insert into house_type
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="houseTypeName != null" >
+        house_type_name,
+      </if>
+      <if test="houseTypeNo != null" >
+        house_type_no,
+      </if>
+      <if test="houseType != null" >
+        house_type,
+      </if>
+      <if test="houseTypeArea != null" >
+        house_type_area,
+      </if>
+      <if test="houseTypeAreaUnit != null" >
+        house_type_area_unit,
+      </if>
+      <if test="houseTypeNumbser != null" >
+        house_type_numbser,
+      </if>
+      <if test="houseTypeActualArea != null" >
+        house_type_actual_area,
+      </if>
+      <if test="houseTypeActualAreaUnit != null" >
+        house_type_actual_area_unit,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="houseTypeName != null" >
+        #{houseTypeName,jdbcType=VARCHAR},
+      </if>
+      <if test="houseTypeNo != null" >
+        #{houseTypeNo,jdbcType=VARCHAR},
+      </if>
+      <if test="houseType != null" >
+        #{houseType,jdbcType=SMALLINT},
+      </if>
+      <if test="houseTypeArea != null" >
+        #{houseTypeArea,jdbcType=DOUBLE},
+      </if>
+      <if test="houseTypeAreaUnit != null" >
+        #{houseTypeAreaUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="houseTypeNumbser != null" >
+        #{houseTypeNumbser,jdbcType=SMALLINT},
+      </if>
+      <if test="houseTypeActualArea != null" >
+        #{houseTypeActualArea,jdbcType=REAL},
+      </if>
+      <if test="houseTypeActualAreaUnit != null" >
+        #{houseTypeActualAreaUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByWhereSelective" parameterType="map" >
+    update house_type
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.houseTypeName != null" >
+        house_type_name = #{record.houseTypeName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.houseTypeNo != null" >
+        house_type_no = #{record.houseTypeNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.houseType != null" >
+        house_type = #{record.houseType,jdbcType=SMALLINT},
+      </if>
+      <if test="record.houseTypeArea != null" >
+        house_type_area = #{record.houseTypeArea,jdbcType=DOUBLE},
+      </if>
+      <if test="record.houseTypeAreaUnit != null" >
+        house_type_area_unit = #{record.houseTypeAreaUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="record.houseTypeNumbser != null" >
+        house_type_numbser = #{record.houseTypeNumbser,jdbcType=SMALLINT},
+      </if>
+      <if test="record.houseTypeActualArea != null" >
+        house_type_actual_area = #{record.houseTypeActualArea,jdbcType=REAL},
+      </if>
+      <if test="record.houseTypeActualAreaUnit != null" >
+        house_type_actual_area_unit = #{record.houseTypeActualAreaUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null" >
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.remark != null" >
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="com.jialian.core.persistence.writer.CommonWriterMapper.Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByWhere" parameterType="map" >
+    update house_type
+    set id = #{record.id,jdbcType=BIGINT},
+      house_type_name = #{record.houseTypeName,jdbcType=VARCHAR},
+      house_type_no = #{record.houseTypeNo,jdbcType=VARCHAR},
+      house_type = #{record.houseType,jdbcType=SMALLINT},
+      house_type_area = #{record.houseTypeArea,jdbcType=DOUBLE},
+      house_type_area_unit = #{record.houseTypeAreaUnit,jdbcType=VARCHAR},
+      house_type_numbser = #{record.houseTypeNumbser,jdbcType=SMALLINT},
+      house_type_actual_area = #{record.houseTypeActualArea,jdbcType=REAL},
+      house_type_actual_area_unit = #{record.houseTypeActualAreaUnit,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      remark = #{record.remark,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="com.jialian.core.persistence.writer.CommonWriterMapper.Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jialian.api.domain.entity.HouseType" >
+    update house_type
+    <set >
+      <if test="houseTypeName != null" >
+        house_type_name = #{houseTypeName,jdbcType=VARCHAR},
+      </if>
+      <if test="houseTypeNo != null" >
+        house_type_no = #{houseTypeNo,jdbcType=VARCHAR},
+      </if>
+      <if test="houseType != null" >
+        house_type = #{houseType,jdbcType=SMALLINT},
+      </if>
+      <if test="houseTypeArea != null" >
+        house_type_area = #{houseTypeArea,jdbcType=DOUBLE},
+      </if>
+      <if test="houseTypeAreaUnit != null" >
+        house_type_area_unit = #{houseTypeAreaUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="houseTypeNumbser != null" >
+        house_type_numbser = #{houseTypeNumbser,jdbcType=SMALLINT},
+      </if>
+      <if test="houseTypeActualArea != null" >
+        house_type_actual_area = #{houseTypeActualArea,jdbcType=REAL},
+      </if>
+      <if test="houseTypeActualAreaUnit != null" >
+        house_type_actual_area_unit = #{houseTypeActualAreaUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jialian.api.domain.entity.HouseType" >
+    update house_type
+    set house_type_name = #{houseTypeName,jdbcType=VARCHAR},
+      house_type_no = #{houseTypeNo,jdbcType=VARCHAR},
+      house_type = #{houseType,jdbcType=SMALLINT},
+      house_type_area = #{houseTypeArea,jdbcType=DOUBLE},
+      house_type_area_unit = #{houseTypeAreaUnit,jdbcType=VARCHAR},
+      house_type_numbser = #{houseTypeNumbser,jdbcType=SMALLINT},
+      house_type_actual_area = #{houseTypeActualArea,jdbcType=REAL},
+      house_type_actual_area_unit = #{houseTypeActualAreaUnit,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      remark = #{remark,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

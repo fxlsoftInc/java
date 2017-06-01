@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jialian.core.persistence.reader.SubOrderReaderMapper" >
+  <resultMap id="BaseResultMap" type="com.jialian.api.domain.entity.SubOrder" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="end_time" property="endTime" jdbcType="DATE" />
+    <result column="order_status" property="orderStatus" jdbcType="SMALLINT" />
+    <result column="order_money" property="orderMoney" jdbcType="DOUBLE" />
+    <result column="currency" property="currency" jdbcType="VARCHAR" />
+    <result column="user_id" property="userId" jdbcType="BIGINT" />
+    <result column="subscribe_id" property="subscribeId" jdbcType="BIGINT" />
+    <result column="sub_house_info_id" property="subHouseInfoId" jdbcType="BIGINT" />
+    <result column="order_no" property="orderNo" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="SMALLINT" />
+  </resultMap>
+  <resultMap id="SubHouseInfoResultMap" type="com.jialian.api.domain.vo.SubOrderInfoVO" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="end_time" property="endTime" jdbcType="DATE" />
+    <result column="order_status" property="orderStatus" jdbcType="SMALLINT" />
+    <result column="order_money" property="orderMoney" jdbcType="DOUBLE" />
+    <result column="currency" property="currency" jdbcType="VARCHAR" />
+    <result column="user_id" property="userId" jdbcType="BIGINT" />
+    <result column="subscribe_id" property="subscribeId" jdbcType="BIGINT" />
+    <result column="order_no" property="orderNo" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="SMALLINT" />
+    <association property="subHouseInfo" column="sub_house_info_id" select="com.jialian.core.persistence.reader.SubHouseInfoReaderMapper.selectByPrimaryKey"></association>
+    <association property="acutalSubHouseInfo" column="actual_sub_house_info_id" select="com.jialian.core.persistence.reader.SubHouseInfoReaderMapper.selectByPrimaryKey"></association>
+  </resultMap>
+  <resultMap type="com.jialian.api.domain.vo.SubLookVo" id="SubLookOrderVo">
+  	<id column="id" property="id" jdbcType="BIGINT" />
+  	<result column="telphone" property="telphone" jdbcType="VARCHAR" />
+  	<result column="remark" property="remark" jdbcType="VARCHAR" />
+  	<result column="sub_time" property="subTime" jdbcType="TIMESTAMP" />
+  	<result column="status" property="status" jdbcType="SMALLINT" />
+  	<result column="order_status" property="orderStatus" jdbcType="SMALLINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, create_time, end_time, order_status, order_money, currency, user_id, subscribe_id, 
+    sub_house_info_id, order_no, status, actual_sub_house_info_id
+  </sql>
+  <select id="selectByWhere" resultMap="BaseResultMap" parameterType="com.jialian.api.domain.entity.Where" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from sub_order
+    <if test="_parameter != null" >
+      <include refid="com.jialian.core.persistence.reader.CommonReaderMapper.Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from sub_order
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="selectByOrderNo" resultMap="SubHouseInfoResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from sub_order
+    where order_no = #{orderNo,jdbcType=VARCHAR}
+  </select>
+  <select id="countByWhere" parameterType="com.jialian.api.domain.entity.Where" resultType="java.lang.Integer" >
+    select count(*) from sub_order
+    <if test="_parameter != null" >
+      <include refid="com.jialian.core.persistence.reader.CommonReaderMapper.Example_Where_Clause" />
+    </if>
+  </select>
+  
+  <sql id="SubLookOrder_Where">
+  	<where>
+  		s.type=2 and so.`status`=1
+  		<if test="query.id !=null">
+  			and so.id=#{query.id}
+  		</if>
+  		<if test="query.telphone !=null and query.telphone !=''">
+  			and s.telphone like '${query.telphone}%'
+  		</if>
+  		<if test="query.orderStatus !=null">
+  			and so.order_status=#{query.orderStatus}
+  		</if>
+  		<if test="query.subTime !=null">
+  			and s.sub_time like '${query.subTime}%'
+  		</if>
+  	</where>
+  </sql>
+  <select id="selectSubLookOrderCount" parameterType="com.jialian.api.domain.query.OrderQuery" resultType="java.lang.Integer">
+	select count(*) from sub_order so 
+	left join subscribe s on s.id=so.subscribe_id 
+	<include refid="SubLookOrder_Where"/>
+  </select>
+  <select id="selectSubLookOrderList" parameterType="com.jialian.api.domain.query.OrderQuery" resultMap="SubLookOrderVo">
+  	select so.id,s.telphone,s.remark,s.sub_time,so.`status`,so.order_status from sub_order so 
+	left join subscribe s on s.id=so.subscribe_id 
+	<include refid="SubLookOrder_Where"/> 
+	order by so.id 
+	<if test="query.sort==0">desc</if> 
+	<if test="query.sort==1">asc</if> 
+	limit #{query.startIndex},#{query.onePageCount}
+  </select>
+</mapper>

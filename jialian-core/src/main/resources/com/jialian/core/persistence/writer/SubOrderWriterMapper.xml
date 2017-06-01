@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jialian.core.persistence.writer.SubOrderWriterMapper" >
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from sub_order
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByWhere" parameterType="com.jialian.api.domain.entity.Where" >
+    delete from sub_order
+    <if test="_parameter != null" >
+      <include refid="com.jialian.core.persistence.writer.CommonWriterMapper.Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.jialian.api.domain.entity.SubOrder" >
+    insert into sub_order (id, create_time, end_time, 
+      order_status, order_money, currency, 
+      user_id, subscribe_id, sub_house_info_id, 
+      order_no, status)
+    values (#{id,jdbcType=BIGINT}, #{createTime,jdbcType=TIMESTAMP}, #{endTime,jdbcType=DATE}, 
+      #{orderStatus,jdbcType=SMALLINT}, #{orderMoney,jdbcType=DOUBLE}, #{currency,jdbcType=VARCHAR}, 
+      #{userId,jdbcType=BIGINT}, #{subscribeId,jdbcType=BIGINT}, #{subHouseInfoId,jdbcType=BIGINT}, 
+      #{orderNo,jdbcType=VARCHAR}, #{status,jdbcType=SMALLINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jialian.api.domain.entity.SubOrder" >
+    insert into sub_order
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="endTime != null" >
+        end_time,
+      </if>
+      <if test="orderStatus != null" >
+        order_status,
+      </if>
+      <if test="orderMoney != null" >
+        order_money,
+      </if>
+      <if test="currency != null" >
+        currency,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="subscribeId != null" >
+        subscribe_id,
+      </if>
+      <if test="subHouseInfoId != null" >
+        sub_house_info_id,
+      </if> 
+      <if test="actualSubHouseInfoId != null" >
+        actual_sub_house_info_id,
+      </if>
+      <if test="orderNo != null" >
+        order_no,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null" >
+        #{endTime,jdbcType=DATE},
+      </if>
+      <if test="orderStatus != null" >
+        #{orderStatus,jdbcType=SMALLINT},
+      </if>
+      <if test="orderMoney != null" >
+        #{orderMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="currency != null" >
+        #{currency,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="subscribeId != null" >
+        #{subscribeId,jdbcType=BIGINT},
+      </if>
+      <if test="subHouseInfoId != null" >
+        #{subHouseInfoId,jdbcType=BIGINT},
+      </if>
+      <if test="actualSubHouseInfoId != null" >
+        #{actualSubHouseInfoId,jdbcType=BIGINT},
+      </if>
+      <if test="orderNo != null" >
+        #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=SMALLINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByWhereSelective" parameterType="map" >
+    update sub_order
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.endTime != null" >
+        end_time = #{record.endTime,jdbcType=DATE},
+      </if>
+      <if test="record.orderStatus != null" >
+        order_status = #{record.orderStatus,jdbcType=SMALLINT},
+      </if>
+      <if test="record.orderMoney != null" >
+        order_money = #{record.orderMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="record.currency != null" >
+        currency = #{record.currency,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userId != null" >
+        user_id = #{record.userId,jdbcType=BIGINT},
+      </if>
+      <if test="record.subscribeId != null" >
+        subscribe_id = #{record.subscribeId,jdbcType=BIGINT},
+      </if>
+      <if test="record.subHouseInfoId != null" >
+        sub_house_info_id = #{record.subHouseInfoId,jdbcType=BIGINT},
+      </if>
+      <if test="record.orderNo != null" >
+        order_no = #{record.orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=SMALLINT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="com.jialian.core.persistence.writer.CommonWriterMapper.Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByWhere" parameterType="map" >
+    update sub_order
+    set id = #{record.id,jdbcType=BIGINT},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      end_time = #{record.endTime,jdbcType=DATE},
+      order_status = #{record.orderStatus,jdbcType=SMALLINT},
+      order_money = #{record.orderMoney,jdbcType=DOUBLE},
+      currency = #{record.currency,jdbcType=VARCHAR},
+      user_id = #{record.userId,jdbcType=BIGINT},
+      subscribe_id = #{record.subscribeId,jdbcType=BIGINT},
+      sub_house_info_id = #{record.subHouseInfoId,jdbcType=BIGINT},
+      order_no = #{record.orderNo,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=SMALLINT}
+    <if test="_parameter != null" >
+      <include refid="com.jialian.core.persistence.writer.CommonWriterMapper.Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jialian.api.domain.entity.SubOrder" >
+    update sub_order
+    <set >
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null" >
+        end_time = #{endTime,jdbcType=DATE},
+      </if>
+      <if test="orderStatus != null" >
+        order_status = #{orderStatus,jdbcType=SMALLINT},
+      </if>
+      <if test="orderMoney != null" >
+        order_money = #{orderMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="currency != null" >
+        currency = #{currency,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="subscribeId != null" >
+        subscribe_id = #{subscribeId,jdbcType=BIGINT},
+      </if>
+      <if test="subHouseInfoId != null" >
+        sub_house_info_id = #{subHouseInfoId,jdbcType=BIGINT},
+      </if>
+      <if test="orderNo != null" >
+        order_no = #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=SMALLINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jialian.api.domain.entity.SubOrder" >
+    update sub_order
+    set create_time = #{createTime,jdbcType=TIMESTAMP},
+      end_time = #{endTime,jdbcType=DATE},
+      order_status = #{orderStatus,jdbcType=SMALLINT},
+      order_money = #{orderMoney,jdbcType=DOUBLE},
+      currency = #{currency,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=BIGINT},
+      subscribe_id = #{subscribeId,jdbcType=BIGINT},
+      sub_house_info_id = #{subHouseInfoId,jdbcType=BIGINT},
+      order_no = #{orderNo,jdbcType=VARCHAR},
+      status = #{status,jdbcType=SMALLINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

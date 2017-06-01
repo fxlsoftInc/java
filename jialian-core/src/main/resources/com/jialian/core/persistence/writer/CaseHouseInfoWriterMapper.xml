@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jialian.core.persistence.writer.CaseHouseInfoWriterMapper" >
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from case_house_info
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByWhere" parameterType="com.jialian.api.domain.entity.Where" >
+    delete from case_house_info
+    <if test="_parameter != null" >
+      <include refid="com.jialian.core.persistence.writer.CommonWriterMapper.Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.jialian.api.domain.entity.CaseHouseInfo" >
+    insert into case_house_info (id, parent_id, detail_name, 
+      detail_type, detail_id, detail_price, 
+      detail_number, detail_status, status, 
+      create_time, update_time, remark
+      )
+    values (#{id,jdbcType=BIGINT}, #{parentId,jdbcType=BIGINT}, #{detailName,jdbcType=VARCHAR}, 
+      #{detailType,jdbcType=SMALLINT}, #{detailId,jdbcType=BIGINT}, #{detailPrice,jdbcType=DOUBLE}, 
+      #{detailNumber,jdbcType=INTEGER}, #{detailStatus,jdbcType=SMALLINT}, #{status,jdbcType=SMALLINT}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.jialian.api.domain.entity.CaseHouseInfo" >
+    insert into case_house_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="parentId != null" >
+        parent_id,
+      </if>
+      <if test="detailName != null" >
+        detail_name,
+      </if>
+      <if test="detailType != null" >
+        detail_type,
+      </if>
+      <if test="detailId != null" >
+        detail_id,
+      </if>
+      <if test="detailPrice != null" >
+        detail_price,
+      </if>
+      <if test="detailNumber != null" >
+        detail_number,
+      </if>
+      <if test="detailStatus != null" >
+        detail_status,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="parentId != null" >
+        #{parentId,jdbcType=BIGINT},
+      </if>
+      <if test="detailName != null" >
+        #{detailName,jdbcType=VARCHAR},
+      </if>
+      <if test="detailType != null" >
+        #{detailType,jdbcType=SMALLINT},
+      </if>
+      <if test="detailId != null" >
+        #{detailId,jdbcType=BIGINT},
+      </if>
+      <if test="detailPrice != null" >
+        #{detailPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="detailNumber != null" >
+        #{detailNumber,jdbcType=INTEGER},
+      </if>
+      <if test="detailStatus != null" >
+        #{detailStatus,jdbcType=SMALLINT},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=SMALLINT},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByWhereSelective" parameterType="map" >
+    update case_house_info
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.parentId != null" >
+        parent_id = #{record.parentId,jdbcType=BIGINT},
+      </if>
+      <if test="record.detailName != null" >
+        detail_name = #{record.detailName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.detailType != null" >
+        detail_type = #{record.detailType,jdbcType=SMALLINT},
+      </if>
+      <if test="record.detailId != null" >
+        detail_id = #{record.detailId,jdbcType=BIGINT},
+      </if>
+      <if test="record.detailPrice != null" >
+        detail_price = #{record.detailPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="record.detailNumber != null" >
+        detail_number = #{record.detailNumber,jdbcType=INTEGER},
+      </if>
+      <if test="record.detailStatus != null" >
+        detail_status = #{record.detailStatus,jdbcType=SMALLINT},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=SMALLINT},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null" >
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.remark != null" >
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="com.jialian.core.persistence.writer.CommonWriterMapper.Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByWhere" parameterType="map" >
+    update case_house_info
+    set id = #{record.id,jdbcType=BIGINT},
+      parent_id = #{record.parentId,jdbcType=BIGINT},
+      detail_name = #{record.detailName,jdbcType=VARCHAR},
+      detail_type = #{record.detailType,jdbcType=SMALLINT},
+      detail_id = #{record.detailId,jdbcType=BIGINT},
+      detail_price = #{record.detailPrice,jdbcType=DOUBLE},
+      detail_number = #{record.detailNumber,jdbcType=INTEGER},
+      detail_status = #{record.detailStatus,jdbcType=SMALLINT},
+      status = #{record.status,jdbcType=SMALLINT},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      remark = #{record.remark,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="com.jialian.core.persistence.writer.CommonWriterMapper.Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jialian.api.domain.entity.CaseHouseInfo" >
+    update case_house_info
+    <set >
+      <if test="parentId != null" >
+        parent_id = #{parentId,jdbcType=BIGINT},
+      </if>
+      <if test="detailName != null" >
+        detail_name = #{detailName,jdbcType=VARCHAR},
+      </if>
+      <if test="detailType != null" >
+        detail_type = #{detailType,jdbcType=SMALLINT},
+      </if>
+      <if test="detailId != null" >
+        detail_id = #{detailId,jdbcType=BIGINT},
+      </if>
+      <if test="detailPrice != null" >
+        detail_price = #{detailPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="detailNumber != null" >
+        detail_number = #{detailNumber,jdbcType=INTEGER},
+      </if>
+      <if test="detailStatus != null" >
+        detail_status = #{detailStatus,jdbcType=SMALLINT},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=SMALLINT},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jialian.api.domain.entity.CaseHouseInfo" >
+    update case_house_info
+    set parent_id = #{parentId,jdbcType=BIGINT},
+      detail_name = #{detailName,jdbcType=VARCHAR},
+      detail_type = #{detailType,jdbcType=SMALLINT},
+      detail_id = #{detailId,jdbcType=BIGINT},
+      detail_price = #{detailPrice,jdbcType=DOUBLE},
+      detail_number = #{detailNumber,jdbcType=INTEGER},
+      detail_status = #{detailStatus,jdbcType=SMALLINT},
+      status = #{status,jdbcType=SMALLINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      remark = #{remark,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

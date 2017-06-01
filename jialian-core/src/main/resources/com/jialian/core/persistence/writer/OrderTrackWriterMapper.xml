@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jialian.core.persistence.writer.OrderTrackWriterMapper" >
+  <resultMap id="BaseResultMap" type="com.jialian.api.domain.entity.OrderTrack" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="user_id" property="userId" jdbcType="BIGINT" />
+    <result column="order_id" property="orderId" jdbcType="BIGINT" />
+    <result column="track_title" property="trackTitle" jdbcType="VARCHAR" />
+    <result column="track_content" property="trackContent" jdbcType="VARCHAR" />
+    <result column="track_time" property="trackTime" jdbcType="TIMESTAMP" />
+    <result column="track_type" property="trackType" jdbcType="SMALLINT" />
+    <result column="track_id" property="trackId" jdbcType="BIGINT" />
+    <result column="track_tatus" property="trackTatus" jdbcType="SMALLINT" />
+    <result column="order_desc" property="orderDesc" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="creat_time" property="creatTime" jdbcType="TIMESTAMP" />
+    <result column="status" property="status" jdbcType="BIGINT" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, user_id, order_id, track_title, track_content, track_time, track_type, track_id, 
+    track_tatus, order_desc, update_time, creat_time, status, remark
+  </sql>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from order_track
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByWhere" parameterType="com.jialian.api.domain.entity.Where" >
+    delete from order_track
+    <if test="_parameter != null" >
+      <include refid="com.jialian.core.persistence.writer.CommonWriterMapper.Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" keyProperty="id" useGeneratedKeys="true"  parameterType="com.jialian.api.domain.entity.OrderTrack" >
+    insert into order_track (id, user_id, order_id, 
+      track_title, track_content, track_time, 
+      track_type, track_id, track_tatus, 
+      order_desc, update_time, creat_time, 
+      status, remark, track_order_type)
+    values (#{id,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, #{orderId,jdbcType=BIGINT}, 
+      #{trackTitle,jdbcType=VARCHAR}, #{trackContent,jdbcType=VARCHAR}, #{trackTime,jdbcType=TIMESTAMP}, 
+      #{trackType,jdbcType=SMALLINT}, #{trackId,jdbcType=BIGINT}, #{trackTatus,jdbcType=SMALLINT}, 
+      #{orderDesc,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, #{creatTime,jdbcType=TIMESTAMP}, 
+      #{status,jdbcType=BIGINT}, #{remark,jdbcType=VARCHAR}, #{trackOrderType,jdbcType=SMALLINT})
+  </insert>
+  <insert id="insertSelective" keyProperty="id" useGeneratedKeys="true" parameterType="com.jialian.api.domain.entity.OrderTrack" >
+    insert into order_track
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="orderId != null" >
+        order_id,
+      </if>
+      <if test="trackTitle != null" >
+        track_title,
+      </if>
+      <if test="trackContent != null" >
+        track_content,
+      </if>
+      <if test="trackTime != null" >
+        track_time,
+      </if>
+      <if test="trackType != null" >
+        track_type,
+      </if>
+      <if test="trackId != null" >
+        track_id,
+      </if>
+      <if test="trackTatus != null" >
+        track_tatus,
+      </if>
+      <if test="orderDesc != null" >
+        order_desc,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="creatTime != null" >
+        creat_time,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="trackOrderType != null" >
+        track_order_type,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="orderId != null" >
+        #{orderId,jdbcType=BIGINT},
+      </if>
+      <if test="trackTitle != null" >
+        #{trackTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="trackContent != null" >
+        #{trackContent,jdbcType=VARCHAR},
+      </if>
+      <if test="trackTime != null" >
+        #{trackTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="trackType != null" >
+        #{trackType,jdbcType=SMALLINT},
+      </if>
+      <if test="trackId != null" >
+        #{trackId,jdbcType=BIGINT},
+      </if>
+      <if test="trackTatus != null" >
+        #{trackTatus,jdbcType=SMALLINT},
+      </if>
+      <if test="orderDesc != null" >
+        #{orderDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creatTime != null" >
+        #{creatTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=BIGINT},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="trackOrderType != null" >
+        #{trackOrderType,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByWhereSelective" parameterType="map" >
+    update order_track
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.userId != null" >
+        user_id = #{record.userId,jdbcType=BIGINT},
+      </if>
+      <if test="record.orderId != null" >
+        order_id = #{record.orderId,jdbcType=BIGINT},
+      </if>
+      <if test="record.trackTitle != null" >
+        track_title = #{record.trackTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.trackContent != null" >
+        track_content = #{record.trackContent,jdbcType=VARCHAR},
+      </if>
+      <if test="record.trackTime != null" >
+        track_time = #{record.trackTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.trackType != null" >
+        track_type = #{record.trackType,jdbcType=SMALLINT},
+      </if>
+      <if test="record.trackId != null" >
+        track_id = #{record.trackId,jdbcType=BIGINT},
+      </if>
+      <if test="record.trackTatus != null" >
+        track_tatus = #{record.trackTatus,jdbcType=SMALLINT},
+      </if>
+      <if test="record.orderDesc != null" >
+        order_desc = #{record.orderDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateTime != null" >
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.creatTime != null" >
+        creat_time = #{record.creatTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=BIGINT},
+      </if>
+      <if test="record.remark != null" >
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.trackOrderType != null" >
+        track_order_type = #{record.trackOrderType,jdbcType=SMALLINT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="com.jialian.core.persistence.writer.CommonWriterMapper.Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByWhere" parameterType="map" >
+    update order_track
+    set id = #{record.id,jdbcType=BIGINT},
+      user_id = #{record.userId,jdbcType=BIGINT},
+      order_id = #{record.orderId,jdbcType=BIGINT},
+      track_title = #{record.trackTitle,jdbcType=VARCHAR},
+      track_content = #{record.trackContent,jdbcType=VARCHAR},
+      track_time = #{record.trackTime,jdbcType=TIMESTAMP},
+      track_type = #{record.trackType,jdbcType=SMALLINT},
+      track_id = #{record.trackId,jdbcType=BIGINT},
+      track_tatus = #{record.trackTatus,jdbcType=SMALLINT},
+      order_desc = #{record.orderDesc,jdbcType=VARCHAR},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      creat_time = #{record.creatTime,jdbcType=TIMESTAMP},
+      status = #{record.status,jdbcType=BIGINT},
+      track_order_type = #{record.trackOrderType,jdbcType=BIGINT},
+      remark = #{record.remark,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="com.jialian.core.persistence.writer.CommonWriterMapper.Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jialian.api.domain.entity.OrderTrack" >
+    update order_track
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="orderId != null" >
+        order_id = #{orderId,jdbcType=BIGINT},
+      </if>
+      <if test="trackTitle != null" >
+        track_title = #{trackTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="trackContent != null" >
+        track_content = #{trackContent,jdbcType=VARCHAR},
+      </if>
+      <if test="trackTime != null" >
+        track_time = #{trackTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="trackType != null" >
+        track_type = #{trackType,jdbcType=SMALLINT},
+      </if>
+      <if test="trackId != null" >
+        track_id = #{trackId,jdbcType=BIGINT},
+      </if>
+      <if test="trackTatus != null" >
+        track_tatus = #{trackTatus,jdbcType=SMALLINT},
+      </if>
+      <if test="orderDesc != null" >
+        order_desc = #{orderDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creatTime != null" >
+        creat_time = #{creatTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=BIGINT},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="trackOrderType != null" >
+        track_order_type = #{trackOrderType,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jialian.api.domain.entity.OrderTrack" >
+    update order_track
+    set user_id = #{userId,jdbcType=BIGINT},
+      order_id = #{orderId,jdbcType=BIGINT},
+      track_title = #{trackTitle,jdbcType=VARCHAR},
+      track_content = #{trackContent,jdbcType=VARCHAR},
+      track_time = #{trackTime,jdbcType=TIMESTAMP},
+      track_type = #{trackType,jdbcType=SMALLINT},
+      track_id = #{trackId,jdbcType=BIGINT},
+      track_tatus = #{trackTatus,jdbcType=SMALLINT},
+      order_desc = #{orderDesc,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      creat_time = #{creatTime,jdbcType=TIMESTAMP},
+      status = #{status,jdbcType=BIGINT},
+      track_order_type = #{trackOrderType,jdbcType=BIGINT},
+      remark = #{remark,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

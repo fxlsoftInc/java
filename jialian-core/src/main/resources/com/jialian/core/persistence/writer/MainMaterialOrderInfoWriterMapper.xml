@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jialian.core.persistence.writer.MainMaterialOrderInfoWriterMapper" >
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from main_material_order_info
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByWhere" parameterType="com.jialian.api.domain.entity.Where" >
+    delete from main_material_order_info
+    <if test="_parameter != null" >
+      <include refid="com.jialian.core.persistence.writer.CommonWriterMapper.Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.jialian.api.domain.entity.MainMaterialOrderInfo" >
+    insert into main_material_order_info (id, main_material_order_id, house_structure_category_id, 
+      material_id, material_value, material_unit, 
+      material_price, material_total_price, currency, 
+      material_discount, material_actual_total_price, material_craft, 
+      create_time, update_time, status, 
+      remark)
+    values (#{id,jdbcType=BIGINT}, #{mainMaterialOrderId,jdbcType=BIGINT}, #{houseStructureCategoryId,jdbcType=BIGINT}, 
+      #{materialId,jdbcType=BIGINT}, #{materialValue,jdbcType=DOUBLE}, #{materialUnit,jdbcType=VARCHAR}, 
+      #{materialPrice,jdbcType=REAL}, #{materialTotalPrice,jdbcType=REAL}, #{currency,jdbcType=VARCHAR}, 
+      #{materialDiscount,jdbcType=REAL}, #{materialActualTotalPrice,jdbcType=REAL}, #{materialCraft,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{status,jdbcType=SMALLINT}, 
+      #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jialian.api.domain.entity.MainMaterialOrderInfo" >
+    insert into main_material_order_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="mainMaterialOrderId != null" >
+        main_material_order_id,
+      </if>
+      <if test="houseStructureCategoryId != null" >
+        house_structure_category_id,
+      </if>
+      <if test="materialId != null" >
+        material_id,
+      </if>
+      <if test="materialValue != null" >
+        material_value,
+      </if>
+      <if test="materialUnit != null" >
+        material_unit,
+      </if>
+      <if test="materialPrice != null" >
+        material_price,
+      </if>
+      <if test="materialTotalPrice != null" >
+        material_total_price,
+      </if>
+      <if test="currency != null" >
+        currency,
+      </if>
+      <if test="materialDiscount != null" >
+        material_discount,
+      </if>
+      <if test="materialActualTotalPrice != null" >
+        material_actual_total_price,
+      </if>
+      <if test="materialCraft != null" >
+        material_craft,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="mainMaterialOrderId != null" >
+        #{mainMaterialOrderId,jdbcType=BIGINT},
+      </if>
+      <if test="houseStructureCategoryId != null" >
+        #{houseStructureCategoryId,jdbcType=BIGINT},
+      </if>
+      <if test="materialId != null" >
+        #{materialId,jdbcType=BIGINT},
+      </if>
+      <if test="materialValue != null" >
+        #{materialValue,jdbcType=DOUBLE},
+      </if>
+      <if test="materialUnit != null" >
+        #{materialUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="materialPrice != null" >
+        #{materialPrice,jdbcType=REAL},
+      </if>
+      <if test="materialTotalPrice != null" >
+        #{materialTotalPrice,jdbcType=REAL},
+      </if>
+      <if test="currency != null" >
+        #{currency,jdbcType=VARCHAR},
+      </if>
+      <if test="materialDiscount != null" >
+        #{materialDiscount,jdbcType=REAL},
+      </if>
+      <if test="materialActualTotalPrice != null" >
+        #{materialActualTotalPrice,jdbcType=REAL},
+      </if>
+      <if test="materialCraft != null" >
+        #{materialCraft,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=SMALLINT},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByWhereSelective" parameterType="map" >
+    update main_material_order_info
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.mainMaterialOrderId != null" >
+        main_material_order_id = #{record.mainMaterialOrderId,jdbcType=BIGINT},
+      </if>
+      <if test="record.houseStructureCategoryId != null" >
+        house_structure_category_id = #{record.houseStructureCategoryId,jdbcType=BIGINT},
+      </if>
+      <if test="record.materialId != null" >
+        material_id = #{record.materialId,jdbcType=BIGINT},
+      </if>
+      <if test="record.materialValue != null" >
+        material_value = #{record.materialValue,jdbcType=DOUBLE},
+      </if>
+      <if test="record.materialUnit != null" >
+        material_unit = #{record.materialUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="record.materialPrice != null" >
+        material_price = #{record.materialPrice,jdbcType=REAL},
+      </if>
+      <if test="record.materialTotalPrice != null" >
+        material_total_price = #{record.materialTotalPrice,jdbcType=REAL},
+      </if>
+      <if test="record.currency != null" >
+        currency = #{record.currency,jdbcType=VARCHAR},
+      </if>
+      <if test="record.materialDiscount != null" >
+        material_discount = #{record.materialDiscount,jdbcType=REAL},
+      </if>
+      <if test="record.materialActualTotalPrice != null" >
+        material_actual_total_price = #{record.materialActualTotalPrice,jdbcType=REAL},
+      </if>
+      <if test="record.materialCraft != null" >
+        material_craft = #{record.materialCraft,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null" >
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=SMALLINT},
+      </if>
+      <if test="record.remark != null" >
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="com.jialian.core.persistence.writer.CommonWriterMapper.Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByWhere" parameterType="map" >
+    update main_material_order_info
+    set id = #{record.id,jdbcType=BIGINT},
+      main_material_order_id = #{record.mainMaterialOrderId,jdbcType=BIGINT},
+      house_structure_category_id = #{record.houseStructureCategoryId,jdbcType=BIGINT},
+      material_id = #{record.materialId,jdbcType=BIGINT},
+      material_value = #{record.materialValue,jdbcType=DOUBLE},
+      material_unit = #{record.materialUnit,jdbcType=VARCHAR},
+      material_price = #{record.materialPrice,jdbcType=REAL},
+      material_total_price = #{record.materialTotalPrice,jdbcType=REAL},
+      currency = #{record.currency,jdbcType=VARCHAR},
+      material_discount = #{record.materialDiscount,jdbcType=REAL},
+      material_actual_total_price = #{record.materialActualTotalPrice,jdbcType=REAL},
+      material_craft = #{record.materialCraft,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      status = #{record.status,jdbcType=SMALLINT},
+      remark = #{record.remark,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="com.jialian.core.persistence.writer.CommonWriterMapper.Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jialian.api.domain.entity.MainMaterialOrderInfo" >
+    update main_material_order_info
+    <set >
+      <if test="mainMaterialOrderId != null" >
+        main_material_order_id = #{mainMaterialOrderId,jdbcType=BIGINT},
+      </if>
+      <if test="houseStructureCategoryId != null" >
+        house_structure_category_id = #{houseStructureCategoryId,jdbcType=BIGINT},
+      </if>
+      <if test="materialId != null" >
+        material_id = #{materialId,jdbcType=BIGINT},
+      </if>
+      <if test="materialValue != null" >
+        material_value = #{materialValue,jdbcType=DOUBLE},
+      </if>
+      <if test="materialUnit != null" >
+        material_unit = #{materialUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="materialPrice != null" >
+        material_price = #{materialPrice,jdbcType=REAL},
+      </if>
+      <if test="materialTotalPrice != null" >
+        material_total_price = #{materialTotalPrice,jdbcType=REAL},
+      </if>
+      <if test="currency != null" >
+        currency = #{currency,jdbcType=VARCHAR},
+      </if>
+      <if test="materialDiscount != null" >
+        material_discount = #{materialDiscount,jdbcType=REAL},
+      </if>
+      <if test="materialActualTotalPrice != null" >
+        material_actual_total_price = #{materialActualTotalPrice,jdbcType=REAL},
+      </if>
+      <if test="materialCraft != null" >
+        material_craft = #{materialCraft,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=SMALLINT},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jialian.api.domain.entity.MainMaterialOrderInfo" >
+    update main_material_order_info
+    set main_material_order_id = #{mainMaterialOrderId,jdbcType=BIGINT},
+      house_structure_category_id = #{houseStructureCategoryId,jdbcType=BIGINT},
+      material_id = #{materialId,jdbcType=BIGINT},
+      material_value = #{materialValue,jdbcType=DOUBLE},
+      material_unit = #{materialUnit,jdbcType=VARCHAR},
+      material_price = #{materialPrice,jdbcType=REAL},
+      material_total_price = #{materialTotalPrice,jdbcType=REAL},
+      currency = #{currency,jdbcType=VARCHAR},
+      material_discount = #{materialDiscount,jdbcType=REAL},
+      material_actual_total_price = #{materialActualTotalPrice,jdbcType=REAL},
+      material_craft = #{materialCraft,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      status = #{status,jdbcType=SMALLINT},
+      remark = #{remark,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

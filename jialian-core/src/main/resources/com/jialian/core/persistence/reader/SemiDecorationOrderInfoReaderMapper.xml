@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jialian.core.persistence.reader.SemiDecorationOrderInfoReaderMapper" >
+  <resultMap id="BaseResultMap" type="com.jialian.api.domain.entity.SemiDecorationOrderInfo" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="item_no" property="itemNo" jdbcType="VARCHAR" />
+    <result column="item_name" property="itemName" jdbcType="VARCHAR" />
+    <result column="item_id" property="itemId" jdbcType="BIGINT" />
+    <result column="item_project_size" property="itemProjectSize" jdbcType="DOUBLE" />
+    <result column="item_project_unit" property="itemProjectUnit" jdbcType="VARCHAR" />
+    <result column="main_material_price" property="mainMaterialPrice" jdbcType="DOUBLE" />
+    <result column="item_main_material_id" property="itemMainMaterialId" jdbcType="BIGINT" />
+    <result column="auxiliary_material_price" property="auxiliaryMaterialPrice" jdbcType="DOUBLE" />
+    <result column="item_auxiliary_material_id" property="itemAuxiliaryMaterialId" jdbcType="BIGINT" />
+    <result column="labor_cost" property="laborCost" jdbcType="DOUBLE" />
+    <result column="currency" property="currency" jdbcType="VARCHAR" />
+    <result column="labor_cost_id" property="laborCostId" jdbcType="BIGINT" />
+    <result column="item_price" property="itemPrice" jdbcType="DOUBLE" />
+    <result column="item_craft" property="itemCraft" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="item_status" property="itemStatus" jdbcType="SMALLINT" />
+    <result column="item_type" property="itemType" jdbcType="SMALLINT" />
+    <result column="status" property="status" jdbcType="SMALLINT" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="SemiDecOrderInfo" type="com.jialian.api.domain.vo.SemDecOrderInfoVO">
+  	<result column="id" property="id" jdbcType="BIGINT" />
+  	<result column="itemId" property="itemId" jdbcType="BIGINT" />
+  	<result column="mainMaterialId" property="mainMaterialId" jdbcType="BIGINT" />
+  	<result column="auxiMaterialId" property="auxiMaterialId" jdbcType="BIGINT" />
+  	<result column="laborId" property="laborId" jdbcType="BIGINT" />
+  	<result column="houseStrCatId" property="houseStrCatId" jdbcType="BIGINT" />
+  	<result column="projectSize" property="projectSize" jdbcType="DOUBLE" />
+  	<result column="itemUnit" property="itemUnit" jdbcType="VARCHAR" />
+  	<result column="itemPrice" property="itemPrice" jdbcType="DOUBLE" />
+  	<result column="totalMainMaterialPrice" property="totalMainMaterialPrice" jdbcType="DOUBLE" />
+  	<result column="totalAuxiMaterialPrice" property="totalAuxiMaterialPrice" jdbcType="DOUBLE" />
+  	<result column="totalLaborCost" property="totalLaborCost" jdbcType="DOUBLE" />
+  	<result column="itemName" property="itemName" jdbcType="VARCHAR" />
+  	<result column="itemCraft" property="itemCraft" jdbcType="VARCHAR" />
+  	<result column="itemType" property="itemType" jdbcType="SMALLINT" />
+  	<result column="mainMaterialPrice" property="mainMaterialPrice" jdbcType="DOUBLE" />
+  	<result column="mainMaterialUnit" property="mainMaterialUnit" jdbcType="VARCHAR" />
+  	<result column="auxiMaterialPrice" property="auxiMaterialPrice" jdbcType="DOUBLE" />
+  	<result column="auxiMaterialUnit" property="auxiMaterialUnit" jdbcType="VARCHAR" />
+  	<result column="laborCost" property="laborCost" jdbcType="DOUBLE" />
+  	<result column="houStrCatName" property="houStrCatName" jdbcType="VARCHAR" />
+  	<result column="houStrCatType" property="houStrCatType" jdbcType="SMALLINT" />
+  	<result column="houStrName" property="houStrName" jdbcType="VARCHAR" />
+  	<result column="houStrType" property="houStrType" jdbcType="SMALLINT" />
+  </resultMap>
+  <select id="selectSemiDecOrderInfo" resultMap="SemiDecOrderInfo" parameterType="java.lang.Long">
+  	SELECT
+  		sdi.id AS 'id', sdi.item_id AS 'itemId',sdi.item_main_material_id AS 'mainMaterialId', 
+  		sdi.item_auxiliary_material_id AS 'auxiMaterialId', sdi.labor_cost_id AS 'laborId',
+		sdi.item_project_size AS 'projectSize', sdi.item_project_unit AS 'itemUnit', sdi.item_price AS "itemPrice", 
+		sdi.main_material_price AS 'totalMainMaterialPrice', sdi.auxiliary_material_price AS 'totalAuxiMaterialPrice', sdi.labor_cost AS 'totalLaborCost',
+		item.item_name AS 'itemName', item.item_craft AS 'itemCraft', item.item_type AS 'itemType', item.house_structure_category_id AS 'houseStrCatId',
+		IFNULL(main.material_price,0) AS 'mainMaterialPrice', main.material_unit AS 'mainMaterialUnit',
+		IFNULL(auxi.material_price,0) AS 'auxiMaterialPrice', auxi.material_unit AS 'auxiMaterialUnit',
+		IFNULL(lc.labor_cost,0) AS 'laborCost',
+		hsc.`name` AS 'houStrCatName', hsc.type AS 'houStrCatType', hsi.`name` AS 'houStrName', hsi.type AS 'houStrType'
+	FROM
+		semi_decoration_order_info sdi LEFT JOIN
+		item item ON sdi.item_id = item.id LEFT JOIN
+		labor_cost lc ON sdi.labor_cost_id = lc.id LEFT JOIN
+		material main ON sdi.item_main_material_id = main.id LEFT JOIN
+		material auxi ON sdi.item_auxiliary_material_id = auxi.id LEFT JOIN
+		house_structure_category hsc ON item.house_structure_category_id = hsc.id LEFT JOIN
+		house_structure_info hsi ON hsc.house_structure_id = hsi.id
+	WHERE sdi.semi_dec_order_id = #{id,jdbcType=BIGINT} AND sdi.status = 1;
+  </select>
+  
+  <sql id="Base_Column_List" >
+    id, item_no, item_name, item_id, item_project_size, item_project_unit, main_material_price, 
+    item_main_material_id, auxiliary_material_price, item_auxiliary_material_id, labor_cost, 
+    currency, labor_cost_id, item_price, item_craft, create_time, update_time, item_status, 
+    item_type, status, remark
+  </sql>
+  
+  <select id="selectByWhere" resultMap="BaseResultMap" parameterType="com.jialian.api.domain.entity.Where" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from semi_decoration_order_info
+    <if test="_parameter != null" >
+      <include refid="com.jialian.core.persistence.reader.CommonReaderMapper.Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from semi_decoration_order_info
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="countByWhere" parameterType="com.jialian.api.domain.entity.Where" resultType="java.lang.Integer" >
+    select count(*) from semi_decoration_order_info
+    <if test="_parameter != null" >
+      <include refid="com.jialian.core.persistence.reader.CommonReaderMapper.Example_Where_Clause" />
+    </if>
+  </select>
+</mapper>

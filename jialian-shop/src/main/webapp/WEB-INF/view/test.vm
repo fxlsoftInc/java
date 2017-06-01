@@ -1,0 +1,61 @@
+<html>
+<head>
+<title>测试</title> 
+#parse("/head.vm")
+</head>
+<body>
+		<div class="noca-bd">
+		<strong>筛选</strong>
+    	   <div class="lh-40 gr-in-div">
+    	   <form id="searchForm" action="#springUrl('/test.htm')" method="post">
+    	   <div class="wd-20b">
+    	   <span>账号</span>
+    		<input type="text" style="width: 120px" id="userAccount" name="systemUserQuery.userAccount" value="$!systemUserQuery.userAccount"/>
+    		</div>
+    		<div class="wd-20b">
+    		<span>姓名</span>
+    		<input type="text" style="width: 120px" id="userName" name="systemUserQuery.userName" value="$!systemUserQuery.userName"/>
+    		</div>
+    		<input type="hidden" id="page" name="page" value="1"/>
+    		<input type="submit" class="i-btn gr-btn" value="搜索">
+    		</form>
+    		</div>
+		</div>
+		
+	<table>
+		<thead>
+			<tr>
+				<th>账号</th>
+				<th>姓名</th>
+				<th>联系电话</th>
+				<th>创建日期</th>
+				<th>更新日期</th>
+			</tr>
+		</thead>
+		<tbody>
+			#foreach($list in $serviceResult.data.list)
+			<tr>
+				<td>$!list.userAccount</td>
+				<td>$!list.userName</td>
+				<td>$!list.userTel</td>
+				<td>$!dateTimeUtil.format($!list.createDate,'yy-MM-dd HH:mm')</td>
+				<td>$!dateTimeUtil.format($!list.updateDate,'yy-MM-dd HH:mm')</td>
+			</tr>
+			#end
+		</tbody>
+	</table>
+	<div>
+		共$!{serviceResult.data.countRecord}条数据
+		 <a onclick="flip($!{serviceResult.data.currentPage}-1);">上一页</a> 
+			<span>$!serviceResult.data.currentPage/$!serviceResult.data.countPage</span>
+		<a onclick="flip($!serviceResult.data.currentPage+1);">下一页</a>
+	</div>
+<script src="http://lib.sinaapp.com/js/jquery/1.9.1/jquery-1.9.1.min.js"></script>
+<script type="text/javascript">
+	    function flip(page){
+			$("#page").val(page);
+			$("#searchForm").submit();
+		}
+</script>
+</body>
+</html>

@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jialian.core.persistence.writer.MemorandoWriterMapper" >
+  <resultMap id="BaseResultMap" type="com.jialian.api.domain.entity.Memorando" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="user_id" property="userId" jdbcType="BIGINT" />
+    <result column="memo_no" property="memoNo" jdbcType="VARCHAR" />
+    <result column="memo_type" property="memoType" jdbcType="SMALLINT" />
+    <result column="memo_id" property="memoId" jdbcType="BIGINT" />
+    <result column="memo_title" property="memoTitle" jdbcType="VARCHAR" />
+    <result column="memo_content" property="memoContent" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="status" property="status" jdbcType="SMALLINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, user_id, memo_no, memo_type, memo_id, memo_title, memo_content, create_time, 
+    update_time, status
+  </sql>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from memorando
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByWhere" parameterType="com.jialian.api.domain.entity.Where" >
+    delete from memorando
+    <if test="_parameter != null" >
+      <include refid="com.jialian.core.persistence.writer.CommonWriterMapper.Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert useGeneratedKeys="true" keyProperty="id" id="insert" parameterType="com.jialian.api.domain.entity.Memorando" >
+    insert into memorando (id, user_id, memo_no, 
+      memo_type, memo_id, memo_title, 
+      memo_content, create_time, update_time, 
+      status)
+    values (#{id,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, #{memoNo,jdbcType=VARCHAR}, 
+      #{memoType,jdbcType=SMALLINT}, #{memoId,jdbcType=BIGINT}, #{memoTitle,jdbcType=VARCHAR}, 
+      #{memoContent,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{status,jdbcType=SMALLINT})
+  </insert>
+  <insert useGeneratedKeys="true" keyProperty="id" id="insertSelective" parameterType="com.jialian.api.domain.entity.Memorando" >
+    insert into memorando
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="orderNo != null" >
+        order_no,
+      </if>
+      <if test="memoNo != null" >
+        memo_no,
+      </if>
+      <if test="memoType != null" >
+        memo_type,
+      </if>
+      <if test="memoId != null" >
+        memo_id,
+      </if>
+      <if test="memoTitle != null" >
+        memo_title,
+      </if>
+      <if test="memoContent != null" >
+        memo_content,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="orderNo != null" >
+        #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="memoNo != null" >
+        #{memoNo,jdbcType=VARCHAR},
+      </if>
+      <if test="memoType != null" >
+        #{memoType,jdbcType=SMALLINT},
+      </if>
+      <if test="memoId != null" >
+        #{memoId,jdbcType=BIGINT},
+      </if>
+      <if test="memoTitle != null" >
+        #{memoTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="memoContent != null" >
+        #{memoContent,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=SMALLINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByWhereSelective" parameterType="map" >
+    update memorando
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.userId != null" >
+        user_id = #{record.userId,jdbcType=BIGINT},
+      </if>
+      <if test="record.memoNo != null" >
+        memo_no = #{record.memoNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.memoType != null" >
+        memo_type = #{record.memoType,jdbcType=SMALLINT},
+      </if>
+      <if test="record.memoId != null" >
+        memo_id = #{record.memoId,jdbcType=BIGINT},
+      </if>
+      <if test="record.memoTitle != null" >
+        memo_title = #{record.memoTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.memoContent != null" >
+        memo_content = #{record.memoContent,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null" >
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=SMALLINT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="com.jialian.core.persistence.writer.CommonWriterMapper.Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByWhere" parameterType="map" >
+    update memorando
+    set id = #{record.id,jdbcType=BIGINT},
+      user_id = #{record.userId,jdbcType=BIGINT},
+      memo_no = #{record.memoNo,jdbcType=VARCHAR},
+      memo_type = #{record.memoType,jdbcType=SMALLINT},
+      memo_id = #{record.memoId,jdbcType=BIGINT},
+      memo_title = #{record.memoTitle,jdbcType=VARCHAR},
+      memo_content = #{record.memoContent,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      status = #{record.status,jdbcType=SMALLINT}
+    <if test="_parameter != null" >
+      <include refid="com.jialian.core.persistence.writer.CommonWriterMapper.Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jialian.api.domain.entity.Memorando" >
+    update memorando
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="memoNo != null" >
+        memo_no = #{memoNo,jdbcType=VARCHAR},
+      </if>
+      <if test="memoType != null" >
+        memo_type = #{memoType,jdbcType=SMALLINT},
+      </if>
+      <if test="memoId != null" >
+        memo_id = #{memoId,jdbcType=BIGINT},
+      </if>
+      <if test="memoTitle != null" >
+        memo_title = #{memoTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="memoContent != null" >
+        memo_content = #{memoContent,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=SMALLINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jialian.api.domain.entity.Memorando" >
+    update memorando
+    set user_id = #{userId,jdbcType=BIGINT},
+      memo_no = #{memoNo,jdbcType=VARCHAR},
+      memo_type = #{memoType,jdbcType=SMALLINT},
+      memo_id = #{memoId,jdbcType=BIGINT},
+      memo_title = #{memoTitle,jdbcType=VARCHAR},
+      memo_content = #{memoContent,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      status = #{status,jdbcType=SMALLINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

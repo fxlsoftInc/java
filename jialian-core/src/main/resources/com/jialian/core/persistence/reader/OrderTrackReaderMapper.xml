@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jialian.core.persistence.reader.OrderTrackReaderMapper" >
+  <resultMap id="BaseResultMap" type="com.jialian.api.domain.entity.OrderTrack" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="user_id" property="userId" jdbcType="BIGINT" />
+    <result column="order_id" property="orderId" jdbcType="BIGINT" />
+    <result column="track_title" property="trackTitle" jdbcType="VARCHAR" />
+    <result column="track_content" property="trackContent" jdbcType="VARCHAR" />
+    <result column="track_time" property="trackTime" jdbcType="TIMESTAMP" />
+    <result column="track_type" property="trackType" jdbcType="SMALLINT" />
+    <result column="track_id" property="trackId" jdbcType="BIGINT" />
+    <result column="track_tatus" property="trackTatus" jdbcType="SMALLINT" />
+    <result column="order_desc" property="orderDesc" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="creat_time" property="creatTime" jdbcType="TIMESTAMP" />
+    <result column="status" property="status" jdbcType="BIGINT" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="track_order_type" property="trackOrderType" jdbcType="SMALLINT" />
+  </resultMap>
+  <resultMap id="TrackOrderAndPayRecordResultMap" type="com.jialian.api.domain.vo.OrderTrackVO" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="user_id" property="userId" jdbcType="BIGINT" />
+    <result column="order_id" property="orderId" jdbcType="BIGINT" />
+    <result column="track_title" property="trackTitle" jdbcType="VARCHAR" />
+    <result column="track_content" property="trackContent" jdbcType="VARCHAR" />
+    <result column="track_time" property="trackTime" jdbcType="TIMESTAMP" />
+    <result column="track_type" property="trackType" jdbcType="SMALLINT" />
+    <result column="track_id" property="trackId" jdbcType="BIGINT" />
+    <result column="track_tatus" property="trackTatus" jdbcType="SMALLINT" />
+    <result column="order_desc" property="orderDesc" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="creat_time" property="creatTime" jdbcType="TIMESTAMP" />
+    <result column="status" property="status" jdbcType="BIGINT" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <association property="payRecord" column="track_id" select="com.jialian.core.persistence.reader.PayRecordReaderMapper.selectByPrimaryKey"></association>
+  </resultMap>
+  <resultMap id="TrackOrderAndSemDecOrderResultMap" type="com.jialian.api.domain.vo.OrderTrackVO" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="user_id" property="userId" jdbcType="BIGINT" />
+    <result column="order_id" property="orderId" jdbcType="BIGINT" />
+    <result column="track_title" property="trackTitle" jdbcType="VARCHAR" />
+    <result column="track_content" property="trackContent" jdbcType="VARCHAR" />
+    <result column="track_time" property="trackTime" jdbcType="TIMESTAMP" />
+    <result column="track_type" property="trackType" jdbcType="SMALLINT" />
+    <result column="track_id" property="trackId" jdbcType="BIGINT" />
+    <result column="track_tatus" property="trackTatus" jdbcType="SMALLINT" />
+    <result column="order_desc" property="orderDesc" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="creat_time" property="creatTime" jdbcType="TIMESTAMP" />
+    <result column="status" property="status" jdbcType="BIGINT" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <association property="semDecOrderVO" column="track_id" select="com.jialian.core.persistence.reader.SemiDecorationOrderReaderMapper.selectSemDecOrderByPrimaryKey"></association>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, user_id, order_id, track_title, track_content, track_time, track_type, track_id, 
+    track_tatus, order_desc, update_time, creat_time, status, remark, track_order_type
+  </sql>
+  <select id="selectByWhere" resultMap="BaseResultMap" parameterType="com.jialian.api.domain.entity.Where" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from order_track
+    <if test="_parameter != null" >
+      <include refid="com.jialian.core.persistence.reader.CommonReaderMapper.Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from order_track
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="selectTrackOrderAndPayRecord" resultMap="TrackOrderAndPayRecordResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from order_track
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="selectTrackOrderAndSemDecOrder" resultMap="TrackOrderAndSemDecOrderResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from order_track
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="countByWhere" parameterType="com.jialian.api.domain.entity.Where" resultType="java.lang.Integer" >
+    select count(*) from order_track
+    <if test="_parameter != null" >
+      <include refid="com.jialian.core.persistence.reader.CommonReaderMapper.Example_Where_Clause" />
+    </if>
+  </select>
+  <select id="selectByOrderTrackId" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from order_track
+    where order_id = #{orderId,jdbcType=BIGINT}
+  </select>
+  
+</mapper>

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jialian.core.persistence.reader.ResourceInfoReaderMapper" >
+  <resultMap id="BaseResultMap" type="com.jialian.api.domain.entity.ResourceInfo" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="no" property="no" jdbcType="VARCHAR" />
+    <result column="object_id" property="objectId" jdbcType="BIGINT" />
+    <result column="object_type" property="objectType" jdbcType="SMALLINT" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="SMALLINT" />
+    <result column="extension" property="extension" jdbcType="VARCHAR" />
+    <result column="path" property="path" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, no, object_id, object_type, name, type, extension, path, remark
+  </sql>
+  <select id="selectByWhere" resultMap="BaseResultMap" parameterType="com.jialian.api.domain.entity.Where" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from resource_info
+    <if test="_parameter != null" >
+      <include refid="com.jialian.core.persistence.reader.CommonReaderMapper.Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from resource_info
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="selectByNo" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from resource_info
+    where no = #{no,jdbcType=VARCHAR}
+  </select>
+  <select id="countByWhere" parameterType="com.jialian.api.domain.entity.Where" resultType="java.lang.Integer" >
+    select count(*) from resource_info
+    <if test="_parameter != null" >
+      <include refid="com.jialian.core.persistence.reader.CommonReaderMapper.Example_Where_Clause" />
+    </if>
+  </select>
+  
+  <sql id="Img_Where" >
+  	<where>
+	  	object_type=#{objectType} 
+	  	<if test="objectId !=null and objectId !=0">
+	  		and object_id=#{objectId}
+	  	</if>
+	  	<if test="no !=null">
+	  		and no=#{no}
+	  	</if>
+	  	<if test="objectId ==null">
+			and `no` in ('SY0001','SY0002','SY0003','SY0004','SY0005')
+		</if>
+  	</where>
+  </sql>
+  <select id="selectImgByObjectTypeAndObjectId" resultMap="BaseResultMap">
+  	 select 
+    <include refid="Base_Column_List" />
+    from resource_info 
+    <include refid="Img_Where" />
+  </select>
+  
+  <select id="selectResourceInfoByHomeType" parameterType="java.lang.Short" resultMap="BaseResultMap">
+      select 
+    <include refid="Base_Column_List" />
+    from resource_info 
+    where object_type=#{objectType}
+    ORDER BY id desc
+    limit 0,5
+  </select>
+</mapper>

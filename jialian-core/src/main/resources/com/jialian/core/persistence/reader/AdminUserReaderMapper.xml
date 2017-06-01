@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jialian.core.persistence.reader.AdminUserReaderMapper" >
+  <resultMap id="BaseResultMap" type="com.jialian.api.domain.entity.AdminUser" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="firstname" property="firstname" jdbcType="VARCHAR" />
+    <result column="lastname" property="lastname" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="username" property="username" jdbcType="CHAR" />
+    <result column="password" property="password" jdbcType="CHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="logdate" property="logdate" jdbcType="DATE" />
+    <result column="lognum" property="lognum" jdbcType="INTEGER" />
+    <result column="role_id" property="roleId" jdbcType="BIGINT"/>
+    <result column="admin_status" property="adminStatus" jdbcType="SMALLINT" />
+    <result column="role_id" property="roleId" jdbcType="BIGINT" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="telephone" property="telephone" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <resultMap type="com.jialian.api.domain.vo.AdminUserVo" id="adminUserVoMap">
+     <result column="id" property="userId" jdbcType="BIGINT"/>
+     <result column="role_id" property="roleId" jdbcType="BIGINT"/>
+     <result column="role_name" property="roleName" jdbcType="VARCHAR" />
+     <result column="user_name" property="userName" jdbcType="VARCHAR" />
+     <result column="user_status" property="userStatus" jdbcType="VARCHAR" />
+     <result column="telephone" property="telephone" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    id, role_id, firstname, lastname, name, email, username, password, create_time, update_time, 
+    logdate, lognum, admin_status, remark,telephone
+  </sql>
+     
+  <sql id="Admin_User_Vo_List">
+     au.username as 'userName',ar.role_name as 'roleName',au.id as 'userId',
+     au.admin_status as 'userStatus',ar.id as 'roleId'
+  </sql>
+  <select id="selectByWhere" resultMap="BaseResultMap" parameterType="com.jialian.api.domain.entity.Where" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from admin_user
+    <if test="_parameter != null" >
+      <include refid="com.jialian.core.persistence.reader.CommonReaderMapper.Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      limit ${limit},${offset}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from admin_user
+    where  id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="countByWhere" parameterType="com.jialian.api.domain.entity.Where" resultType="java.lang.Integer" >
+    select count(*) from admin_user
+    <if test="_parameter != null" >
+      <include refid="com.jialian.core.persistence.reader.CommonReaderMapper.Example_Where_Clause" />
+    </if>
+  </select>
+  
+  <select id="selectAdminRoleList" parameterType="com.jialian.api.domain.query.AdminRoleQuery" resultMap="adminUserVoMap">
+      select 
+      <include refid="Admin_User_Vo_List"/>
+	  from admin_user au LEFT JOIN admin_role ar on au.id = ar.user_id
+	  <if test="query.roleName != null">
+	  where ar.role_name like '%${query.roleName}%'
+	  </if>
+	  limit #{query.startIndex},#{query.onePageCount}
+  </select>
+  
+  <sql id="selectAdminUserListByQuery_Where">
+  	<where>
+  		<if test="query.username !=null and query.username !=''">
+  			au.username like '%${query.username}%'
+  		</if>
+  	</where>
+  </sql>
+  <select id="selectAdminUserCountByQuery" parameterType="com.jialian.api.domain.query.AdminUserQuery" resultType="java.lang.Integer">
+  	select count(*) from admin_user au 
+	left join admin_role ar on ar.id=au.role_id 
+	<include refid="selectAdminUserListByQuery_Where"/>
+  </select>
+  <select id="selectAdminUserListByQuery" parameterType="com.jialian.api.domain.query.AdminUserQuery" resultMap="adminUserVoMap">
+  		select au.id,au.username, au.admin_status as 'user_status', ar.role_name from admin_user au 
+		left join admin_role ar on ar.id=au.role_id 
+		<include refid="selectAdminUserListByQuery_Where"/> 
+		order by au.id 
+		<if test="query.sort==0">desc</if> 
+		<if test="query.sort==1">asc</if> 
+		limit #{query.startIndex},#{query.onePageCount}
+  </select>
+  <select id="selectAdminUserById" resultMap="adminUserVoMap">
+  		select au.*,ar.role_name from admin_user au 
+		left join admin_role ar on ar.id=au.role_id 
+		where au.id=#{id}
+  </select>
+</mapper>

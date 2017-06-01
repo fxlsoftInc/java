@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+    http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+	<!-- ========================= dubbo RESOURCE DEFINITIONS ========================= -->
+
+	<!-- 提供方应用信息，用于计算依赖关系 -->
+	<dubbo:application name="jialian-core" />
+
+	<!-- 使用multicast广播注册中心暴露服务地址 -->
+	<dubbo:registry protocol="zookeeper" address="${zookeeper.address}" />
+	<dubbo:annotation package="com.jialian.core" />
+	<!-- 用dubbo协议在20880端口暴露服务 -->
+	<!-- <dubbo:protocol host="172.16.3.220" name="dubbo" port="20880" /> -->
+	<!-- <dubbo:protocol name="dubbo" port="20880" threads="2000" accepts="2000" /> -->
+	<dubbo:protocol name="dubbo" port="20808" />
+	<!-- 服务提供者过期时间配置 -->
+	<dubbo:provider timeout="300000" retries="3" accepts="800" threads="800" />
+      
+	<!-- 声明需要暴露的服务接口 -->
+	<dubbo:service interface="com.jialian.api.service.TestServiceApi" ref="testService"/>
+	<dubbo:service interface="com.jialian.api.service.UserServiceApi" ref="userService"/>
+	<dubbo:service interface="com.jialian.api.service.ResourceInfo.ResourceInfoServiceApi" ref="resourceInfoService"/>
+	<dubbo:service interface="com.jialian.api.service.Admin.AdminUserServiceApi" ref="adminUserService"/>
+	<dubbo:service interface="com.jialian.api.service.Combo.ComboServiceApi" ref="comboService" />
+	<dubbo:service interface="com.jialian.api.service.Combo.ComboInfoServiceApi" ref="comboInfoService" />
+	<dubbo:service interface="com.jialian.api.service.ModelHouseServiceApi" ref="modelHouseService" />
+	<dubbo:service interface="com.jialian.api.service.CaseHouseServiceApi" ref="caseHouseService" />
+	<dubbo:service interface="com.jialian.api.service.Material.MaterialAttributeServiceApi" ref="materialAttributeService" />
+	<dubbo:service interface="com.jialian.api.service.Material.MaterialPriceServiceApi" ref="materialPriceService" />
+	<dubbo:service interface="com.jialian.api.service.Material.MaterialServiceApi" ref="materialService" />
+	<dubbo:service interface="com.jialian.api.service.House.HouseStyleServiceApi" ref="houseStyleService" />
+	<dubbo:service interface="com.jialian.api.service.Subscribe.SubscribeServiceApi" ref="subscribeService" />
+	<dubbo:service interface="com.jialian.api.service.HomeServiceApi" ref="homeService" />
+	<dubbo:service interface="com.jialian.api.service.Quote.QuoteServiceApi" ref="quoteService" />
+    <dubbo:service interface="com.jialian.api.service.SystemMessageServiceApi" ref="systemMessageService" />
+	<dubbo:service interface="com.jialian.api.service.Order.OrderTrackServiceApi" ref="orderTrackService" />
+	<dubbo:service interface="com.jialian.api.service.Order.PayRecordServiceApi" ref="payRecordService" />
+	<dubbo:service interface="com.jialian.api.service.Order.SignedOrderServiceApi" ref="signedOrderService" />
+	<dubbo:service interface="com.jialian.api.service.CaseHouseServiceApi" ref="caseHouseService" />
+	<dubbo:service interface="com.jialian.api.service.Item.ItemServiceApi" ref="itemService" />
+	<dubbo:service interface="com.jialian.api.service.Address.AddressServiceApi" ref="addressService" />
+	<dubbo:service interface="com.jialian.api.service.House.HouseStructureCategoryServiceApi" ref="houseStructureCategoryService" />
+	<dubbo:service interface="com.jialian.api.service.House.HouseStructureInfoServiceApi" ref="houseStructureInfoService" />
+	<dubbo:service interface="com.jialian.api.service.Order.SubOrderServiceApi" ref="subOrderService" />
+	<dubbo:service interface="com.jialian.api.service.Admin.AdminRoleServiceApi" ref="adminRoleService" />
+	<dubbo:service interface="com.jialian.api.service.Admin.AdminPermissionServiceApi" ref="adminPermissionService" />
+	<dubbo:service interface="com.jialian.api.service.Shop.ShopCartServiceApi" ref="shopCartService" />
+	<dubbo:service interface="com.jialian.api.service.Shop.ShopIndexServiceApi" ref="shopIndexService" />
+	<dubbo:service interface="com.jialian.api.service.Shop.ShopOrderServiceApi" ref="shopOrderService" />
+	<dubbo:service interface="com.jialian.api.service.Shop.ShopProdTypeServiceApi" ref="shopProdTypeService" />
+	<dubbo:service interface="com.jialian.api.component.IdWorkerServiceApi" ref="idWorkerService" />
+	<dubbo:service interface="com.jialian.api.service.Comment.CommentServiceApi" ref="commentService" />
+	<dubbo:service interface="com.jialian.api.service.Order.PayRecordServiceApi" ref="payRecordService" />
+	<dubbo:service interface="com.jialian.api.service.Decoration.HouseSurveyServiceApi" ref="houseSurveyService" />
+	<dubbo:service interface="com.jialian.api.service.Decoration.MemorandoServiceApi" ref="memorandoService" />
+	<dubbo:service interface="com.jialian.api.service.Decoration.SignedRecordServiceApi" ref="signedRecordService" />
+	<dubbo:service interface="com.jialian.api.service.Order.SubHouseInfoServiceApi" ref="subHouseInfoService" />
+	<dubbo:service interface="com.jialian.api.service.PubDoc.PubDocServiceApi" ref="pubDocService" />
+	<dubbo:service interface="com.jialian.api.service.House.HouseTypeServiceApi" ref="houseTypeService" />
+	<dubbo:service interface="com.jialian.api.service.Log.LogServiceApi" ref="logService" />
+</beans>

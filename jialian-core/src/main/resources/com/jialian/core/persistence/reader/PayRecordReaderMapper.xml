@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jialian.core.persistence.reader.PayRecordReaderMapper" >
+  <resultMap id="BaseResultMap" type="com.jialian.api.domain.entity.PayRecord" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="pay_no" property="payNo" jdbcType="VARCHAR" />
+    <result column="order_id" property="orderId" jdbcType="BIGINT" />
+    <result column="order_no" property="orderNo" jdbcType="BIGINT" />
+    <result column="order_type" property="orderType" jdbcType="SMALLINT" />
+    <result column="user_id" property="userId" jdbcType="BIGINT" />
+    <result column="user_account_number" property="userAccountNumber" jdbcType="VARCHAR" />
+    <result column="access_user_id" property="accessUserId" jdbcType="BIGINT" />
+    <result column="access_user_account_number" property="accessUserAccountNumber" jdbcType="VARCHAR" />
+    <result column="payable_amt" property="payableAmt" jdbcType="DOUBLE" />
+    <result column="actual_amt" property="actualAmt" jdbcType="DOUBLE" />
+    <result column="discount_amt" property="discountAmt" jdbcType="DOUBLE" />
+    <result column="pay_type" property="payType" jdbcType="SMALLINT" />
+    <result column="pay_status" property="payStatus" jdbcType="SMALLINT" />
+    <result column="pay_description" property="payDescription" jdbcType="VARCHAR" />
+    <result column="pay_time" property="payTime" jdbcType="TIMESTAMP" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="record_type" property="recordType" jdbcType="SMALLINT" />
+    <result column="objid" property="objid" jdbcType="VARCHAR" />
+    <association property="user" column="user_id" select="com.jialian.core.persistence.reader.UserReaderMapper.selectByPrimaryKey"/>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, pay_no, order_id, order_no, order_type, user_id, user_account_number, access_user_id, access_user_account_number, 
+    payable_amt, actual_amt, discount_amt, pay_type, pay_status, pay_description, pay_time, 
+    create_time, update_time, remark, record_type, objid
+  </sql>
+  <select id="sumPayAmtByWhere" resultType="java.lang.Double" parameterType="com.jialian.api.domain.entity.Where">
+  	select sum(payable_amt) from pay_record
+  	<if test="_parameter != null" >
+      <include refid="com.jialian.core.persistence.reader.CommonReaderMapper.Example_Where_Clause" />
+    </if>
+  </select>
+  <select id="selectByWhere" resultMap="BaseResultMap" parameterType="com.jialian.api.domain.entity.Where" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from pay_record
+    <if test="_parameter != null" >
+      <include refid="com.jialian.core.persistence.reader.CommonReaderMapper.Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+   	   limit ${limit}, ${offset}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from pay_record
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="countByWhere" parameterType="com.jialian.api.domain.entity.Where" resultType="java.lang.Integer" >
+    select count(*) from pay_record
+    <if test="_parameter != null" >
+      <include refid="com.jialian.core.persistence.reader.CommonReaderMapper.Example_Where_Clause" />
+    </if>
+  </select>
+</mapper>

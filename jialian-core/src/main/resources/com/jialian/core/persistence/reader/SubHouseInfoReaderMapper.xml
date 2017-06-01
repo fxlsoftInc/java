@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jialian.core.persistence.reader.SubHouseInfoReaderMapper" >
+  <resultMap id="BaseResultMap" type="com.jialian.api.domain.entity.SubHouseInfo" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="area" property="area" jdbcType="DOUBLE" />
+    <result column="type" property="type" jdbcType="SMALLINT" />
+    <result column="type_name" property="typeName" jdbcType="VARCHAR" />
+    <result column="house_style_id" property="houseStyleId" jdbcType="BIGINT" />
+    <result column="address_id" property="addressId" jdbcType="BIGINT" />
+    <result column="plan_decoration_time" property="planDecorationTime" jdbcType="DATE" />
+    <result column="create_time" property="createTime" jdbcType="DATE" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="measurer" property="measurer" jdbcType="VARCHAR" />
+    <result column="measurer_telephone" property="measurerTelephone" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="SMALLINT" />
+    <result column="structure" property="structure" jdbcType="VARCHAR"/>
+    <association property="houseTypeList" column="structure" select="com.jialian.core.persistence.reader.HouseTypeReaderMapper.selectByHouseTypeNo"></association>
+    <association property="address" column="address_id" select="com.jialian.core.persistence.reader.AddressReaderMapper.selectByPrimaryKey"></association>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, area, type, type_name, house_style_id, address_id, plan_decoration_time, create_time, 
+    remark, status,structure,measurer_telephone,measurer
+  </sql>
+  <select id="selectByWhere" resultMap="BaseResultMap" parameterType="com.jialian.api.domain.entity.Where" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from sub_house_info
+    <if test="_parameter != null" >
+      <include refid="com.jialian.core.persistence.reader.CommonReaderMapper.Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from sub_house_info
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="countByWhere" parameterType="com.jialian.api.domain.entity.Where" resultType="java.lang.Integer" >
+    select count(*) from sub_house_info
+    <if test="_parameter != null" >
+      <include refid="com.jialian.core.persistence.reader.CommonReaderMapper.Example_Where_Clause" />
+    </if>
+  </select>
+</mapper>

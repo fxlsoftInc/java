@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jialian.core.persistence.writer.ShopProdTypeWriterMapper" >
+ 
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from shop_prod_type
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.jialian.api.domain.entity.ShopProdType" >
+    insert into shop_prod_type (id, sptypename, sptypeno, rank, 
+      supid, sequence, createtime
+      )
+    values (#{id,jdbcType=BIGINT}, #{sptypename,jdbcType=VARCHAR}, #{sptypeno,jdbcType=VARCHAR}, #{rank,jdbcType=INTEGER}, 
+      #{supid,jdbcType=BIGINT}, #{sequence,jdbcType=INTEGER}, #{createtime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.jialian.api.domain.entity.ShopProdType" >
+    insert into shop_prod_type
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="sptypename != null" >
+        sptypename,
+      </if>
+      <if test="sptypeno != null" >
+        sptypeno,
+      </if>
+      <if test="rank != null" >
+        rank,
+      </if>
+      <if test="supid != null" >
+        supid,
+      </if>
+      <if test="sequence != null" >
+        sequence,
+      </if>
+      <if test="createtime != null" >
+        createtime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="sptypename != null" >
+        #{sptypename,jdbcType=VARCHAR},
+      </if>
+      <if test="sptypeno != null" >
+        #{sptypeno,jdbcType=VARCHAR},
+      </if>
+      <if test="rank != null" >
+        #{rank,jdbcType=INTEGER},
+      </if>
+      <if test="supid != null" >
+        #{supid,jdbcType=BIGINT},
+      </if>
+      <if test="sequence != null" >
+        #{sequence,jdbcType=INTEGER},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jialian.api.domain.entity.ShopProdType" >
+    update shop_prod_type
+    <set >
+      <if test="sptypename != null" >
+        sptypename = #{sptypename,jdbcType=VARCHAR},
+      </if>
+      <if test="sptypeno != null" >
+        sptypeno = #{sptypeno,jdbcType=VARCHAR},
+      </if>
+      <if test="rank != null" >
+        rank = #{rank,jdbcType=INTEGER},
+      </if>
+      <if test="supid != null" >
+        supid = #{supid,jdbcType=BIGINT},
+      </if>
+      <if test="sequence != null" >
+        sequence = #{sequence,jdbcType=INTEGER},
+      </if>
+      <if test="createtime != null" >
+        createtime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jialian.api.domain.entity.ShopProdType" >
+    update shop_prod_type
+    set sptypename = #{sptypename,jdbcType=VARCHAR},
+      sptypeno = #{sptypeno,jdbcType=VARCHAR},
+      rank = #{rank,jdbcType=INTEGER},
+      supid = #{supid,jdbcType=BIGINT},
+      sequence = #{sequence,jdbcType=INTEGER},
+      createtime = #{createtime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

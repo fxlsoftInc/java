@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jialian.core.persistence.writer.OperateLogWriterMapper" >
+  <resultMap id="BaseResultMap" type="com.jialian.api.domain.entity.OperateLog" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="operate_name" property="operateName" jdbcType="VARCHAR" />
+    <result column="operate_id" property="operateId" jdbcType="BIGINT" />
+    <result column="operate_type" property="operateType" jdbcType="SMALLINT" />
+    <result column="from_type" property="fromType" jdbcType="SMALLINT" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+    <result column="ip" property="ip" jdbcType="VARCHAR" />
+    <result column="operate_content" property="operateContent" jdbcType="VARCHAR" />
+    <result column="operate_module" property="operateModule" jdbcType="VARCHAR" />
+    <result column="table" property="table" jdbcType="VARCHAR" />
+    <result column="table_operate_type" property="tableOperateType" jdbcType="SMALLINT" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, operate_name, operate_id, operate_type, from_type, type, ip, operate_content, 
+    operate_module, table, table_operate_type, create_time, remark
+  </sql>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from operate_log
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByWhere" parameterType="com.jialian.api.domain.entity.Where" >
+    delete from operate_log
+    <if test="_parameter != null" >
+      <include refid="com.jialian.core.persistence.writer.CommonWriterMapper.Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.jialian.api.domain.entity.OperateLog" >
+    insert into operate_log (id, operate_name, operate_id, 
+      operate_type, from_type, type, 
+      ip, operate_content, operate_module, 
+      table, table_operate_type, create_time, 
+      remark)
+    values (#{id,jdbcType=BIGINT}, #{operateName,jdbcType=VARCHAR}, #{operateId,jdbcType=BIGINT}, 
+      #{operateType,jdbcType=SMALLINT}, #{fromType,jdbcType=SMALLINT}, #{type,jdbcType=VARCHAR}, 
+      #{ip,jdbcType=VARCHAR}, #{operateContent,jdbcType=VARCHAR}, #{operateModule,jdbcType=VARCHAR}, 
+      #{table,jdbcType=VARCHAR}, #{tableOperateType,jdbcType=SMALLINT}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jialian.api.domain.entity.OperateLog" >
+    insert into operate_log
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="operateName != null" >
+        operate_name,
+      </if>
+      <if test="operateId != null" >
+        operate_id,
+      </if>
+      <if test="operateType != null" >
+        operate_type,
+      </if>
+      <if test="fromType != null" >
+        from_type,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="ip != null" >
+        ip,
+      </if>
+      <if test="operateContent != null" >
+        operate_content,
+      </if>
+      <if test="operateModule != null" >
+        operate_module,
+      </if>
+      <if test="table != null" >
+        table,
+      </if>
+      <if test="tableOperateType != null" >
+        table_operate_type,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="operateName != null" >
+        #{operateName,jdbcType=VARCHAR},
+      </if>
+      <if test="operateId != null" >
+        #{operateId,jdbcType=BIGINT},
+      </if>
+      <if test="operateType != null" >
+        #{operateType,jdbcType=SMALLINT},
+      </if>
+      <if test="fromType != null" >
+        #{fromType,jdbcType=SMALLINT},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="ip != null" >
+        #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="operateContent != null" >
+        #{operateContent,jdbcType=VARCHAR},
+      </if>
+      <if test="operateModule != null" >
+        #{operateModule,jdbcType=VARCHAR},
+      </if>
+      <if test="table != null" >
+        #{table,jdbcType=VARCHAR},
+      </if>
+      <if test="tableOperateType != null" >
+        #{tableOperateType,jdbcType=SMALLINT},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByWhereSelective" parameterType="map" >
+    update operate_log
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.operateName != null" >
+        operate_name = #{record.operateName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.operateId != null" >
+        operate_id = #{record.operateId,jdbcType=BIGINT},
+      </if>
+      <if test="record.operateType != null" >
+        operate_type = #{record.operateType,jdbcType=SMALLINT},
+      </if>
+      <if test="record.fromType != null" >
+        from_type = #{record.fromType,jdbcType=SMALLINT},
+      </if>
+      <if test="record.type != null" >
+        type = #{record.type,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ip != null" >
+        ip = #{record.ip,jdbcType=VARCHAR},
+      </if>
+      <if test="record.operateContent != null" >
+        operate_content = #{record.operateContent,jdbcType=VARCHAR},
+      </if>
+      <if test="record.operateModule != null" >
+        operate_module = #{record.operateModule,jdbcType=VARCHAR},
+      </if>
+      <if test="record.table != null" >
+        table = #{record.table,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tableOperateType != null" >
+        table_operate_type = #{record.tableOperateType,jdbcType=SMALLINT},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.remark != null" >
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="com.jialian.core.persistence.writer.CommonWriterMapper.Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByWhere" parameterType="map" >
+    update operate_log
+    set id = #{record.id,jdbcType=BIGINT},
+      operate_name = #{record.operateName,jdbcType=VARCHAR},
+      operate_id = #{record.operateId,jdbcType=BIGINT},
+      operate_type = #{record.operateType,jdbcType=SMALLINT},
+      from_type = #{record.fromType,jdbcType=SMALLINT},
+      type = #{record.type,jdbcType=VARCHAR},
+      ip = #{record.ip,jdbcType=VARCHAR},
+      operate_content = #{record.operateContent,jdbcType=VARCHAR},
+      operate_module = #{record.operateModule,jdbcType=VARCHAR},
+      table = #{record.table,jdbcType=VARCHAR},
+      table_operate_type = #{record.tableOperateType,jdbcType=SMALLINT},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      remark = #{record.remark,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="com.jialian.core.persistence.writer.CommonWriterMapper.Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jialian.api.domain.entity.OperateLog" >
+    update operate_log
+    <set >
+      <if test="operateName != null" >
+        operate_name = #{operateName,jdbcType=VARCHAR},
+      </if>
+      <if test="operateId != null" >
+        operate_id = #{operateId,jdbcType=BIGINT},
+      </if>
+      <if test="operateType != null" >
+        operate_type = #{operateType,jdbcType=SMALLINT},
+      </if>
+      <if test="fromType != null" >
+        from_type = #{fromType,jdbcType=SMALLINT},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="ip != null" >
+        ip = #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="operateContent != null" >
+        operate_content = #{operateContent,jdbcType=VARCHAR},
+      </if>
+      <if test="operateModule != null" >
+        operate_module = #{operateModule,jdbcType=VARCHAR},
+      </if>
+      <if test="table != null" >
+        table = #{table,jdbcType=VARCHAR},
+      </if>
+      <if test="tableOperateType != null" >
+        table_operate_type = #{tableOperateType,jdbcType=SMALLINT},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jialian.api.domain.entity.OperateLog" >
+    update operate_log
+    set operate_name = #{operateName,jdbcType=VARCHAR},
+      operate_id = #{operateId,jdbcType=BIGINT},
+      operate_type = #{operateType,jdbcType=SMALLINT},
+      from_type = #{fromType,jdbcType=SMALLINT},
+      type = #{type,jdbcType=VARCHAR},
+      ip = #{ip,jdbcType=VARCHAR},
+      operate_content = #{operateContent,jdbcType=VARCHAR},
+      operate_module = #{operateModule,jdbcType=VARCHAR},
+      table = #{table,jdbcType=VARCHAR},
+      table_operate_type = #{tableOperateType,jdbcType=SMALLINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      remark = #{remark,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

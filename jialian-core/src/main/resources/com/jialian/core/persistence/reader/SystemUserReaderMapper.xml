@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jialian.core.persistence.reader.SystemUserReaderMapper" >
+  <resultMap id="BaseResultMap" type="com.jialian.api.domain.SystemUser" >
+    <id column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="user_account" property="userAccount" jdbcType="VARCHAR" />
+    <result column="user_pwd" property="userPwd" jdbcType="VARCHAR" />
+    <result column="user_name" property="userName" jdbcType="VARCHAR" />
+    <result column="role_id" property="roleId" jdbcType="INTEGER" />
+    <result column="user_tel" property="userTel" jdbcType="VARCHAR" />
+    <result column="user_state" property="userState" jdbcType="INTEGER" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="update_date" property="updateDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    user_id, user_account, user_pwd, user_name, role_id, user_tel, user_state, create_date, 
+    update_date
+  </sql>
+  
+  <select id="checkLogin" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select <include refid="Base_Column_List" /> from system_user where user_account = #{userAccount,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="checkSystemUser" resultType="java.lang.Integer" parameterType="java.lang.String" >
+    select count(*) from system_user where user_account = #{userAccount,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from system_user
+    where user_id = #{userId,jdbcType=INTEGER}
+  </select>
+ 
+  
+  <select id="selectSystemUserCount" resultType="java.lang.Integer" parameterType="com.jialian.api.domain.SystemUser">
+    select count(*) from system_user
+    <include refid="Query_Where_Page" />
+  </select>
+  
+  <select id="selectSystemUser" resultMap="BaseResultMap" parameterType="java.util.Map">
+    select user_id, user_account, user_pwd, user_name, role_id, user_tel, user_state, create_date, update_date from system_user
+    <include refid="Query_Where_Page" />
+    order by create_date desc
+    limit #{startIndex, jdbcType=INTEGER},#{onePageCount, jdbcType=INTEGER}
+  </select>
+  <sql id="Query_Where_Page">
+    <where>
+       <if test="data.userAccount != null and data.userAccount !=''">
+  			and user_account like CONCAT('%',#{data.userAccount,jdbcType=VARCHAR},'%')
+  	   </if>
+  	   <if test="data.userName != null and data.userName !=''">
+  			and user_name like CONCAT('%',#{data.userName,jdbcType=VARCHAR},'%')
+  	   </if>
+  	   <if test="data.roleId != null">
+  			and role_id = #{data.roleId,jdbcType=INTEGER}
+  	   </if>
+  	   <if test="data.userState != null">
+  			and user_state = #{data.userState,jdbcType=INTEGER}
+  	   </if>
+    </where>
+  </sql>
+</mapper>

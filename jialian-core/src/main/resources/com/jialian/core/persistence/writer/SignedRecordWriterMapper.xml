@@ -1,0 +1,334 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jialian.core.persistence.writer.SignedRecordWriterMapper" >
+  <resultMap id="BaseResultMap" type="com.jialian.api.domain.entity.SignedRecord" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="order_no" property="orderNo" jdbcType="VARCHAR" />
+    <result column="contract_name" property="contractName" jdbcType="VARCHAR" />
+    <result column="contract_no" property="contractNo" jdbcType="VARCHAR" />
+    <result column="contract_status" property="contractStatus" jdbcType="SMALLINT" />
+    <result column="contract_amt" property="contractAmt" jdbcType="DOUBLE" />
+    <result column="signed_time" property="signedTime" jdbcType="TIMESTAMP" />
+    <result column="contract_start_time" property="contractStartTime" jdbcType="TIMESTAMP" />
+    <result column="contract_end_time" property="contractEndTime" jdbcType="TIMESTAMP" />
+    <result column="contract_first_amt" property="contractFirstAmt" jdbcType="DOUBLE" />
+    <result column="contract_last_amt" property="contractLastAmt" jdbcType="DOUBLE" />
+    <result column="contract_first_condition" property="contractFirstCondition" jdbcType="VARCHAR" />
+    <result column="contract_last_condition" property="contractLastCondition" jdbcType="VARCHAR" />
+    <result column="contract_content" property="contractContent" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="status" property="status" jdbcType="SMALLINT" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, order_no, contract_name, contract_no, contract_status, contract_amt, signed_time, 
+    contract_start_time, contract_end_time, contract_first_amt, contract_last_amt, contract_first_condition, 
+    contract_last_condition, contract_content, create_time, update_time, status, remark
+  </sql>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from signed_record
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByWhere" parameterType="com.jialian.api.domain.entity.Where" >
+    delete from signed_record
+    <if test="_parameter != null" >
+      <include refid="com.jialian.core.persistence.writer.CommonWriterMapper.Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert useGeneratedKeys="true" keyProperty="id" id="insert" parameterType="com.jialian.api.domain.entity.SignedRecord" >
+    insert into signed_record (id, order_no, contract_name, 
+      contract_no, contract_status, contract_amt, 
+      signed_time, contract_start_time, contract_end_time, 
+      contract_first_amt, contract_last_amt, contract_first_condition, 
+      contract_last_condition, contract_content, 
+      create_time, update_time, status, 
+      remark)
+    values (#{id,jdbcType=BIGINT}, #{orderNo,jdbcType=VARCHAR}, #{contractName,jdbcType=VARCHAR}, 
+      #{contractNo,jdbcType=VARCHAR}, #{contractStatus,jdbcType=SMALLINT}, #{contractAmt,jdbcType=DOUBLE}, 
+      #{signedTime,jdbcType=TIMESTAMP}, #{contractStartTime,jdbcType=TIMESTAMP}, #{contractEndTime,jdbcType=TIMESTAMP}, 
+      #{contractFirstAmt,jdbcType=DOUBLE}, #{contractLastAmt,jdbcType=DOUBLE}, #{contractFirstCondition,jdbcType=VARCHAR}, 
+      #{contractLastCondition,jdbcType=VARCHAR}, #{contractContent,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{status,jdbcType=SMALLINT}, 
+      #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert useGeneratedKeys="true" keyProperty="id" id="insertSelective" parameterType="com.jialian.api.domain.entity.SignedRecord" >
+    insert into signed_record
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="orderNo != null" >
+        order_no,
+      </if>
+      <if test="contractName != null" >
+        contract_name,
+      </if>
+      <if test="contractNo != null" >
+        contract_no,
+      </if>
+      <if test="contractStatus != null" >
+        contract_status,
+      </if>
+      <if test="contractAmt != null" >
+        contract_amt,
+      </if>
+      <if test="signedTime != null" >
+        signed_time,
+      </if>
+      <if test="contractStartTime != null" >
+        contract_start_time,
+      </if>
+      <if test="contractEndTime != null" >
+        contract_end_time,
+      </if>
+      <if test="contractFirstAmt != null" >
+        contract_first_amt,
+      </if>
+      <if test="contractLastAmt != null" >
+        contract_last_amt,
+      </if>
+      <if test="contractFirstCondition != null" >
+        contract_first_condition,
+      </if>
+      <if test="contractLastCondition != null" >
+        contract_last_condition,
+      </if>
+      <if test="contractContent != null" >
+        contract_content,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="orderNo != null" >
+        #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="contractName != null" >
+        #{contractName,jdbcType=VARCHAR},
+      </if>
+      <if test="contractNo != null" >
+        #{contractNo,jdbcType=VARCHAR},
+      </if>
+      <if test="contractStatus != null" >
+        #{contractStatus,jdbcType=SMALLINT},
+      </if>
+      <if test="contractAmt != null" >
+        #{contractAmt,jdbcType=DOUBLE},
+      </if>
+      <if test="signedTime != null" >
+        #{signedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="contractStartTime != null" >
+        #{contractStartTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="contractEndTime != null" >
+        #{contractEndTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="contractFirstAmt != null" >
+        #{contractFirstAmt,jdbcType=DOUBLE},
+      </if>
+      <if test="contractLastAmt != null" >
+        #{contractLastAmt,jdbcType=DOUBLE},
+      </if>
+      <if test="contractFirstCondition != null" >
+        #{contractFirstCondition,jdbcType=VARCHAR},
+      </if>
+      <if test="contractLastCondition != null" >
+        #{contractLastCondition,jdbcType=VARCHAR},
+      </if>
+      <if test="contractContent != null" >
+        #{contractContent,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=SMALLINT},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByWhereSelective" parameterType="map" >
+    update signed_record
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.orderNo != null" >
+        order_no = #{record.orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.contractName != null" >
+        contract_name = #{record.contractName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.contractNo != null" >
+        contract_no = #{record.contractNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.contractStatus != null" >
+        contract_status = #{record.contractStatus,jdbcType=SMALLINT},
+      </if>
+      <if test="record.contractAmt != null" >
+        contract_amt = #{record.contractAmt,jdbcType=DOUBLE},
+      </if>
+      <if test="record.signedTime != null" >
+        signed_time = #{record.signedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.contractStartTime != null" >
+        contract_start_time = #{record.contractStartTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.contractEndTime != null" >
+        contract_end_time = #{record.contractEndTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.contractFirstAmt != null" >
+        contract_first_amt = #{record.contractFirstAmt,jdbcType=DOUBLE},
+      </if>
+      <if test="record.contractLastAmt != null" >
+        contract_last_amt = #{record.contractLastAmt,jdbcType=DOUBLE},
+      </if>
+      <if test="record.contractFirstCondition != null" >
+        contract_first_condition = #{record.contractFirstCondition,jdbcType=VARCHAR},
+      </if>
+      <if test="record.contractLastCondition != null" >
+        contract_last_condition = #{record.contractLastCondition,jdbcType=VARCHAR},
+      </if>
+      <if test="record.contractContent != null" >
+        contract_content = #{record.contractContent,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null" >
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=SMALLINT},
+      </if>
+      <if test="record.remark != null" >
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="com.jialian.core.persistence.writer.CommonWriterMapper.Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByWhere" parameterType="map" >
+    update signed_record
+    set id = #{record.id,jdbcType=BIGINT},
+      order_no = #{record.orderNo,jdbcType=VARCHAR},
+      contract_name = #{record.contractName,jdbcType=VARCHAR},
+      contract_no = #{record.contractNo,jdbcType=VARCHAR},
+      contract_status = #{record.contractStatus,jdbcType=SMALLINT},
+      contract_amt = #{record.contractAmt,jdbcType=DOUBLE},
+      signed_time = #{record.signedTime,jdbcType=TIMESTAMP},
+      contract_start_time = #{record.contractStartTime,jdbcType=TIMESTAMP},
+      contract_end_time = #{record.contractEndTime,jdbcType=TIMESTAMP},
+      contract_first_amt = #{record.contractFirstAmt,jdbcType=DOUBLE},
+      contract_last_amt = #{record.contractLastAmt,jdbcType=DOUBLE},
+      contract_first_condition = #{record.contractFirstCondition,jdbcType=VARCHAR},
+      contract_last_condition = #{record.contractLastCondition,jdbcType=VARCHAR},
+      contract_content = #{record.contractContent,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      status = #{record.status,jdbcType=SMALLINT},
+      remark = #{record.remark,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="com.jialian.core.persistence.writer.CommonWriterMapper.Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jialian.api.domain.entity.SignedRecord" >
+    update signed_record
+    <set >
+      <if test="orderNo != null" >
+        order_no = #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="contractName != null" >
+        contract_name = #{contractName,jdbcType=VARCHAR},
+      </if>
+      <if test="contractNo != null" >
+        contract_no = #{contractNo,jdbcType=VARCHAR},
+      </if>
+      <if test="contractStatus != null" >
+        contract_status = #{contractStatus,jdbcType=SMALLINT},
+      </if>
+      <if test="contractAmt != null" >
+        contract_amt = #{contractAmt,jdbcType=DOUBLE},
+      </if>
+      <if test="signedTime != null" >
+        signed_time = #{signedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="contractStartTime != null" >
+        contract_start_time = #{contractStartTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="contractEndTime != null" >
+        contract_end_time = #{contractEndTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="contractFirstAmt != null" >
+        contract_first_amt = #{contractFirstAmt,jdbcType=DOUBLE},
+      </if>
+      <if test="contractLastAmt != null" >
+        contract_last_amt = #{contractLastAmt,jdbcType=DOUBLE},
+      </if>
+      <if test="contractFirstCondition != null" >
+        contract_first_condition = #{contractFirstCondition,jdbcType=VARCHAR},
+      </if>
+      <if test="contractLastCondition != null" >
+        contract_last_condition = #{contractLastCondition,jdbcType=VARCHAR},
+      </if>
+      <if test="contractContent != null" >
+        contract_content = #{contractContent,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=SMALLINT},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jialian.api.domain.entity.SignedRecord" >
+    update signed_record
+    set order_no = #{orderNo,jdbcType=VARCHAR},
+      contract_name = #{contractName,jdbcType=VARCHAR},
+      contract_no = #{contractNo,jdbcType=VARCHAR},
+      contract_status = #{contractStatus,jdbcType=SMALLINT},
+      contract_amt = #{contractAmt,jdbcType=DOUBLE},
+      signed_time = #{signedTime,jdbcType=TIMESTAMP},
+      contract_start_time = #{contractStartTime,jdbcType=TIMESTAMP},
+      contract_end_time = #{contractEndTime,jdbcType=TIMESTAMP},
+      contract_first_amt = #{contractFirstAmt,jdbcType=DOUBLE},
+      contract_last_amt = #{contractLastAmt,jdbcType=DOUBLE},
+      contract_first_condition = #{contractFirstCondition,jdbcType=VARCHAR},
+      contract_last_condition = #{contractLastCondition,jdbcType=VARCHAR},
+      contract_content = #{contractContent,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      status = #{status,jdbcType=SMALLINT},
+      remark = #{remark,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

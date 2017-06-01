@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jialian.core.persistence.reader.HouseStyleReaderMapper" >
+  <resultMap id="BaseResultMap" type="com.jialian.api.domain.entity.HouseStyle" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="style_name" property="styleName" jdbcType="VARCHAR" />
+    <result column="style_type" property="styleType" jdbcType="SMALLINT" />
+    <result column="style_type_name" property="styleTypeName" jdbcType="VARCHAR" />
+    <result column="style_status" property="styleStatus" jdbcType="SMALLINT" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="status" property="status" jdbcType="SMALLINT" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.jialian.api.domain.entity.HouseStyleWithBLOBs" extends="BaseResultMap" >
+    <result column="style_introduction" property="styleIntroduction" jdbcType="LONGVARCHAR" />
+    <result column="style_details" property="styleDetails" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <resultMap type="com.jialian.api.domain.vo.HouseStyleVo" id="HouseStyleVoResultMap" extends="BaseResultMap">
+ 	<result column="path" property="path" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, style_name, style_type, style_type_name, style_status, create_time, status, remark
+  </sql>
+  <sql id="Blob_Column_List" >
+    style_introduction, style_details
+  </sql>
+  <select id="selectByWhereWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.jialian.api.domain.entity.Where" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from house_style
+    <if test="_parameter != null" >
+      <include refid="com.jialian.core.persistence.reader.CommonReaderMapper.Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByWhere" resultMap="BaseResultMap" parameterType="com.jialian.api.domain.entity.Where" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from house_style
+    <if test="_parameter != null" >
+      <include refid="com.jialian.core.persistence.reader.CommonReaderMapper.Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from house_style
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="countByWhere" parameterType="com.jialian.api.domain.entity.Where" resultType="java.lang.Integer" >
+    select count(*) from house_style
+    <if test="_parameter != null" >
+      <include refid="com.jialian.core.persistence.reader.CommonReaderMapper.Example_Where_Clause" />
+    </if>
+  </select>
+  
+  <select id="selectHouseStyleAll" resultMap="HouseStyleVoResultMap">
+  	select hs.*,ri.path from house_style hs 
+	left join resource_info ri on ri.object_id=hs.id 
+	where ri.object_type=5
+  </select>
+</mapper>

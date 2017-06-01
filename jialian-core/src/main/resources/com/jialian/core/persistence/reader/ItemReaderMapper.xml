@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jialian.core.persistence.reader.ItemReaderMapper" >
+  <resultMap id="BaseResultMap" type="com.jialian.api.domain.entity.Item" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="item_no" property="itemNo" jdbcType="VARCHAR" />
+    <result column="item_name" property="itemName" jdbcType="VARCHAR" />
+    <result column="house_structure_category_id" property="houseStructureCategoryId" jdbcType="BIGINT" />
+    <result column="item_craft" property="itemCraft" jdbcType="VARCHAR" />
+    <result column="item_type" property="itemType" jdbcType="SMALLINT" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="status" property="status" jdbcType="SMALLINT" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <resultMap id="BaseWithHouseStruResultMap" type="com.jialian.api.domain.entity.Item" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="item_no" property="itemNo" jdbcType="VARCHAR" />
+    <result column="item_name" property="itemName" jdbcType="VARCHAR" />
+    <result column="house_structure_category_id" property="houseStructureCategoryId" jdbcType="BIGINT" />
+    <result column="item_craft" property="itemCraft" jdbcType="VARCHAR" />
+    <result column="item_type" property="itemType" jdbcType="SMALLINT" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="status" property="status" jdbcType="SMALLINT" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <association property="houseStructureCategory" column="house_structure_category_id" select="com.jialian.core.persistence.reader.HouseStructureCategoryReaderMapper.selectWithHouseStruByPrimaryKey"></association>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, item_no, item_name, house_structure_category_id, item_craft, item_type, create_time, 
+    update_time, status, remark
+  </sql>
+  <select id="selectByWhere" resultMap="BaseResultMap" parameterType="com.jialian.api.domain.entity.Where" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from item
+    <if test="_parameter != null" >
+      <include refid="com.jialian.core.persistence.reader.CommonReaderMapper.Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+    	limit ${limit}, ${offset}
+    </if>
+  </select>
+  <select id="selectWithHouseStruByWhere" resultMap="BaseWithHouseStruResultMap" parameterType="com.jialian.api.domain.entity.Where" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from item
+    <if test="_parameter != null" >
+      <include refid="com.jialian.core.persistence.reader.CommonReaderMapper.Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+    	limit ${limit}, ${offset}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseWithHouseStruResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from item
+    where status = 1 and id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="countByWhere" parameterType="com.jialian.api.domain.entity.Where" resultType="java.lang.Integer" >
+    select count(*) from item
+    <if test="_parameter != null" >
+      <include refid="com.jialian.core.persistence.reader.CommonReaderMapper.Example_Where_Clause" />
+    </if>
+  </select>
+</mapper>

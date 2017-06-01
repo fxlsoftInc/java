@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jialian.core.persistence.writer.ShopOrderDetailWriterMapper" >
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from shop_order_detail
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.jialian.api.domain.entity.ShopOrderDetail" >
+    insert into shop_order_detail (id, order_id, 
+      protitle, propic, summoney, 
+      unitmoney, count, 
+      proid, pro_attr_id, 
+      material_standard, material_aftersale, material_technology, 
+      attribute_no, attribute_name, attribute_unit, 
+      attribute_remark, status, remark
+      )
+    values (#{id,jdbcType=BIGINT}, #{orderId,jdbcType=BIGINT},
+      #{protitle,jdbcType=VARCHAR}, #{propic,jdbcType=VARCHAR}, #{summoney,jdbcType=DOUBLE}, 
+      #{unitmoney,jdbcType=DOUBLE}, #{count,jdbcType=INTEGER},
+      #{proid,jdbcType=BIGINT}, #{proAttrId,jdbcType=BIGINT}, 
+      #{materialStandard,jdbcType=VARCHAR}, #{materialAftersale,jdbcType=VARCHAR}, #{materialTechnology,jdbcType=VARCHAR}, 
+      #{attributeNo,jdbcType=VARCHAR}, #{attributeName,jdbcType=VARCHAR}, #{attributeUnit,jdbcType=VARCHAR}, 
+      #{attributeRemark,jdbcType=VARCHAR}, #{status,jdbcType=SMALLINT}, #{remark,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.jialian.api.domain.entity.ShopOrderDetail" >
+    insert into shop_order_detail
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="orderId != null" >
+        order_id,
+      </if>
+    
+      <if test="protitle != null" >
+        protitle,
+      </if>
+      <if test="propic != null" >
+        propic,
+      </if>
+      <if test="summoney != null" >
+        summoney,
+      </if>
+      <if test="unitmoney != null" >
+        unitmoney,
+      </if>
+      <if test="count != null" >
+        count,
+      </if>
+    
+      <if test="proid != null" >
+        proid,
+      </if>
+      <if test="proAttrId != null" >
+        pro_attr_id,
+      </if>
+      <if test="materialStandard != null" >
+        material_standard,
+      </if>
+      <if test="materialAftersale != null" >
+        material_aftersale,
+      </if>
+      <if test="materialTechnology != null" >
+        material_technology,
+      </if>
+      <if test="attributeNo != null" >
+        attribute_no,
+      </if>
+      <if test="attributeName != null" >
+        attribute_name,
+      </if>
+      <if test="attributeUnit != null" >
+        attribute_unit,
+      </if>
+      <if test="attributeRemark != null" >
+        attribute_remark,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="orderId != null" >
+        #{orderId,jdbcType=BIGINT},
+      </if>
+     
+      <if test="protitle != null" >
+        #{protitle,jdbcType=VARCHAR},
+      </if>
+      <if test="propic != null" >
+        #{propic,jdbcType=VARCHAR},
+      </if>
+      <if test="summoney != null" >
+        #{summoney,jdbcType=DOUBLE},
+      </if>
+      <if test="unitmoney != null" >
+        #{unitmoney,jdbcType=DOUBLE},
+      </if>
+      <if test="count != null" >
+        #{count,jdbcType=INTEGER},
+      </if>
+     
+      <if test="proid != null" >
+        #{proid,jdbcType=BIGINT},
+      </if>
+      <if test="proAttrId != null" >
+        #{proAttrId,jdbcType=BIGINT},
+      </if>
+      <if test="materialStandard != null" >
+        #{materialStandard,jdbcType=VARCHAR},
+      </if>
+      <if test="materialAftersale != null" >
+        #{materialAftersale,jdbcType=VARCHAR},
+      </if>
+      <if test="materialTechnology != null" >
+        #{materialTechnology,jdbcType=VARCHAR},
+      </if>
+      <if test="attributeNo != null" >
+        #{attributeNo,jdbcType=VARCHAR},
+      </if>
+      <if test="attributeName != null" >
+        #{attributeName,jdbcType=VARCHAR},
+      </if>
+      <if test="attributeUnit != null" >
+        #{attributeUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="attributeRemark != null" >
+        #{attributeRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=SMALLINT},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jialian.api.domain.entity.ShopOrderDetail" >
+    update shop_order_detail
+    <set >
+      <if test="orderId != null" >
+        order_id = #{orderId,jdbcType=BIGINT},
+      </if>
+     
+      <if test="protitle != null" >
+        protitle = #{protitle,jdbcType=VARCHAR},
+      </if>
+      <if test="propic != null" >
+        propic = #{propic,jdbcType=VARCHAR},
+      </if>
+      <if test="summoney != null" >
+        summoney = #{summoney,jdbcType=DOUBLE},
+      </if>
+      <if test="unitmoney != null" >
+        unitmoney = #{unitmoney,jdbcType=DOUBLE},
+      </if>
+      <if test="count != null" >
+        count = #{count,jdbcType=INTEGER},
+      </if>
+     
+      <if test="proid != null" >
+        proid = #{proid,jdbcType=BIGINT},
+      </if>
+      <if test="proAttrId != null" >
+        pro_attr_id = #{proAttrId,jdbcType=BIGINT},
+      </if>
+      <if test="materialStandard != null" >
+        material_standard = #{materialStandard,jdbcType=VARCHAR},
+      </if>
+      <if test="materialAftersale != null" >
+        material_aftersale = #{materialAftersale,jdbcType=VARCHAR},
+      </if>
+      <if test="materialTechnology != null" >
+        material_technology = #{materialTechnology,jdbcType=VARCHAR},
+      </if>
+      <if test="attributeNo != null" >
+        attribute_no = #{attributeNo,jdbcType=VARCHAR},
+      </if>
+      <if test="attributeName != null" >
+        attribute_name = #{attributeName,jdbcType=VARCHAR},
+      </if>
+      <if test="attributeUnit != null" >
+        attribute_unit = #{attributeUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="attributeRemark != null" >
+        attribute_remark = #{attributeRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=SMALLINT},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jialian.api.domain.entity.ShopOrderDetail" >
+    update shop_order_detail
+    set order_id = #{orderId,jdbcType=BIGINT},
+    
+      protitle = #{protitle,jdbcType=VARCHAR},
+      propic = #{propic,jdbcType=VARCHAR},
+      summoney = #{summoney,jdbcType=DOUBLE},
+      unitmoney = #{unitmoney,jdbcType=DOUBLE},
+      count = #{count,jdbcType=INTEGER},
+    
+      proid = #{proid,jdbcType=BIGINT},
+      pro_attr_id = #{proAttrId,jdbcType=BIGINT},
+      material_standard = #{materialStandard,jdbcType=VARCHAR},
+      material_aftersale = #{materialAftersale,jdbcType=VARCHAR},
+      material_technology = #{materialTechnology,jdbcType=VARCHAR},
+      attribute_no = #{attributeNo,jdbcType=VARCHAR},
+      attribute_name = #{attributeName,jdbcType=VARCHAR},
+      attribute_unit = #{attributeUnit,jdbcType=VARCHAR},
+      attribute_remark = #{attributeRemark,jdbcType=VARCHAR},
+      status = #{status,jdbcType=SMALLINT},
+      remark = #{remark,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

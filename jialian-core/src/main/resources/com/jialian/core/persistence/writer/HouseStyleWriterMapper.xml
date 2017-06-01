@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jialian.core.persistence.writer.HouseStyleWriterMapper" >
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from house_style
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByWhere" parameterType="com.jialian.api.domain.entity.Where" >
+    delete from house_style
+    <if test="_parameter != null" >
+      <include refid="com.jialian.core.persistence.writer.CommonWriterMapper.Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.jialian.api.domain.entity.HouseStyleWithBLOBs" >
+    insert into house_style (id, style_name, style_type, 
+      style_type_name, style_status, create_time, 
+      status, remark, style_introduction, 
+      style_details)
+    values (#{id,jdbcType=BIGINT}, #{styleName,jdbcType=VARCHAR}, #{styleType,jdbcType=SMALLINT}, 
+      #{styleTypeName,jdbcType=VARCHAR}, #{styleStatus,jdbcType=SMALLINT}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{status,jdbcType=SMALLINT}, #{remark,jdbcType=VARCHAR}, #{styleIntroduction,jdbcType=LONGVARCHAR}, 
+      #{styleDetails,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jialian.api.domain.entity.HouseStyleWithBLOBs" >
+    insert into house_style
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="styleName != null" >
+        style_name,
+      </if>
+      <if test="styleType != null" >
+        style_type,
+      </if>
+      <if test="styleTypeName != null" >
+        style_type_name,
+      </if>
+      <if test="styleStatus != null" >
+        style_status,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="styleIntroduction != null" >
+        style_introduction,
+      </if>
+      <if test="styleDetails != null" >
+        style_details,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="styleName != null" >
+        #{styleName,jdbcType=VARCHAR},
+      </if>
+      <if test="styleType != null" >
+        #{styleType,jdbcType=SMALLINT},
+      </if>
+      <if test="styleTypeName != null" >
+        #{styleTypeName,jdbcType=VARCHAR},
+      </if>
+      <if test="styleStatus != null" >
+        #{styleStatus,jdbcType=SMALLINT},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=SMALLINT},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="styleIntroduction != null" >
+        #{styleIntroduction,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="styleDetails != null" >
+        #{styleDetails,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByWhereSelective" parameterType="map" >
+    update house_style
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.styleName != null" >
+        style_name = #{record.styleName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.styleType != null" >
+        style_type = #{record.styleType,jdbcType=SMALLINT},
+      </if>
+      <if test="record.styleTypeName != null" >
+        style_type_name = #{record.styleTypeName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.styleStatus != null" >
+        style_status = #{record.styleStatus,jdbcType=SMALLINT},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=SMALLINT},
+      </if>
+      <if test="record.remark != null" >
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.styleIntroduction != null" >
+        style_introduction = #{record.styleIntroduction,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.styleDetails != null" >
+        style_details = #{record.styleDetails,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="com.jialian.core.persistence.writer.CommonWriterMapper.Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByWhereWithBLOBs" parameterType="map" >
+    update house_style
+    set id = #{record.id,jdbcType=BIGINT},
+      style_name = #{record.styleName,jdbcType=VARCHAR},
+      style_type = #{record.styleType,jdbcType=SMALLINT},
+      style_type_name = #{record.styleTypeName,jdbcType=VARCHAR},
+      style_status = #{record.styleStatus,jdbcType=SMALLINT},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      status = #{record.status,jdbcType=SMALLINT},
+      remark = #{record.remark,jdbcType=VARCHAR},
+      style_introduction = #{record.styleIntroduction,jdbcType=LONGVARCHAR},
+      style_details = #{record.styleDetails,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="com.jialian.core.persistence.writer.CommonWriterMapper.Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByWhere" parameterType="map" >
+    update house_style
+    set id = #{record.id,jdbcType=BIGINT},
+      style_name = #{record.styleName,jdbcType=VARCHAR},
+      style_type = #{record.styleType,jdbcType=SMALLINT},
+      style_type_name = #{record.styleTypeName,jdbcType=VARCHAR},
+      style_status = #{record.styleStatus,jdbcType=SMALLINT},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      status = #{record.status,jdbcType=SMALLINT},
+      remark = #{record.remark,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="com.jialian.core.persistence.writer.CommonWriterMapper.Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jialian.api.domain.entity.HouseStyleWithBLOBs" >
+    update house_style
+    <set >
+      <if test="styleName != null" >
+        style_name = #{styleName,jdbcType=VARCHAR},
+      </if>
+      <if test="styleType != null" >
+        style_type = #{styleType,jdbcType=SMALLINT},
+      </if>
+      <if test="styleTypeName != null" >
+        style_type_name = #{styleTypeName,jdbcType=VARCHAR},
+      </if>
+      <if test="styleStatus != null" >
+        style_status = #{styleStatus,jdbcType=SMALLINT},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=SMALLINT},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="styleIntroduction != null" >
+        style_introduction = #{styleIntroduction,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="styleDetails != null" >
+        style_details = #{styleDetails,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.jialian.api.domain.entity.HouseStyleWithBLOBs" >
+    update house_style
+    set style_name = #{styleName,jdbcType=VARCHAR},
+      style_type = #{styleType,jdbcType=SMALLINT},
+      style_type_name = #{styleTypeName,jdbcType=VARCHAR},
+      style_status = #{styleStatus,jdbcType=SMALLINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      status = #{status,jdbcType=SMALLINT},
+      remark = #{remark,jdbcType=VARCHAR},
+      style_introduction = #{styleIntroduction,jdbcType=LONGVARCHAR},
+      style_details = #{styleDetails,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jialian.api.domain.entity.HouseStyle" >
+    update house_style
+    set style_name = #{styleName,jdbcType=VARCHAR},
+      style_type = #{styleType,jdbcType=SMALLINT},
+      style_type_name = #{styleTypeName,jdbcType=VARCHAR},
+      style_status = #{styleStatus,jdbcType=SMALLINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      status = #{status,jdbcType=SMALLINT},
+      remark = #{remark,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

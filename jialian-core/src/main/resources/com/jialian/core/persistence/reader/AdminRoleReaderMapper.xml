@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jialian.core.persistence.reader.AdminRoleReaderMapper" >
+  <resultMap id="BaseResultMap" type="com.jialian.api.domain.entity.AdminRole" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="parent_id" property="parentId" jdbcType="BIGINT" />
+    <result column="tree_level" property="treeLevel" jdbcType="INTEGER" />
+    <result column="sort_order" property="sortOrder" jdbcType="INTEGER" />
+    <result column="role_type" property="roleType" jdbcType="VARCHAR" />
+    <result column="user_id" property="userId" jdbcType="BIGINT" />
+    <result column="role_name" property="roleName" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="UserResultMap" type="com.jialian.api.domain.vo.AdminUserVo" >
+    <id column="userId" property="userId" jdbcType="BIGINT" />
+    <result column="roleId" property="roleId" jdbcType="BIGINT" />
+    <result column="roleName" property="roleName" jdbcType="VARCHAR" />
+    <result column="userName" property="userName" jdbcType="VARCHAR" />
+    <result column="userStatus" property="userStatus" jdbcType="VARCHAR" />
+    <result column="telephone" property="telephone" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    id, parent_id, tree_level, sort_order, role_type, user_id, role_name
+  </sql>
+  <sql id="User_Column_List">
+      ar.id as 'roleId',ar.role_name as 'roleName', au.username as 'userName',
+      au.admin_status as 'userStatus' ,au.id as 'userId',au.telephone as 'telephone'
+  </sql>
+  <select id="selectByWhere" resultMap="BaseResultMap" parameterType="com.jialian.api.domain.entity.Where" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from admin_role
+    <if test="_parameter != null" >
+      <include refid="com.jialian.core.persistence.reader.CommonReaderMapper.Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from admin_role
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="countByWhere" parameterType="com.jialian.api.domain.entity.Where" resultType="java.lang.Integer" >
+    select count(*) from admin_role
+    <if test="_parameter != null" >
+      <include refid="com.jialian.core.persistence.reader.CommonReaderMapper.Example_Where_Clause" />
+    </if>
+  </select>
+  <sql id="selectAdminRoleListByQuery_Where">
+  	<where>
+	  	<if test="query.roleName !=null and query.roleName !=''">
+	  		and role_name=#{query.roleName}
+	  	</if>
+  	</where>
+  </sql>
+  <select id="selectAdminRoleCountByQuery" parameterType="com.jialian.api.domain.query.RoleQuery" resultType="java.lang.Integer">
+  	select 
+  	count(*) 
+  	from admin_role 
+  	<include refid="selectAdminRoleListByQuery_Where"/>
+  </select>
+  <select id="selectAdminRoleListByQuery" parameterType="com.jialian.api.domain.query.RoleQuery" resultMap="BaseResultMap">
+  	select 
+  	<include refid="Base_Column_List"/> 
+  	from admin_role 
+  	<include refid="selectAdminRoleListByQuery_Where"/>
+  </select>
+  
+  <sql id="selectAdminRoleList_Where">
+	  <where>
+	  	<if test="query.roleName !=null and query.roleName !=''">
+	  		and role_name=#{query.roleName}
+	  	</if>
+	  </where>
+  </sql>
+  <select id="selectAdminRoleList" resultMap="BaseResultMap">
+  	select 
+  	<include refid="Base_Column_List"/> 
+  	from admin_role 
+  	 <include refid="selectAdminRoleList_Where"/>
+  </select>
+  <select id="selectRoleNameByRoleType" resultMap="UserResultMap" parameterType="com.jialian.api.domain.entity.AdminRole">
+	select <include refid="User_Column_List"/> 
+	FROM admin_user au LEFT JOIN admin_role ar ON au.role_id = ar.id and ar.role_type=#{roleType,jdbcType=VARCHAR}
+  </select>
+</mapper>

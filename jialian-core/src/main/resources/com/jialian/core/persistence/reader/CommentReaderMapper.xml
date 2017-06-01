@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jialian.core.persistence.reader.CommentReaderMapper" >
+  <resultMap id="BaseResultMap" type="com.jialian.api.domain.entity.Comment" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="user_name" property="userName" jdbcType="VARCHAR" />
+    <result column="content" property="content" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="creat_time" property="creatTime" jdbcType="TIMESTAMP" />
+    <result column="updata_time" property="updataTime" jdbcType="TIMESTAMP" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <resultMap id="ResouseResultMap" type="com.jialian.api.domain.entity.ResourceInfo" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="no" property="no" jdbcType="VARCHAR" />
+    <result column="object_id" property="objectId" jdbcType="BIGINT" />
+    <result column="object_type" property="objectType" jdbcType="SMALLINT" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="SMALLINT" />
+    <result column="extension" property="extension" jdbcType="VARCHAR" />
+    <result column="path" property="path" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <resultMap id="CommentResultMap" type="com.jialian.api.domain.query.CommentQuery" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="userName" property="userName" jdbcType="VARCHAR" />
+    <result column="content" property="content" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <association property="resourceInfo" column="id" select="selectImg"></association>
+  </resultMap>
+
+  
+  <sql id="Base_Column_List" >
+    id, user_name, content, status, creat_time, updata_time, remark
+  </sql>
+  
+  <sql id="Comment_Column_List" >
+    c.id as 'id', c.user_name as 'userName', c.content as 'content', c.status as 'status'
+  </sql>
+  <sql id="ResourceInfo_Column_List" >
+    id, no, object_id, object_type, name, type, extension, path
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from comment
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+ 
+  <select id="getCommentList" resultMap="BaseResultMap">
+     select 
+    <include refid="Base_Column_List" />
+    from comment
+  </select>
+  
+  <select id="selectCommentList" resultMap="CommentResultMap">
+     select 
+    <include refid="Comment_Column_List" />
+    from comment c
+    LEFT JOIN resource_info r on r.object_id = c.id and r.object_type = 6
+    ORDER BY r.object_id
+  </select>
+  <select id="selectImg" parameterType="java.lang.Long" resultMap="ResouseResultMap">
+  	 select 
+    <include refid="ResourceInfo_Column_List" />
+    from resource_info 
+    where object_type = 6 
+    and object_id= #{id}
+  </select>
+</mapper>

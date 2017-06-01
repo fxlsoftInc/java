@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jialian.core.persistence.writer.MaterialPriceWriterMapper" >
+ 
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from material_price
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByWhere" parameterType="com.jialian.api.domain.entity.Where" >
+    delete from material_price
+    <if test="_parameter != null" >
+      <include refid="com.jialian.core.persistence.writer.CommonWriterMapper.Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert useGeneratedKeys="true" keyProperty="id" id="insert" parameterType="com.jialian.api.domain.entity.MaterialPrice" >
+    insert into material_price (id, tax_class_id, price_type, 
+      special_price, orig_price, price, 
+      min_price, max_price, currency, 
+      create_time, update_time, status, 
+      remark)
+    values (#{id,jdbcType=BIGINT}, #{taxClassId,jdbcType=BIGINT}, #{priceType,jdbcType=DOUBLE}, 
+      #{specialPrice,jdbcType=DOUBLE}, #{origPrice,jdbcType=DOUBLE}, #{price,jdbcType=DOUBLE}, 
+      #{minPrice,jdbcType=DOUBLE}, #{maxPrice,jdbcType=DOUBLE}, #{currency,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{status,jdbcType=SMALLINT}, 
+      #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert useGeneratedKeys="true" keyProperty="id" id="insertSelective" parameterType="com.jialian.api.domain.entity.MaterialPrice" >
+    insert into material_price
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="taxClassId != null" >
+        tax_class_id,
+      </if>
+      <if test="priceType != null" >
+        price_type,
+      </if>
+      <if test="specialPrice != null" >
+        special_price,
+      </if>
+      <if test="origPrice != null" >
+        orig_price,
+      </if>
+      <if test="price != null" >
+        price,
+      </if>
+      <if test="minPrice != null" >
+        min_price,
+      </if>
+      <if test="maxPrice != null" >
+        max_price,
+      </if>
+      <if test="currency != null" >
+        currency,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="taxClassId != null" >
+        #{taxClassId,jdbcType=BIGINT},
+      </if>
+      <if test="priceType != null" >
+        #{priceType,jdbcType=DOUBLE},
+      </if>
+      <if test="specialPrice != null" >
+        #{specialPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="origPrice != null" >
+        #{origPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=DOUBLE},
+      </if>
+      <if test="minPrice != null" >
+        #{minPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="maxPrice != null" >
+        #{maxPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="currency != null" >
+        #{currency,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=SMALLINT},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByWhereSelective" parameterType="map" >
+    update material_price
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.taxClassId != null" >
+        tax_class_id = #{record.taxClassId,jdbcType=BIGINT},
+      </if>
+      <if test="record.priceType != null" >
+        price_type = #{record.priceType,jdbcType=DOUBLE},
+      </if>
+      <if test="record.specialPrice != null" >
+        special_price = #{record.specialPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="record.origPrice != null" >
+        orig_price = #{record.origPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="record.price != null" >
+        price = #{record.price,jdbcType=DOUBLE},
+      </if>
+      <if test="record.minPrice != null" >
+        min_price = #{record.minPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="record.maxPrice != null" >
+        max_price = #{record.maxPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="record.currency != null" >
+        currency = #{record.currency,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null" >
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=SMALLINT},
+      </if>
+      <if test="record.remark != null" >
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="com.jialian.core.persistence.writer.CommonWriterMapper.Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByWhere" parameterType="map" >
+    update material_price
+    set id = #{record.id,jdbcType=BIGINT},
+      tax_class_id = #{record.taxClassId,jdbcType=BIGINT},
+      price_type = #{record.priceType,jdbcType=DOUBLE},
+      special_price = #{record.specialPrice,jdbcType=DOUBLE},
+      orig_price = #{record.origPrice,jdbcType=DOUBLE},
+      price = #{record.price,jdbcType=DOUBLE},
+      min_price = #{record.minPrice,jdbcType=DOUBLE},
+      max_price = #{record.maxPrice,jdbcType=DOUBLE},
+      currency = #{record.currency,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      status = #{record.status,jdbcType=SMALLINT},
+      remark = #{record.remark,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="com.jialian.core.persistence.writer.CommonWriterMapper.Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jialian.api.domain.entity.MaterialPrice" >
+    update material_price
+    <set >
+      <if test="taxClassId != null" >
+        tax_class_id = #{taxClassId,jdbcType=BIGINT},
+      </if>
+      <if test="priceType != null" >
+        price_type = #{priceType,jdbcType=DOUBLE},
+      </if>
+      <if test="specialPrice != null" >
+        special_price = #{specialPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="origPrice != null" >
+        orig_price = #{origPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="price != null" >
+        price = #{price,jdbcType=DOUBLE},
+      </if>
+      <if test="minPrice != null" >
+        min_price = #{minPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="maxPrice != null" >
+        max_price = #{maxPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="currency != null" >
+        currency = #{currency,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=SMALLINT},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jialian.api.domain.entity.MaterialPrice" >
+    update material_price
+    set tax_class_id = #{taxClassId,jdbcType=BIGINT},
+      price_type = #{priceType,jdbcType=DOUBLE},
+      special_price = #{specialPrice,jdbcType=DOUBLE},
+      orig_price = #{origPrice,jdbcType=DOUBLE},
+      price = #{price,jdbcType=DOUBLE},
+      min_price = #{minPrice,jdbcType=DOUBLE},
+      max_price = #{maxPrice,jdbcType=DOUBLE},
+      currency = #{currency,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      status = #{status,jdbcType=SMALLINT},
+      remark = #{remark,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

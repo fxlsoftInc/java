@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jialian.core.persistence.reader.CaseHouseReaderMapper" >
+  <resultMap id="BaseResultMap" type="com.jialian.api.domain.entity.CaseHouse" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="case_hose" property="caseHose" jdbcType="VARCHAR" />
+    <result column="case_style_id" property="caseStyleId" jdbcType="BIGINT" />
+    <result column="case_price" property="casePrice" jdbcType="DOUBLE" />
+    <result column="case_popularity" property="casePopularity" jdbcType="INTEGER" />
+    <result column="case_subscribe_number" property="caseSubscribeNumber" jdbcType="INTEGER" />
+    <result column="address_id" property="addressId" jdbcType="BIGINT" />
+    <result column="case_area" property="caseArea" jdbcType="REAL" />
+    <result column="case_area_unit" property="caseAreaUnit" jdbcType="VARCHAR" />
+    <result column="house_info_id" property="houseInfoId" jdbcType="BIGINT" />
+    <result column="decorate" property="decorate" jdbcType="VARCHAR" />
+    <result column="case_design_style" property="caseDesignStyle" jdbcType="VARCHAR" />
+    <result column="manager" property="manager" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="case_status" property="caseStatus" jdbcType="SMALLINT" />
+    <result column="status" property="status" jdbcType="SMALLINT" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.jialian.api.domain.entity.CaseHouse" extends="BaseResultMap" >
+    <result column="case_design_introduction" property="caseDesignIntroduction" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  
+  <resultMap type="com.jialian.api.domain.vo.CaseHouseVo" id="caseHouseVoResultMap">
+  	<id column="id" property="id" jdbcType="BIGINT" />
+  	<result column="house_info_id" property="houseInfoId" jdbcType="SMALLINT"/>
+    <result column="house_type" property="houseType" jdbcType="SMALLINT"/>
+    <result column="building_type_name" property="buildingTypeName" jdbcType="VARCHAR"/>
+    <result column="case_style_id" property="caseStyleId" jdbcType="SMALLINT"/>
+    <result column="style_type_name" property="styleTypeName" jdbcType="VARCHAR" />
+    <result column="house_color" property="houseColor" jdbcType="VARCHAR" />
+    <result column="case_hose" property="caseHose" jdbcType="VARCHAR" />
+    <result column="case_status" property="caseStatus" jdbcType="SMALLINT"/>
+    <result column="status" property="status" jdbcType="SMALLINT"/>
+    <result column="case_design_introduction" property="caseDesignIntroduction" jdbcType="VARCHAR" />
+    <result column="path" property="path" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="extension" property="extension" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <resultMap type="com.jialian.api.domain.vo.HomeVo" id="HomeResultMap">
+  	<id column="id" property="id" jdbcType="BIGINT" />
+    <result column="path" property="path" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="extension" property="extension" jdbcType="VARCHAR" />
+    <result column="case_design_introduction" property="caseDesignIntroduction" jdbcType="VARCHAR" />
+    <result column="house_type_name" property="houseTypeName" jdbcType="VARCHAR" />
+    <result column="style_name" property="styleName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, case_hose, case_style_id, case_price, case_popularity, case_subscribe_number, 
+    address_id, case_area, case_area_unit, house_info_id, decorate, case_design_style, 
+    manager, create_time, update_time, case_status, status, remark
+  </sql>
+  <sql id="Blob_Column_List" >
+    case_design_introduction
+  </sql>
+  <select id="selectByWhereWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.jialian.api.domain.entity.Where" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from case_house
+    <if test="_parameter != null" >
+      <include refid="com.jialian.core.persistence.reader.CommonReaderMapper.Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByWhere" resultMap="BaseResultMap" parameterType="com.jialian.api.domain.entity.Where" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from case_house
+    <if test="_parameter != null" >
+      <include refid="com.jialian.core.persistence.reader.CommonReaderMapper.Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from case_house
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="countByWhere" parameterType="com.jialian.api.domain.entity.Where" resultType="java.lang.Integer" >
+    select count(*) from case_house
+    <if test="_parameter != null" >
+      <include refid="com.jialian.core.persistence.reader.CommonReaderMapper.Example_Where_Clause" />
+    </if>
+  </select>
+  
+  <sql id="CaseHouseListByQuery">
+  	<where>
+  		ch.status!=3 and ri.object_type=3 
+  		<if test="query.houseType !=null and query.houseType !=''">
+  			and hi.house_type=#{query.houseType} 
+  		</if>
+  		<if test="query.buildingTypeName !=null and query.buildingTypeName !=''">
+  			and hi.building_type_name=#{query.buildingTypeName} 
+  		</if>
+  		<if test="query.styleName !=null and query.styleName !=''">
+  			and hs.style_type_name=#{query.styleName}
+  		</if>
+  		<if test="query.houseColor !=null and query.houseColor !=''">
+  		 	and hi.house_color=#{query.houseColor}
+  		</if>
+  		<if test="query.caseStatus !=null">
+  			and ch.case_status=#{query.caseStatus}
+  		</if>
+  		<if test="query.status !=null">
+  			and ch.status=#{query.status}
+  		</if>
+  	</where>
+  </sql>
+  <select id="getCaseHouseCountByQuery" parameterType="com.jialian.api.domain.query.CaseHouseQuery" resultType="java.lang.Integer">
+  		select count(distinct ch.id) 
+		from case_house ch 
+		left join house_info hi on hi.id=ch.house_info_id 
+		left join house_style hs on hs.id=ch.case_style_id 
+		left join resource_info ri on ri.object_id=ch.id 
+	    <include refid="CaseHouseListByQuery"/>
+  </select>
+  <select id="getCaseHouseListByQuery" parameterType="com.jialian.api.domain.query.CaseHouseQuery" resultMap="caseHouseVoResultMap">
+	  	select distinct
+			ch.id,hi.house_type,hi.building_type_name,hs.style_type_name,hi.house_color,ch.case_hose,ch.case_design_introduction,ch.case_status,ch.`status`,ri.path,ri.`name`,ri.extension  
+		from case_house ch 
+		left join house_info hi on hi.id=ch.house_info_id 
+		left join house_style hs on hs.id=ch.case_style_id 
+		left join resource_info ri on ri.object_id=ch.id 
+	    <include refid="CaseHouseListByQuery"/> 
+	    group by ch.id 
+	    order by 
+	    <if test="query.sort==0">
+	    	ch.id desc
+	    </if> 
+	    <if test="query.sort==1">
+	    	ch.case_subscribe_number desc
+	    </if> 
+	    limit #{query.startIndex},#{query.onePageCount}
+  </select>
+  
+  <select id="selectHomeCase" resultMap="HomeResultMap">
+  	SELECT DISTINCT
+	ch.id,ch.case_design_introduction,ri.path,ri.`name`,ri.extension,hi.house_type_name,hs.style_name 
+	FROM case_house ch 
+	LEFT JOIN resource_info ri ON ri.object_id=ch.id 
+	LEFT JOIN house_info hi ON hi.id=ch.house_info_id 
+	LEFT JOIN house_style hs ON hs.id=ch.case_style_id 
+	WHERE ri.object_type=3
+	GROUP BY ch.id ORDER BY ch.id DESC 
+	LIMIT 0,3
+  </select>
+  
+  <select id="selectCaseHouseVo" parameterType="java.lang.Long" resultMap="caseHouseVoResultMap">
+  		SELECT ch.id,ch.house_info_id,ch.case_status,ch.case_style_id,ch.`status`,hi.house_type,hi.building_type_name,hi.house_color,ch.case_design_introduction, ch.case_hose,hs.style_type,hs.style_name,hi.house_type,hi.house_type_name  
+		FROM case_house ch 
+		LEFT JOIN house_style hs ON hs.id=ch.case_style_id 
+		LEFT JOIN house_info hi ON hi.id=ch.house_info_id  
+		WHERE ch.id=#{id}
+  </select>
+</mapper>

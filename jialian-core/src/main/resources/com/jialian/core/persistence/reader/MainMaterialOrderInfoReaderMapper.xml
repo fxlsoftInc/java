@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jialian.core.persistence.reader.MainMaterialOrderInfoReaderMapper" >
+  <resultMap id="BaseResultMap" type="com.jialian.api.domain.entity.MainMaterialOrderInfo" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="main_material_order_id" property="mainMaterialOrderId" jdbcType="BIGINT" />
+    <result column="house_structure_category_id" property="houseStructureCategoryId" jdbcType="BIGINT" />
+    <result column="material_id" property="materialId" jdbcType="BIGINT" />
+    <result column="material_value" property="materialValue" jdbcType="DOUBLE" />
+    <result column="material_unit" property="materialUnit" jdbcType="VARCHAR" />
+    <result column="material_price" property="materialPrice" jdbcType="REAL" />
+    <result column="material_total_price" property="materialTotalPrice" jdbcType="REAL" />
+    <result column="currency" property="currency" jdbcType="VARCHAR" />
+    <result column="material_discount" property="materialDiscount" jdbcType="REAL" />
+    <result column="material_actual_total_price" property="materialActualTotalPrice" jdbcType="REAL" />
+    <result column="material_craft" property="materialCraft" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="status" property="status" jdbcType="SMALLINT" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, main_material_order_id, house_structure_category_id, material_id, material_value, 
+    material_unit, material_price, material_total_price, currency, material_discount, 
+    material_actual_total_price, material_craft, create_time, update_time, status, remark
+  </sql>
+  <select id="selectByWhere" resultMap="BaseResultMap" parameterType="com.jialian.api.domain.entity.Where" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from main_material_order_info
+    <if test="_parameter != null" >
+      <include refid="com.jialian.core.persistence.reader.CommonReaderMapper.Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from main_material_order_info
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="countByWhere" parameterType="com.jialian.api.domain.entity.Where" resultType="java.lang.Integer" >
+    select count(*) from main_material_order_info
+    <if test="_parameter != null" >
+      <include refid="com.jialian.core.persistence.reader.CommonReaderMapper.Example_Where_Clause" />
+    </if>
+  </select>
+</mapper>

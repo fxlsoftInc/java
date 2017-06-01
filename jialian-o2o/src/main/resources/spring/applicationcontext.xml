@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Application context definition
+-->
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+ 
+    <!-- ========================= RESOURCE DEFINITIONS ========================= -->
+
+    <!-- import the dubbo definition -->
+    <import resource="dubbo-consumer-config.xml"/>
+    <!-- import the service definition -->
+    <import resource="service-config.xml"/>
+    <!-- import the redis definition -->
+    <import resource="redis-config.xml"/>
+    <context:component-scan base-package="com.jialian.o2o">
+            <context:exclude-filter type="regex" expression="com.jialian.o2o.controller.*"/>
+    </context:component-scan>
+    
+    <context:annotation-config />
+
+    <!-- Configurer that replaces ${...} placeholders with values from a properties file -->
+	<bean id="propertyConfigurer"
+		class="com.jialian.common.util.PropertyUtils">
+		<property name="locations">
+			<list>
+				<value>classpath:config/system.properties</value>
+			</list>
+		</property>
+	</bean>
+     <!-- enables scanning for @Transactional annotations 
+    <tx:annotation-driven />
+ 	-->
+</beans>

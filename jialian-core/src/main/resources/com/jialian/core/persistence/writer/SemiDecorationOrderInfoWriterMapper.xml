@@ -1,0 +1,360 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jialian.core.persistence.writer.SemiDecorationOrderInfoWriterMapper" >
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from semi_decoration_order_info
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByWhere" parameterType="com.jialian.api.domain.entity.Where" >
+    delete from semi_decoration_order_info
+    <if test="_parameter != null" >
+      <include refid="com.jialian.core.persistence.writer.CommonWriterMapper.Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert useGeneratedKeys="true" keyProperty="id" id="insert" parameterType="com.jialian.api.domain.entity.SemiDecorationOrderInfo" >
+    insert into semi_decoration_order_info (id, item_no, item_name, 
+      item_id, item_project_size, item_project_unit, 
+      main_material_price, item_main_material_id, auxiliary_material_price, 
+      item_auxiliary_material_id, labor_cost, currency, 
+      labor_cost_id, item_price, item_craft, 
+      create_time, update_time, item_status, 
+      item_type, status, remark
+      )
+    values (#{id,jdbcType=BIGINT}, #{itemNo,jdbcType=VARCHAR}, #{itemName,jdbcType=VARCHAR}, 
+      #{itemId,jdbcType=BIGINT}, #{itemProjectSize,jdbcType=DOUBLE}, #{itemProjectUnit,jdbcType=VARCHAR}, 
+      #{mainMaterialPrice,jdbcType=DOUBLE}, #{itemMainMaterialId,jdbcType=BIGINT}, #{auxiliaryMaterialPrice,jdbcType=DOUBLE}, 
+      #{itemAuxiliaryMaterialId,jdbcType=BIGINT}, #{laborCost,jdbcType=DOUBLE}, #{currency,jdbcType=VARCHAR}, 
+      #{laborCostId,jdbcType=BIGINT}, #{itemPrice,jdbcType=DOUBLE}, #{itemCraft,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{itemStatus,jdbcType=SMALLINT}, 
+      #{itemType,jdbcType=SMALLINT}, #{status,jdbcType=SMALLINT}, #{remark,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert useGeneratedKeys="true" keyProperty="id" id="insertSelective" parameterType="com.jialian.api.domain.entity.SemiDecorationOrderInfo" >
+    insert into semi_decoration_order_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="semiDecOrderId != null" >
+        semi_dec_order_id,
+      </if>
+      <if test="itemNo != null" >
+        item_no,
+      </if>
+      <if test="itemName != null" >
+        item_name,
+      </if>
+      <if test="itemId != null" >
+        item_id,
+      </if>
+      <if test="itemProjectSize != null" >
+        item_project_size,
+      </if>
+      <if test="itemProjectUnit != null" >
+        item_project_unit,
+      </if>
+      <if test="mainMaterialPrice != null" >
+        main_material_price,
+      </if>
+      <if test="itemMainMaterialId != null" >
+        item_main_material_id,
+      </if>
+      <if test="auxiliaryMaterialPrice != null" >
+        auxiliary_material_price,
+      </if>
+      <if test="itemAuxiliaryMaterialId != null" >
+        item_auxiliary_material_id,
+      </if>
+      <if test="laborCost != null" >
+        labor_cost,
+      </if>
+      <if test="currency != null" >
+        currency,
+      </if>
+      <if test="laborCostId != null" >
+        labor_cost_id,
+      </if>
+      <if test="itemPrice != null" >
+        item_price,
+      </if>
+      <if test="itemCraft != null" >
+        item_craft,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="itemStatus != null" >
+        item_status,
+      </if>
+      <if test="itemType != null" >
+        item_type,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="semiDecOrderId != null" >
+        #{semiDecOrderId,jdbcType=BIGINT},
+      </if>
+      <if test="itemNo != null" >
+        #{itemNo,jdbcType=VARCHAR},
+      </if>
+      <if test="itemName != null" >
+        #{itemName,jdbcType=VARCHAR},
+      </if>
+      <if test="itemId != null" >
+        #{itemId,jdbcType=BIGINT},
+      </if>
+      <if test="itemProjectSize != null" >
+        #{itemProjectSize,jdbcType=DOUBLE},
+      </if>
+      <if test="itemProjectUnit != null" >
+        #{itemProjectUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="mainMaterialPrice != null" >
+        #{mainMaterialPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="itemMainMaterialId != null" >
+        #{itemMainMaterialId,jdbcType=BIGINT},
+      </if>
+      <if test="auxiliaryMaterialPrice != null" >
+        #{auxiliaryMaterialPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="itemAuxiliaryMaterialId != null" >
+        #{itemAuxiliaryMaterialId,jdbcType=BIGINT},
+      </if>
+      <if test="laborCost != null" >
+        #{laborCost,jdbcType=DOUBLE},
+      </if>
+      <if test="currency != null" >
+        #{currency,jdbcType=VARCHAR},
+      </if>
+      <if test="laborCostId != null" >
+        #{laborCostId,jdbcType=BIGINT},
+      </if>
+      <if test="itemPrice != null" >
+        #{itemPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="itemCraft != null" >
+        #{itemCraft,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="itemStatus != null" >
+        #{itemStatus,jdbcType=SMALLINT},
+      </if>
+      <if test="itemType != null" >
+        #{itemType,jdbcType=SMALLINT},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=SMALLINT},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByWhereSelective" parameterType="map" >
+    update semi_decoration_order_info
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.itemNo != null" >
+        item_no = #{record.itemNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.itemName != null" >
+        item_name = #{record.itemName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.itemId != null" >
+        item_id = #{record.itemId,jdbcType=BIGINT},
+      </if>
+      <if test="record.itemProjectSize != null" >
+        item_project_size = #{record.itemProjectSize,jdbcType=DOUBLE},
+      </if>
+      <if test="record.itemProjectUnit != null" >
+        item_project_unit = #{record.itemProjectUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mainMaterialPrice != null" >
+        main_material_price = #{record.mainMaterialPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="record.itemMainMaterialId != null" >
+        item_main_material_id = #{record.itemMainMaterialId,jdbcType=BIGINT},
+      </if>
+      <if test="record.auxiliaryMaterialPrice != null" >
+        auxiliary_material_price = #{record.auxiliaryMaterialPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="record.itemAuxiliaryMaterialId != null" >
+        item_auxiliary_material_id = #{record.itemAuxiliaryMaterialId,jdbcType=BIGINT},
+      </if>
+      <if test="record.laborCost != null" >
+        labor_cost = #{record.laborCost,jdbcType=DOUBLE},
+      </if>
+      <if test="record.currency != null" >
+        currency = #{record.currency,jdbcType=VARCHAR},
+      </if>
+      <if test="record.laborCostId != null" >
+        labor_cost_id = #{record.laborCostId,jdbcType=BIGINT},
+      </if>
+      <if test="record.itemPrice != null" >
+        item_price = #{record.itemPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="record.itemCraft != null" >
+        item_craft = #{record.itemCraft,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null" >
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.itemStatus != null" >
+        item_status = #{record.itemStatus,jdbcType=SMALLINT},
+      </if>
+      <if test="record.itemType != null" >
+        item_type = #{record.itemType,jdbcType=SMALLINT},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=SMALLINT},
+      </if>
+      <if test="record.remark != null" >
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="com.jialian.core.persistence.writer.CommonWriterMapper.Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByWhere" parameterType="map" >
+    update semi_decoration_order_info
+    set id = #{record.id,jdbcType=BIGINT},
+      item_no = #{record.itemNo,jdbcType=VARCHAR},
+      item_name = #{record.itemName,jdbcType=VARCHAR},
+      item_id = #{record.itemId,jdbcType=BIGINT},
+      item_project_size = #{record.itemProjectSize,jdbcType=DOUBLE},
+      item_project_unit = #{record.itemProjectUnit,jdbcType=VARCHAR},
+      main_material_price = #{record.mainMaterialPrice,jdbcType=DOUBLE},
+      item_main_material_id = #{record.itemMainMaterialId,jdbcType=BIGINT},
+      auxiliary_material_price = #{record.auxiliaryMaterialPrice,jdbcType=DOUBLE},
+      item_auxiliary_material_id = #{record.itemAuxiliaryMaterialId,jdbcType=BIGINT},
+      labor_cost = #{record.laborCost,jdbcType=DOUBLE},
+      currency = #{record.currency,jdbcType=VARCHAR},
+      labor_cost_id = #{record.laborCostId,jdbcType=BIGINT},
+      item_price = #{record.itemPrice,jdbcType=DOUBLE},
+      item_craft = #{record.itemCraft,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      item_status = #{record.itemStatus,jdbcType=SMALLINT},
+      item_type = #{record.itemType,jdbcType=SMALLINT},
+      status = #{record.status,jdbcType=SMALLINT},
+      remark = #{record.remark,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="com.jialian.core.persistence.writer.CommonWriterMapper.Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jialian.api.domain.entity.SemiDecorationOrderInfo" >
+    update semi_decoration_order_info
+    <set >
+      <if test="itemNo != null" >
+        item_no = #{itemNo,jdbcType=VARCHAR},
+      </if>
+      <if test="itemName != null" >
+        item_name = #{itemName,jdbcType=VARCHAR},
+      </if>
+      <if test="itemId != null" >
+        item_id = #{itemId,jdbcType=BIGINT},
+      </if>
+      <if test="itemProjectSize != null" >
+        item_project_size = #{itemProjectSize,jdbcType=DOUBLE},
+      </if>
+      <if test="itemProjectUnit != null" >
+        item_project_unit = #{itemProjectUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="mainMaterialPrice != null" >
+        main_material_price = #{mainMaterialPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="itemMainMaterialId != null" >
+        item_main_material_id = #{itemMainMaterialId,jdbcType=BIGINT},
+      </if>
+      <if test="auxiliaryMaterialPrice != null" >
+        auxiliary_material_price = #{auxiliaryMaterialPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="itemAuxiliaryMaterialId != null" >
+        item_auxiliary_material_id = #{itemAuxiliaryMaterialId,jdbcType=BIGINT},
+      </if>
+      <if test="laborCost != null" >
+        labor_cost = #{laborCost,jdbcType=DOUBLE},
+      </if>
+      <if test="currency != null" >
+        currency = #{currency,jdbcType=VARCHAR},
+      </if>
+      <if test="laborCostId != null" >
+        labor_cost_id = #{laborCostId,jdbcType=BIGINT},
+      </if>
+      <if test="itemPrice != null" >
+        item_price = #{itemPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="itemCraft != null" >
+        item_craft = #{itemCraft,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="itemStatus != null" >
+        item_status = #{itemStatus,jdbcType=SMALLINT},
+      </if>
+      <if test="itemType != null" >
+        item_type = #{itemType,jdbcType=SMALLINT},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=SMALLINT},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jialian.api.domain.entity.SemiDecorationOrderInfo" >
+    update semi_decoration_order_info
+    set item_no = #{itemNo,jdbcType=VARCHAR},
+      item_name = #{itemName,jdbcType=VARCHAR},
+      item_id = #{itemId,jdbcType=BIGINT},
+      item_project_size = #{itemProjectSize,jdbcType=DOUBLE},
+      item_project_unit = #{itemProjectUnit,jdbcType=VARCHAR},
+      main_material_price = #{mainMaterialPrice,jdbcType=DOUBLE},
+      item_main_material_id = #{itemMainMaterialId,jdbcType=BIGINT},
+      auxiliary_material_price = #{auxiliaryMaterialPrice,jdbcType=DOUBLE},
+      item_auxiliary_material_id = #{itemAuxiliaryMaterialId,jdbcType=BIGINT},
+      labor_cost = #{laborCost,jdbcType=DOUBLE},
+      currency = #{currency,jdbcType=VARCHAR},
+      labor_cost_id = #{laborCostId,jdbcType=BIGINT},
+      item_price = #{itemPrice,jdbcType=DOUBLE},
+      item_craft = #{itemCraft,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      item_status = #{itemStatus,jdbcType=SMALLINT},
+      item_type = #{itemType,jdbcType=SMALLINT},
+      status = #{status,jdbcType=SMALLINT},
+      remark = #{remark,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
